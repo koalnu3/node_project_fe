@@ -1,6 +1,7 @@
 :root {
   --color-primary: #D60036;
   --color-gray: #55565A;
+  --color-light-gray: #d9d9d9;
   --color-black: #000;
   --color-white: #fff;
   --max-width: 1280px;
@@ -8,6 +9,7 @@
   --border-color: #ddd;
   --border-radius: 5px;
   --background-color: #f7f7f7;
+  --text-color: #757575;
 }
 
 /* css reset */
@@ -129,11 +131,198 @@ input[type="search"] {
   height: 40px;
   padding: 0 15px;
   border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-default);
+}
+
+input[type="radio"] {
+  accent-color: var(--color-primary);
+  vertical-align: middle;
+}
+
+input[type="radio"]:first-child {
+  margin-left: 0;
+}
+
+input[type="radio"]+label {
+  margin: 0 7px 0 5px;
+  vertical-align: middle;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-default);
 }
 
 button {
+  height: 40px;
   padding: 5px 10px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
   cursor: pointer;
+}
+
+button.small {
+  height: 35px;
+  font-size: 12px;
+}
+
+button.large {
+  height: 45px;
+  font-size: 16px;
+}
+
+button.white {
+  border-color: var(--color-gray);
+  background-color: var(--color-white);
+  color: var(--color-gray);
+}
+
+button.gray {
+  border-color: var(--color-light-gray);
+  background-color: var(--color-light-gray);
+  color: var(--color-gray);
+}
+
+.btnArea {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btnArea.top0 {
+  margin-top: 0;
+}
+
+.btnArea.left {
+  text-align: left;
+}
+
+.btnArea.right {
+  text-align: right;
+}
+
+.btnArea.full {
+  display: flex;
+}
+
+.btnArea.full button {
+  flex-grow: 1;
+}
+
+.btnArea button {
+  margin-left: 7px;
+}
+
+.btnArea button:first-child {
+  margin-left: 0;
+}
+
+.iconMore {
+  display: inline-block;
+  position: relative;
+  padding-right: 10px;
+}
+
+.iconMore::after {
+  position: absolute;
+  right: 0;
+  top: 32%;
+  transform: translateY(-50%);
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid var(--color-white);
+  border-bottom: 1px solid var(--color-white);
+  transform: rotate(-45deg);
+}
+
+.topBtn {
+  position: relative;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-light-gray);
+  border: none;
+}
+
+.topBtn span {
+  display: inline-block;
+  position: relative;
+  font-size: 0;
+  line-height: 0;
+}
+
+.topBtn::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -3px 0 0 -5px;
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid var(--color-white);
+  border-bottom: 2px solid var(--color-white);
+  transform: rotate(135deg);
+}
+
+
+button.gray span::after {
+  border-color: var(--color-gray);
+}
+
+button.white span::after {
+  border-color: var(--color-gray);
+}
+
+/* title */
+h1,
+h2,
+h2,
+h4,
+h5,
+h6 {
+  /* font-weight: bold; */
+  line-height: 1.25;
+}
+
+.h2 {
+  font-size: 24px;
+  margin: 30px 0 20px;
+}
+
+.h3 {
+  font-size: 22px;
+  margin: 25px 0 16px;
+}
+
+.h4 {
+  font-size: 20px;
+  margin: 20px 0 12px;
+}
+
+.h5 {
+  font-size: 18px;
+  margin: 20px 0 8px;
+}
+
+.h6 {
+  font-size: 17px;
+  margin: 15px 0 8px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.subText {
+  margin-bottom: 7px;
+  color: var(--text-color);
+  font-size: 15px;
 }
 
 /* layout */
@@ -181,7 +370,7 @@ button {
 }
 
 
-.util .util_btn {
+.util .utilBtn {
   height: 40px;
   border: none;
   background-color: transparent;
@@ -197,18 +386,18 @@ button {
   color: var(--color-gray);
 }
 
-.util .util_btn span {
+.util .utilBtn span {
   vertical-align: middle;
   font-size: 12px;
   color: var(--color-gray);
 }
 
-.util .util_btn b {
+.util .utilBtn b {
   font-size: 16px;
   font-weight: bold;
 }
 
-.util .util_btn svg {
+.util .utilBtn svg {
   width: 14px;
   height: 10px;
   margin-left: 8px;
@@ -216,21 +405,21 @@ button {
   fill: var(--color-gray);
 }
 
-.util.active .util_btn svg {
+.util.active .utilBtn svg {
   transform: rotate(180deg);
 }
 
-.util_list {
+.utilList {
   display: none;
   position: absolute;
 
 }
 
-.util_list a:hover {
+.utilList a:hover {
   color: var(--color-primary);
 }
 
-.util.active .util_list {
+.util.active .utilList {
   display: inline-block;
   top: 45px;
   right: 0;
@@ -242,13 +431,13 @@ button {
   background-color: #fff;
 }
 
-.util.active .util_list li {}
+.util.active .utilList li {}
 
-.util.active .util_list li:first-child {
+.util.active .utilList li:first-child {
   margin-top: 0;
 }
 
-.util.active .util_list a {
+.util.active .utilList a {
   display: inline-block;
   width: 100%;
   padding: 10px 10px 5px;
@@ -256,30 +445,30 @@ button {
   font-size: 14px;
 }
 
-.menu .search_area {
+.menu .searchArea {
   position: absolute;
   left: 242px;
   top: 18px;
 }
 
-.menu .mene_list {
+.menu .menuList {
   margin-top: 10px;
   margin-bottom: -1px;
 }
 
-.menu .mene_list ul {
+.menu .menuList ul {
   display: flex;
 }
 
-.menu .mene_list li {
+.menu .menuList li {
   margin-left: 5px;
 }
 
-.menu .mene_list li:first-child {
+.menu .menuList li:first-child {
   margin-left: 0;
 }
 
-.menu .mene_list a {
+.menu .menuList a {
   display: inline-block;
   min-width: 50px;
   padding: 5px 5px 10px;
@@ -291,28 +480,30 @@ button {
   border-style: solid;
 }
 
-.menu .mene_list a:hover {
+.menu .menuList a:hover {
   border-color: var(--color-primary);
 }
 
-.menu .mene_list li.active a {
+.menu .menuList li.active a {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.menu .mene_list a:active,
-.menu .mene_list a:focus {
+.menu .menuList a:active,
+.menu .menuList a:focus {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.menu .close_btn {
+.menu .closeBtn {
   display: none;
 }
 
 
 .content {
   padding: 30px 0 30px;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .footer {
@@ -362,11 +553,36 @@ button {
   fill: #757575;
 }
 
-.menu_btn {
+.menuBtn {
   display: none;
 }
 
+@media screen and (max-width: 1300px) {
+
+  .content,
+  .footer,
+  .header .top {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .menu .searchArea {
+    left: 262px;
+  }
+}
+
 @media screen and (max-width: 769px) {
+
+  input[type="text"],
+  input[type="password"],
+  input[type="search"] {
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
   .wrap {
     width: 100%;
   }
@@ -400,16 +616,16 @@ button {
     padding: 15px 15px 15px 65px;
   }
 
-  .util .util_btn span b {
+  .util .utilBtn span b {
     font-size: 13px;
   }
 
-  .header .util .util_list {
+  .header .util .utilList {
     right: 15px;
     min-width: inherit;
   }
 
-  .header .menu_btn {
+  .header .menuBtn {
     position: absolute;
     display: inline-block;
     left: 10px;
@@ -419,7 +635,7 @@ button {
     border: none;
   }
 
-  .header .menu_btn svg {
+  .header .menuBtn svg {
     width: 25px;
     vertical-align: middle;
   }
@@ -443,7 +659,7 @@ button {
     opacity: 1;
   }
 
-  .menu .menu_content {
+  .menu .menuContent {
     position: relative;
     width: 80%;
     height: 100%;
@@ -452,48 +668,54 @@ button {
 
   }
 
-  .menu .search_area {
+  .menu .searchArea {
     position: relative;
     left: inherit;
     top: inherit;
   }
 
-  .search_area .search {
+  .searchArea .search {
     width: 100%;
     margin-bottom: 25px;
   }
 
-  .search_area .search input {
+  .searchArea .search input {
     padding-right: 47px;
   }
 
-  .menu .mene_list {
+  .menu .menuList {
     margin: 0 -20px;
   }
 
-  .menu .mene_list ul {
+  .menu .menuList ul {
     flex-direction: column;
   }
 
-  .menu .mene_list a {
+  .menu .menuList a {
     width: 100%;
     padding: 12px 20px;
     font-weight: bold;
   }
 
-  .menu .mene_list li.active a {
+  .menu .menuList li.active a {
     background-color: var(--color-primary);
     color: var(--color-white);
   }
 
-  .menu .close_btn {
+  .menu .closeBtn {
     display: block;
     position: absolute;
     top: 12px;
     right: 7px;
+    height: initial;
     border: none;
     background-color: transparent;
+    color: var(--color-gray);
     font-size: 20px;
+  }
+
+  .content {
+    padding: 25px 15px;
   }
 
 
