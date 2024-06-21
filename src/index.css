@@ -102,13 +102,21 @@ ul {
   list-style: none;
 }
 
+b {
+  font-weight: bold;
+}
+
+p {
+  line-height: 1.4;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
 body {
-  line-height: 1.1;
+  line-height: 1.15;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -223,7 +231,7 @@ button.gray {
 .iconMore {
   display: inline-block;
   position: relative;
-  padding-right: 10px;
+  padding-right: 15px;
 }
 
 .iconMore::after {
@@ -320,7 +328,7 @@ p {
 }
 
 .subText {
-  margin-bottom: 7px;
+  margin-bottom: 10px;
   color: var(--text-color);
   font-size: 15px;
 }
@@ -557,6 +565,143 @@ p {
   display: none;
 }
 
+/* tab */
+.tabList {
+  margin-bottom: 25px;
+}
+
+.tabList ul {
+  display: flex;
+}
+
+.tabList li {
+  margin-left: 5px;
+}
+
+.tabList li:first-child {
+  margin-left: 0;
+}
+
+.tabList ul .tab {
+  display: inline-block;
+  min-width: 50px;
+  padding: 5px 5px 10px;
+  border-width: 0 0 2px 0;
+  border-color: transparent;
+  border-style: solid;
+  border-radius: inherit;
+  background-color: transparent;
+  color: var(--color-black);
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.tabList .tab:hover {
+  border-color: var(--color-primary);
+}
+
+.tabList li.active .tab {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.tabList .tab:active,
+.tabList .tab:focus {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* roundTab */
+.roundTabList {
+  margin-bottom: 25px;
+}
+
+.roundTabList ul {
+  display: flex;
+}
+
+.roundTabList li {
+  margin-left: 7px;
+}
+
+.roundTabList li:first-child {
+  margin-left: 0;
+}
+
+.roundTabList ul .tab {
+  display: inline-block;
+  min-width: 50px;
+  height: 36px;
+  line-height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--border-color-default);
+  border-radius: 20px;
+  color: var(--color-gray);
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.roundTabList ul button.tab {
+  background-color: transparent;
+}
+
+.roundTabList .tab:hover {
+  border-color: var(--color-primary);
+}
+
+.roundTabList li.active .tab {
+  font-weight: bold;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px inset var(--color-primary);
+}
+
+.roundTabList .tab:active,
+.roundTabList .tab:focus {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* searchInput*/
+.searchInput {
+  position: relative;
+}
+
+.searchInput {
+  position: relative;
+  height: 45px;
+  width: 400px;
+}
+
+.searchInput input {
+  height: 100%;
+  width: 100%;
+  padding-right: 45px;
+  border: 1px solid var(--border-color);
+}
+
+.searchInput button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 45px;
+  border: 0;
+  background-color: transparent;
+}
+
+.searchInput button svg {
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  fill: #757575;
+}
+
 @media screen and (max-width: 1300px) {
 
   .content,
@@ -718,5 +863,89 @@ p {
     padding: 25px 15px;
   }
 
+  /* tab */
+  .tabList {
+    margin: 0 -15px 20px;
+  }
 
+  .tabList li {
+    flex-grow: 1;
+  }
+
+  .tabList li .tab {
+    width: 100%;
+  }
+
+  /* roundTabList */
+  .roundTabList {
+    margin: 0 -15px 20px;
+    padding: 0 15px;
+    white-space: nowrap;
+    overflow-y: auto;
+  }
+
+  /* searchInput*/
+  .searchInput {
+    width: 100%;
+  }
+
+  .searchInput input {
+    padding-right: 47px;
+  }
+}
+
+
+/* 가이드용 */
+.guideTitle:first-child {
+  margin-top: 0;
+}
+
+.guideTitle {
+  font-weight: bold;
+  font-size: 22px;
+  margin: 20px 0 25px;
+}
+
+hr {
+  margin: 25px 0;
+  border: 1px solid var(--border-color-default);
+}
+
+.colorList {
+  display: flex;
+}
+
+.colorList li {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid var(--border-color-default);
+  border-radius: var(--border-radius);
+  color: var(--color-white);
+  font-size: 13px;
+}
+
+.colorList li:nth-child(1) {
+  background-color: var(--color-primary);
+}
+
+.colorList li:nth-child(2) {
+  background-color: var(--color-gray);
+}
+
+.colorList li:nth-child(3) {
+  background-color: var(--color-black);
+}
+
+.colorList li:nth-child(4) {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.colorList li:nth-child(5) {
+  background-color: var(--color-light-gray);
+  color: var(--color-black);
 }
