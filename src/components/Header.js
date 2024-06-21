@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [utilOpen, setUtilOpen] = useState(false);
@@ -24,9 +25,9 @@ const Header = () => {
             </svg>
           </button>
           <h1 className="logo">
-            <a href="#">
-              <img src="tosome_logo.png" alt="logo" />
-            </a>
+            <Link to="/">
+              <img src="../tosome_logo.png" alt="logo" />
+            </Link>
           </h1>
           <div className={`util ${utilOpen === true ? `active` : ``}`}>
             {/* <a href="#" className="login">

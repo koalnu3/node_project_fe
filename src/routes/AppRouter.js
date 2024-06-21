@@ -8,6 +8,7 @@ import RegisterPage from "../page/RegisterPage";
 import StudentMyPage from "../page/StudentMyPage";
 import TeacherMyPage from "../page/TeacherMyPage";
 import PrivateRoute from "./PrivateRoute";
+import Guide from "../Guide";
 
 const AppRouter = () => {
   return (
@@ -26,6 +27,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoute permissionLevel="admin" />}>
         <Route path="/admin" element={<AdminPage />} />
       </Route>
+      <Route path="/guide" element={<Guide />} />
     </Routes>
   );
 };
