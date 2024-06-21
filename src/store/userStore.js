@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 
 //예시입니다
 const userStore = create((set) => ({

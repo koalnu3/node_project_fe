@@ -17,14 +17,14 @@ const AppRouter = () => {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/class/:id" element={<ClassDetailPage />} />
 
-      <Route element={<PrivateRoute permissionLevel="student" />} >
+      <Route element={<PrivateRoute permissionLevel="student" />}>
         <Route path="/studentmypage" element={<StudentMyPage />} />
       </Route>
-      <Route element={<PrivateRoute permissionLevel="teacher" />} >
-         <Route path="/teachermypage" element={<TeacherMyPage />} />
+      <Route element={<PrivateRoute permissionLevel="teacher" />}>
+        <Route path="/teachermypage" element={<TeacherMyPage />} />
       </Route>
-      <Route element={<PrivateRoute permissionLevel="admin" />} >
-          <Route path="/admin" element={<AdminPage />} />
+      <Route element={<PrivateRoute permissionLevel="admin" />}>
+        <Route path="/admin" element={<AdminPage />} />
       </Route>
     </Routes>
   );
