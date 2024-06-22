@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Content from "./components/Content";
 import Tab from "./components/Tab";
 import RoundTab from "./components/RoundTab";
+import NoData from "./components/NoData";
+import Loading from "./components/Loading";
 
 const Guide = () => {
   const tabList = [
@@ -59,6 +61,8 @@ const Guide = () => {
         <li>--color-white</li>
         <li>--color-light-gray</li>
       </ul>
+      <hr />
+
       <h2 className="guideTitle">Title</h2>
       <p className="subText">className : h2,h3,h4,h5,h6</p>
       <h2 className="h2">h2 제목</h2>
@@ -144,6 +148,7 @@ const Guide = () => {
 
       <h2 className="guideTitle">Textarea</h2>
       <p className="subText">기본 스타일 클래스 없음</p>
+      <textarea placeholder="내용을 기입해주세요!"></textarea>
       <hr />
 
       <h2 className="guideTitle">Tab(components)</h2>
@@ -151,7 +156,8 @@ const Guide = () => {
       <p className="subText">
         기본 속성 : list(탭 리스트 데이터), setTabActive(탭 액티브 state
         setting), tabActive(탭 액티브 state), <br />
-        tagType(디폴트값 "a", tagType="button"을 쓰면 버튼 태그로 변경됨)
+        tagType(디폴트값 "a", tagType="button"을 쓰면 버튼 태그로 변경됨),
+        preventDefault(필요 없을 시 기입)
       </p>
       <Tab list={tabList} setTabActive={setTabActive} tabActive={tabActive} />
       <Tab
@@ -164,7 +170,8 @@ const Guide = () => {
       <p className="subText">
         기본 속성 : list(탭 리스트 데이터), setRoundTabActive(탭 액티브 state
         setting), roundTabActive(탭 액티브 state), <br />
-        tagType(디폴트값 "a", tagType="button"을 쓰면 버튼 태그로 변경됨)
+        tagType(디폴트값 "a", tagType="button"을 쓰면 버튼 태그로 변경됨),
+        preventDefault(필요 없을 시 기입)
       </p>
       <RoundTab
         list={roundTabList2}
@@ -177,6 +184,23 @@ const Guide = () => {
         roundTabActive={roundTabActive}
         tagType="button"
       />
+
+      <hr />
+      <h2 className="guideTitle">데이터 없을 시</h2>
+      <p className="subText">
+        기본속성 : children(문구를 바꾸고 싶은 경우, 태그 안에 글자를 기입),
+        icon(기입시 아이콘 보임)
+      </p>
+      <NoData />
+      <NoData icon>아이콘 데이터 없을 시</NoData>
+
+      <hr />
+      <h2 className="guideTitle">로딩</h2>
+      <p className="subText">
+        기본속성 : noBg(기입하면 bg가 없어짐), noFixed(기입하면 고정풀림)
+        <br />* 둘 다 안 쓸경우 검정 배경에, 로딩 가운데 고정
+      </p>
+      <Loading noBg noFixed />
     </Content>
   );
 };
