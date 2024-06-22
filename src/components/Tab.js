@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
 
-const Tab = ({ list, tabActive, setTabActive, tagType = "a" }) => {
+const Tab = ({
+  list,
+  tabActive,
+  setTabActive,
+  tagType = "a",
+  preventDefault = false,
+}) => {
   const handleActive = (event, name) => {
-    event.preventDefault();
+    if (preventDefault === false) {
+      event.preventDefault();
+    }
     setTabActive(name);
   };
 
