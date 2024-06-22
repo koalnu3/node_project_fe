@@ -1,0 +1,107 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  margin-bottom: 30px;
+  margin-top: -50px;
+}
+
+.formContainer {
+  width: 500px;
+  max-width: 90%;
+  height: 300px;
+}
+
+.inputGroup {
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.inputLabel {
+  margin-bottom: 10px;
+}
+
+.input {
+  width: 100%;
+}
+
+.btnArea {
+  margin-top: 60px;
+}
+
+.footerText {
+  color: gray;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.linkText {
+  color: var(--color-primary);
+  margin: 0px 6px;
+  cursor: pointer;
+}
+
+.errorText {
+  color: var(--color-primary);
+  font-size: 14px;
+  margin: 5px 0 0 5px;
+}
+
+.svgContainer {
+  display: flex;
+  margin-top: 7px;
+}
+.svgContainer div:first-child {
+  width: 12px;
+}
+.svgContainer div:last-child {
+  margin: 0 5px 0 5px;
+  font-size: 14px;
+  color: var(--color-gray);
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.inputWithIcon {
+  padding-right: 30px;
+}
+
+.inputIcon {
+  position: absolute;
+  top: 41px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 400px) {
+  .formContainer {
+    width: 90%;
+  }
+  .footerText {
+    color: gray;
+    margin-top: 50px;
+    display: block;
+    line-height: 160%;
+  }
+}
+
+@media (max-width: 360px) {
+  .formContainer {
+    width: 80%;
+  }
+}

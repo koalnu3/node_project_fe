@@ -9,25 +9,83 @@ import StudentMyPage from "../page/StudentMyPage";
 import TeacherMyPage from "../page/TeacherMyPage";
 import PrivateRoute from "./PrivateRoute";
 import Guide from "../Guide";
+import MainLayout from "../Layout/MainLayout";
+import AppLayout from "../Layout/AppLayout";
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/class/:id" element={<ClassDetailPage />} />
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <HomePage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <AppLayout>
+            <LoginPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <AppLayout>
+            <RegisterPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/class/:id"
+        element={
+          <MainLayout>
+            <ClassDetailPage />
+          </MainLayout>
+        }
+      />
 
       <Route element={<PrivateRoute permissionLevel="student" />}>
-        <Route path="/studentmypage" element={<StudentMyPage />} />
+        <Route
+          path="/studentMypage"
+          element={
+            <MainLayout>
+              <StudentMyPage />
+            </MainLayout>
+          }
+        />
       </Route>
       <Route element={<PrivateRoute permissionLevel="teacher" />}>
-        <Route path="/teachermypage" element={<TeacherMyPage />} />
+        <Route
+          path="/teacherMypage"
+          element={
+            <MainLayout>
+              <TeacherMyPage />
+            </MainLayout>
+          }
+        />
       </Route>
       <Route element={<PrivateRoute permissionLevel="admin" />}>
-        <Route path="/admin" element={<AdminPage />} />
+        <Route
+          path="/admin"
+          element={
+            <MainLayout>
+              <AdminPage />
+            </MainLayout>
+          }
+        />
       </Route>
-      <Route path="/guide" element={<Guide />} />
+      <Route
+        path="/guide"
+        element={
+          <MainLayout>
+            <Guide />
+          </MainLayout>
+        }
+      />
     </Routes>
   );
 };

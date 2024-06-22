@@ -1,6 +1,6 @@
 :root {
-  --color-primary: #D60036;
-  --color-gray: #55565A;
+  --color-primary: #d60036;
+  --color-gray: #55565a;
   --color-light-gray: #d9d9d9;
   --color-black: #000;
   --color-white: #fff;
@@ -80,7 +80,7 @@ video {
 
 html,
 body {
-  height: 100%
+  height: 100%;
 }
 
 article,
@@ -117,15 +117,15 @@ table {
 
 body {
   line-height: 1.15;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -151,7 +151,7 @@ input[type="radio"]:first-child {
   margin-left: 0;
 }
 
-input[type="radio"]+label {
+input[type="radio"] + label {
   margin: 0 7px 0 5px;
   vertical-align: middle;
 }
@@ -278,7 +278,6 @@ button.gray {
   transform: rotate(135deg);
 }
 
-
 button.gray span::after {
   border-color: var(--color-gray);
 }
@@ -361,7 +360,6 @@ p {
   transform: translateY(-50%);
 }
 
-
 .logo {
   display: inline-block;
   padding-top: 14px;
@@ -376,7 +374,6 @@ p {
 .logo img {
   height: 52px;
 }
-
 
 .util .utilBtn {
   height: 40px;
@@ -420,7 +417,6 @@ p {
 .utilList {
   display: none;
   position: absolute;
-
 }
 
 .utilList a:hover {
@@ -439,7 +435,8 @@ p {
   background-color: #fff;
 }
 
-.util.active .utilList li {}
+.util.active .utilList li {
+}
 
 .util.active .utilList li:first-child {
   margin-top: 0;
@@ -507,7 +504,6 @@ p {
   display: none;
 }
 
-
 .content {
   padding: 30px 0 30px;
   max-width: var(--max-width);
@@ -523,8 +519,6 @@ p {
   max-width: var(--max-width);
   margin: 0 auto;
 }
-
-
 
 .search {
   position: relative;
@@ -703,7 +697,6 @@ p {
 }
 
 @media screen and (max-width: 1300px) {
-
   .content,
   .footer,
   .header .top {
@@ -717,7 +710,6 @@ p {
 }
 
 @media screen and (max-width: 769px) {
-
   input[type="text"],
   input[type="password"],
   input[type="search"] {
@@ -810,7 +802,6 @@ p {
     height: 100%;
     padding: 50px 20px 20px;
     background-color: var(--background-color);
-
   }
 
   .menu .searchArea {
@@ -893,7 +884,6 @@ p {
     padding-right: 47px;
   }
 }
-
 
 /* 가이드용 */
 .guideTitle:first-child {
