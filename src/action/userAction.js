@@ -7,11 +7,18 @@ export const registerUser = async ({
   phonenumber,
   type,
 }) => {
-  return await api.post("/user/", {
+  return await api.post("/user", {
     email,
     password,
     nickname,
     phoneNumber: phonenumber,
     type,
+  });
+};
+
+export const loginUser = async ({ email, password }) => {
+  return await api.post("/auth/login", {
+    email,
+    password,
   });
 };

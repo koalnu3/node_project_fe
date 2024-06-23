@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { loginUser } from "../action/userAction";
 import "../style/LoginStyle.css";
 
 const LoginPage = () => {
@@ -7,6 +9,9 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -17,18 +22,43 @@ const LoginPage = () => {
     setEmail(value);
   };
 
-  const handleSubmit = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      //TODO: toastmessage?
-      emailRef.current.focus();
-      return alert("유효한 이메일 주소를 입력해주세요.");
-    } else {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const handleSubmit = async () => {
+    try {
+      const response = await loginUser({ email, password });
+      console.log("response", response);
+      if (response.status !== 200) throw new Error(response.error);
+      toast.success("로그인을 성공하였습니다!");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } catch (error) {
+      toast.error(error.error);
+      console.log("error", error);
     }
   };
 
-  const handleKeyDown = (e, nextRef) => {
-    if (e.key === "Enter") {
+  const handleKeyDown = (e, nextRef, nameRef) => {
+    if (e.key === "Enter" || e.key === "Tab") {
+      if (!emailRegex.test(email)) {
+        setEmailError("유효한 이메일 주소를 입력해주세요.");
+        return;
+      }
+      if (emailRegex.test(email)) {
+        setEmailError("");
+      }
+      if (nameRef === "loginButton" && password.length === 0) {
+        setPasswordError("비밀번호는 8자 이상입력해주세요.");
+        return;
+      }
+      if (password.length > 0 && password.length < 8) {
+        setPasswordError("비밀번호는 8자 이상입력해주세요.");
+        return;
+      }
+      if (password.length >= 8) {
+        setPasswordError("");
+      }
       if (nextRef) {
         nextRef.current.focus();
       } else {
@@ -56,6 +86,7 @@ const LoginPage = () => {
             onChange={handleEmailChange}
             className="input"
           />
+          {emailError && <div className="errorText">{emailError}</div>}
         </div>
         <div className="inputGroup">
           <div className="inputLabel h6">비밀번호</div>
@@ -63,9 +94,11 @@ const LoginPage = () => {
             type="password"
             placeholder="비밀번호를 입력해주세요"
             ref={passwordRef}
-            onKeyDown={(e) => handleKeyDown(e, loginButtonRef)}
+            onChange={(event) => setPassword(event.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, loginButtonRef, "loginButton")}
             className="input"
           />
+          {passwordError && <div className="errorText">{passwordError}</div>}
         </div>
         <div className="btnArea full">
           <button

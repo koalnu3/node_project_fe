@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { registerUser } from "../action/userAction";
 
 const InputWithIcon = ({
@@ -65,7 +66,6 @@ const RegisterPage = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
   const [phonenumberError, setPhonenumberError] = useState("");
-  const [typeError, setTypeError] = useState("");
 
   const [passwordEyesOpen, setPasswordEyesOpen] = useState(false);
   const [passwordConfirmEyesOpen, setPasswordConfirmEyesOpen] = useState(false);
@@ -134,24 +134,25 @@ const RegisterPage = () => {
     return phoneNumberPattern.test(value);
   };
 
-  const register = () => {
+  const register = async () => {
     if (!isComplete) {
       return;
     } else {
       try {
-        const { success, data } = registerUser({
+        const response = await registerUser({
           email,
           password,
           nickname,
           phonenumber,
           type,
         });
-
-        console.log("suecc", success, data);
-        if (success) {
+        if (response.status !== 200) throw new Error(response.error);
+        toast.success("회원가입이 완료되었습니다!");
+        setTimeout(() => {
           navigate("/login");
-        }
+        }, 1000);
       } catch (error) {
+        toast.error(error.err);
         console.log("error", error);
       }
     }
