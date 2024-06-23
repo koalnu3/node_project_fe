@@ -1,7 +1,7 @@
 import React from "react";
 
-const Content = ({ children }) => {
-  return <div className="content">{children}</div>;
+const Content = ({ children, className }) => {
+  return <div className={`content ${className}`}>{children}</div>;
 };
 
 export default Content;

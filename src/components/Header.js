@@ -1,14 +1,30 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const Header = () => {
+const Header = ({ user, setUser }) => {
+  const navigate = useNavigate();
   const [utilOpen, setUtilOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const utilActive = () => {
-    utilOpen === false ? setUtilOpen(true) : setUtilOpen(false);
+    !utilOpen ? setUtilOpen(true) : setUtilOpen(false);
   };
   const menuActive = () => {
-    menuOpen === false ? setMenuOpen(true) : setMenuOpen(false);
+    !menuOpen ? setMenuOpen(true) : setMenuOpen(false);
+  };
+  const logout = () => {
+    sessionStorage.removeItem("token");
+    setUser({
+      _id: 0,
+      nickname: "",
+      email: "",
+      profileImage: "",
+      phoneNumber: "",
+      level: "student",
+      greetings: "",
+    });
+    toast.success("로그아웃되었습니다.");
   };
   return (
     <header className="header">
@@ -24,34 +40,50 @@ const Header = () => {
             </svg>
           </button>
           <h1 className="logo">
-            <a href="#">
-              <img src="tosome_logo.png" alt="logo" />
-            </a>
+            <Link to="/">
+              <img src="../tosome_logo.png" alt="logo" />
+            </Link>
           </h1>
           <div className={`util ${utilOpen === true ? `active` : ``}`}>
-            {/* <a href="#" className="login">
-          로그인
-        </a> */}
-            <button
-              type="button"
-              className="utilBtn"
-              onClick={() => utilActive()}
-            >
-              <span>
-                <b>스펀지밥</b> 님
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
-              </svg>
-            </button>
-            <ul className="utilList">
-              <li>
-                <a href="#">마이페이지</a>
-              </li>
-              <li>
-                <a href="#">로그아웃</a>
-              </li>
-            </ul>
+            {user._id ? (
+              <>
+                <button
+                  type="button"
+                  className="utilBtn"
+                  onClick={() => utilActive()}
+                >
+                  <span>
+                    <b>{user.nickname}</b> 님
+                  </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+                  </svg>
+                </button>
+                <ul className="utilList">
+                  <li>
+                    <div
+                      onClick={() => navigate("/")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      마이페이지
+                    </div>
+                  </li>
+                  <li>
+                    <div onClick={logout} style={{ cursor: "pointer" }}>
+                      로그아웃
+                    </div>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <div
+                onClick={() => navigate("/login")}
+                className="login"
+                style={{ cursor: "pointer" }}
+              >
+                로그인
+              </div>
+            )}
           </div>
         </div>
         <div className={`menu ${menuOpen === true ? `active` : ``}`}>
