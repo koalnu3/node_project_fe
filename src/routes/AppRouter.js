@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import AdminPage from "../page/AdminPage";
+import ClassPage from "../page/ClassPage";
 import ClassDetailPage from "../page/ClassDetailPage";
 import HomePage from "../page/HomePage";
 import LoginPage from "../page/LoginPage";
@@ -39,14 +40,24 @@ const AppRouter = () => {
           </AppLayout>
         }
       />
-      <Route
-        path="/class/:id"
-        element={
-          <MainLayout>
-            <ClassDetailPage />
-          </MainLayout>
-        }
-      />
+      <Route path="class">
+        <Route
+          index
+          element={
+            <MainLayout>
+              <ClassPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path=":id"
+          element={
+            <MainLayout>
+              <ClassDetailPage />
+            </MainLayout>
+          }
+        />
+      </Route>
 
       <Route element={<PrivateRoute permissionLevel="student" />}>
         <Route

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { loginUser } from "../action/userAction";
+import { loginUser } from "../hooks/useUser";
 import "../style/LoginStyle.css";
 
 const LoginPage = () => {

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { registerUser } from "../action/userAction";
+import { registerUser } from "../hooks/useUser";
 
 const InputWithIcon = ({
   label,
