@@ -427,7 +427,7 @@ p {
   position: absolute;
 }
 
-.utilList a:hover {
+.utilList div:hover {
   color: var(--color-primary);
 }
 
@@ -450,7 +450,7 @@ p {
   margin-top: 0;
 }
 
-.util.active .utilList a {
+.util.active .utilList div {
   display: inline-block;
   width: 100%;
   padding: 10px 10px 5px;

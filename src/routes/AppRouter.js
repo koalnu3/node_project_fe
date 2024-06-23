@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router";
 import AdminPage from "../page/AdminPage";
 import ClassPage from "../page/ClassPage";
@@ -12,8 +12,27 @@ import PrivateRoute from "./PrivateRoute";
 import Guide from "../Guide";
 import MainLayout from "../Layout/MainLayout";
 import AppLayout from "../Layout/AppLayout";
+import userStore from "../store/userStore";
+import { loginWithToken } from "../hooks/useUser";
 
 const AppRouter = () => {
+  const { user, setUser } = userStore();
+
+  useEffect(() => {
+    if (!user._id) {
+      const checkAuth = async () => {
+        try {
+          const response = await loginWithToken();
+          if (response.status !== 200) throw new Error(response.error);
+          setUser(response.data.user);
+        } catch (error) {
+          console.log("error", error);
+        }
+      };
+      checkAuth();
+    }
+  }, []);
+
   return (
     <Routes>
       <Route
@@ -24,14 +43,16 @@ const AppRouter = () => {
           </MainLayout>
         }
       />
-      <Route
-        path="/login"
-        element={
-          <AppLayout>
-            <LoginPage />
-          </AppLayout>
-        }
-      />
+      {!user._id && (
+        <Route
+          path="/login"
+          element={
+            <AppLayout>
+              <LoginPage />
+            </AppLayout>
+          }
+        />
+      )}
       <Route
         path="/register"
         element={

@@ -152,7 +152,7 @@ const RegisterPage = () => {
           navigate("/login");
         }, 1000);
       } catch (error) {
-        toast.error(error.err);
+        toast.error(error.error);
         console.log("error", error);
       }
     }
@@ -180,7 +180,8 @@ const RegisterPage = () => {
   };
 
   const handleKeyDown = (e, nextRef) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" || e.key === "Tab") {
+      e.preventDefault();
       if (!emailRegex.test(email)) {
         return setEmailError("유효한 이메일 주소를 입력해주세요.");
       }

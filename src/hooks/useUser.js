@@ -22,3 +22,7 @@ export const loginUser = async ({ email, password }) => {
     password,
   });
 };
+
+export const loginWithToken = async () => {
+  return await api.get("/user/me");
+};

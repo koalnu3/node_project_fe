@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../hooks/useUser";
+import userStore from "../store/userStore";
 import "../style/LoginStyle.css";
 
 const LoginPage = () => {
@@ -12,6 +13,8 @@ const LoginPage = () => {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const { setUser } = userStore();
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -29,7 +32,10 @@ const LoginPage = () => {
       const response = await loginUser({ email, password });
       console.log("response", response);
       if (response.status !== 200) throw new Error(response.error);
+      sessionStorage.setItem("token", response.data.token);
+
       toast.success("로그인을 성공하였습니다!");
+      setUser(response.data.user);
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -41,6 +47,7 @@ const LoginPage = () => {
 
   const handleKeyDown = (e, nextRef, nameRef) => {
     if (e.key === "Enter" || e.key === "Tab") {
+      e.preventDefault();
       if (!emailRegex.test(email)) {
         setEmailError("유효한 이메일 주소를 입력해주세요.");
         return;
