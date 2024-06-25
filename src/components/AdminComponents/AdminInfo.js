@@ -1,14 +1,19 @@
 import React from 'react';
-import '../style/AdminPage.style.css';
+import '../../style/AdminPage.style.css';
 import { faPen, faTrash, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useAdminPageStore from '../../store/useAdminPageStore';
 const AdminInfo = () => {
+    const {
+        selectedUser,
+      } = useAdminPageStore();
+
     return (
         <div>
             <div className="profile-container-header">
                 <div className="profile-header-left">
                 <FontAwesomeIcon icon={faCircleInfo} />
-                    <div className="profile-name">Info</div>
+                    <div className="profile-name"><strong>Info</strong></div>
                 </div>
                 <div className="profile-header-right">
                     <FontAwesomeIcon icon={faPen} className="profile-icon" />

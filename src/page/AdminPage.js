@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tab from '../components/Tab';
-import HandleUser from '../components/HandleUser';
-import HandleTeacher from '../components/HandleTeacher';
-import { Container } from 'react-bootstrap';
+import HandleUser from '../components/AdminComponents/HandleUser';
+import HandleTeacher from '../components/AdminComponents/HandleTeacher';
 import "../style/AdminPage.style.css"
-
+import useAdminPageStore from '../store/useAdminPageStore';
 const AdminPage = () => {
   const [tabActive, setTabActive] = useState("");
-
+ 
   const tabList = [
     { name: '회원관리', link: '#handleUser' },
     { name: '강사관리', link: '#handleTeacher' },
   ];
 
+  const {
+    setLevel,
+    setInputName,
+    setNickName
+  } = useAdminPageStore()
+
+  useEffect(() => {
+    if (tabActive === '회원관리') {
+      setLevel('customer');
+      setInputName("")
+      setNickName("")
+    } else if (tabActive === '강사관리') {
+      setLevel('teacher');
+      setInputName("")
+      setNickName("")
+    }
+  }, [tabActive, setLevel]);
+
   return (
-    <div>
+      <div className='admin-content'>
     <Tab 
           list={tabList}
           tabActive={tabActive}
@@ -23,11 +40,9 @@ const AdminPage = () => {
           preventDefault={true}
         />
         
-      <div className='admin-content'>
-        {tabActive === '회원관리' && <HandleUser/>}
-        {tabActive === '강사관리' && <HandleTeacher/>}
+      
+        {tabActive == '회원관리' ? <HandleUser/> : <HandleTeacher/>}
       </div>
-    </div>
   );
 }
 

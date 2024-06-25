@@ -1,30 +1,57 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import ClassList from './ClassList'
+import ClassList from '../ClassList'
 import AdminPageProfile from './AdminPageProfile'
 import AdminInfo from './AdminInfo'
 import AdminSearch from './AdminSearch'
 import { useState } from 'react'
-import Tab from './Tab'
+import Tab from '../Tab'
+import { useGetUserListQuery } from '../../hooks/useGetUserList'
+import useAdminPageStore from '../../store/useAdminPageStore'
+
 
 const HandleUser = () => {
+
   const [tabActive, setTabActive] = useState("");
   const tabList = [
     { name: "회원정보", link: "#" }
   ]
 
+  const {
+    page,
+    setPage,
+    email,
+    nickname,
+    level,
+    status,
+    selectedUser,
+    selectedUserId,
+  } = useAdminPageStore()
+
+  const { data, isLoading, isError, error } = useGetUserListQuery({
+    page,
+    email,
+    nickname,
+    level,
+    status
+  });
+  
+
   return (
     <div>
       <Row>
         <Col md={4}>
-          <AdminSearch />
+          <AdminSearch
+            userList={data?.data}
+            isLoading={isLoading}
+          />
         </Col>
         <Col md={8}>
           <Row>
-            <Col md={6}>
-              <AdminPageProfile />
+            <Col lg={6}>
+              <AdminPageProfile/>
             </Col>
-            <Col md={6}>
+            <Col lg={6}>
               <AdminInfo />
             </Col>
             <Col>
@@ -35,9 +62,9 @@ const HandleUser = () => {
                 tagType="a"
                 preventDefault={true}
               />
-              <h4>수강중인 강의</h4>
+              <div className='h4'>수강중인 강의</div>
 
-              <h4>결제내역</h4>
+              <div className='h4'>결제내역</div>
             </Col>
           </Row>
         </Col>

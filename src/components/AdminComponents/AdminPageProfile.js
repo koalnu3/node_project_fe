@@ -1,15 +1,27 @@
-import React from 'react';
-import '../style/AdminPage.style.css';
+import React, { useEffect } from 'react';
+import '../../style/AdminPage.style.css';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useAdminPageStore from '../../store/useAdminPageStore';
 const AdminPageProfile = () => {
+    const {
+        selectedUser,
+      } = useAdminPageStore();
+
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('ko-KR', options);
+      }
+
+    console.log(selectedUser)
     return (
         <div>
             <div className="profile-container-header">
                 <div className="profile-header-left">
                     <FontAwesomeIcon className='userIcon' icon={faUser} />
-                    <div className="profile-name">김선아 여/30세</div>
+                    <div className="profile-name"><strong>{selectedUser ? selectedUser.nickname : "홍길동"}</strong></div>
                 </div>
                 <div className="profile-header-right">
                     <FontAwesomeIcon icon={faPen} className="profile-icon" />
@@ -24,9 +36,9 @@ const AdminPageProfile = () => {
                 />
                 <div className="profile-info">
                     <div>
-                    <p><strong>가입일:</strong> 2023년 1월 1일</p>
-                    <p><strong>연락처:</strong> 010-1234-5678</p>
-                    <p><strong>이메일:</strong> example@example.com</p>
+                    <p><strong>가입일:</strong> {selectedUser ? formatDate(selectedUser.createdAt) : "202X년 X월 X일"}</p>
+                    <p><strong>연락처:</strong> {selectedUser ? selectedUser.phoneNumber : "010-1234-5678"}</p>
+                    <p><strong>이메일:</strong> {selectedUser ? selectedUser.email : "example@gmail.com"}</p>
                     </div>
                 </div>
             </div>
