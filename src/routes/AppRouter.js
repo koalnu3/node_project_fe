@@ -14,6 +14,7 @@ import MainLayout from "../Layout/MainLayout";
 import AppLayout from "../Layout/AppLayout";
 import userStore from "../store/userStore";
 import { loginWithToken } from "../hooks/useUser";
+import OrderPage from "../page/OrderPage";
 
 const AppRouter = () => {
   const { user, setUser } = userStore();
@@ -59,6 +60,14 @@ const AppRouter = () => {
           <AppLayout>
             <RegisterPage />
           </AppLayout>
+        }
+      />
+      <Route
+        path="/order"
+        element={
+          <MainLayout>
+            <OrderPage />
+          </MainLayout>
         }
       />
       <Route path="class">
