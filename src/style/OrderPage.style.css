@@ -1,0 +1,158 @@
+.red-text {
+  color: red;
+}
+
+.iconMore2 {
+  display: inline-block;
+  position: relative;
+  padding-right: 15px;
+  width: 200px; /* 원하는 고정 너비로 설정하세요 */
+}
+
+.iconMore2::after {
+  position: absolute;
+  right: 0;
+  top: 32%;
+  transform: translateY(-50%);
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid var(--color-white);
+  border-bottom: 1px solid var(--color-white);
+  transform: rotate(-45deg);
+}
+
+.coupon-modal {
+  position: absolute;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  width: 250px; /* 원하는 너비로 설정하세요 */
+}
+
+.coupon-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.coupon-modal-header h2 {
+  margin: 0;
+}
+
+.coupon-modal-header button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.coupon-item {
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.coupon-item:last-child {
+  border-bottom: none;
+}
+
+.coupon-item:hover {
+  background-color: #f0f0f0;
+}
+
+.consent-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subText2 {
+  /* margin-bottom: 3px; */
+  margin: 0px;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.view-button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px; /* Optional: Add space between the text and button */
+}
+
+.view-button:hover {
+  /* text-decoration: none;  */
+  /* Optional: Remove underline on hover */
+}
+
+.receipt-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.payment-option label {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .payment-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .payment-option {
+    margin-bottom: 10px;
+  }
+}
+
+.receipt-container {
+  /* border: 1px solid gray; */
+  padding: 32px 24px;
+}
+
+.order-payment {
+  /* border: 1px solid gray; */
+  padding: 10px 24px;
+}
+
+.receipt-list {
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid black;
+}
+
+.receipt-list li {
+  padding-bottom: 10px;
+}
