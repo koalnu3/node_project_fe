@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 import RoundTab from "../components/RoundTab";
 import NoData from "../components/NoData";
 import "../style/ClassDetailPage.style.css";
+import Content from "../components/Content";
 
 const ClassPage = () => {
   const [query, setQuery] = useSearchParams();
@@ -78,7 +79,8 @@ const ClassPage = () => {
     data?.pages?.[data.pages.length - 1]?.data.length || 0;
 
   return (
-    <div className="App">
+    <Content>
+      {/* <div className="App"> */}
       <RoundTab
         list={roundTabList}
         setRoundTabActive={handleRoundTabClick}
@@ -102,7 +104,8 @@ const ClassPage = () => {
         <NoData icon>데이터가 없습니다</NoData>
       ) : (
         data?.pages.map((item, index) => (
-          <div className="classList" key={index}>
+          <div key={index}>
+            {/* <div className="classList" key={index}> */}
             {item.data.length > 0 ? <ClassList list={item?.data} /> : null}
           </div>
         ))
@@ -123,7 +126,8 @@ const ClassPage = () => {
         data?.pages[0]?.totalPageNum === "0" && (
           <div className="noMoreData">더 이상 데이터가 없습니다.</div>
         )} */}
-    </div>
+      {/* </div> */}
+    </Content>
   );
 };
 

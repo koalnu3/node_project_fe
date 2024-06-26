@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../style/ClassDetailPage.style.css";
 import "../style/OrderPage.style.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetClassDetailQuery } from "../hooks/useGetClassDetail";
 import NoData from "../components/NoData";
@@ -18,6 +18,10 @@ const OrderPage = () => {
   const couponButtonRef = useRef(null);
   const navigate = useNavigate();
 
+  const location = useLocation();
+
+  const classDetail = location.state?.classDetail;
+
   const handlePaymentChange = (event) => {
     setSelectedPayment(event.target.value);
   };
@@ -32,23 +36,29 @@ const OrderPage = () => {
     setCouponModalVisible(false);
   };
 
-  const [id, setId] = useState("6676c6d1f6dbee872e0e635d");
-  const { data, isLoading, isError, error } = useGetClassDetailQuery({ id });
+  // const [id, setId] = useState("6676c6d1f6dbee872e0e635d");
+  // const { data, isLoading, isError, error } = useGetClassDetailQuery({ id });
+
+  // useEffect(() => {
+  //   if (data && data.data) {
+  //     const price = data.data.price || 0;
+  //     const discountAmount = calculateDiscount(price, discount);
+  //     setTotalPrice(price + discountAmount);
+  //   }
+  // }, [data, discount]);
+  // if (isLoading) {
+  //   return <Loading noBg noFixed />;
+  // }
+  // if (isError) {
+  //   return <NoData icon>Error: {error.message}</NoData>;
 
   useEffect(() => {
-    if (data && data.data) {
-      const price = data.data.price || 0;
+    if (classDetail) {
+      const price = classDetail.price || 0;
       const discountAmount = calculateDiscount(price, discount);
       setTotalPrice(price + discountAmount);
     }
-  }, [data, discount]);
-
-  if (isLoading) {
-    return <Loading noBg noFixed />;
-  }
-  if (isError) {
-    return <NoData icon>Error: {error.message}</NoData>;
-  }
+  }, [classDetail, discount]);
 
   const calculateDiscount = (price, discount) => {
     if (discount === 0) {
@@ -60,7 +70,7 @@ const OrderPage = () => {
   const handlePaymentClick = async () => {
     try {
       const response = await createOrder({
-        classId: id,
+        classId: classDetail._id,
         price: totalPrice,
         payMethod: selectedPayment,
       });
@@ -75,12 +85,18 @@ const OrderPage = () => {
     }
   };
 
+  if (!classDetail) {
+    return <NoData />;
+  }
+
   return (
     <Content className="classDetail">
       <div className="detailImg">
-        <img src={data?.data.image[0]} alt="클래스" />
+        {/* <img src={data?.data.image[0]} alt="클래스" /> */}
+        <img src={classDetail.image[0]} alt="클래스" />
       </div>
-      <h2 className="h2">{data?.data.name}</h2>
+      {/* <h2 className="h2">{data?.data.name}</h2> */}
+      <h2 className="h2">{classDetail.name}</h2>
 
       <div>
         <h2 className="h5" style={{ fontWeight: "bold" }}>
@@ -210,7 +226,8 @@ const OrderPage = () => {
         <div className="order-payment">
           <li className="receipt-item">
             <div>클래스 금액</div>
-            <div>{data?.data.price}원</div>
+            {/* <div>{data?.data.price}원</div> */}
+            <div>{classDetail.price}원</div>
           </li>
 
           <ul className="receipt-list">
@@ -218,12 +235,14 @@ const OrderPage = () => {
               <div>쿠폰 할인</div>
               <div
                 className={
-                  calculateDiscount(data?.data.price, discount) !== 0
+                  // calculateDiscount(data?.data.price, discount) !== 0
+                  calculateDiscount(classDetail.price, discount) !== 0
                     ? "red-text"
                     : ""
                 }
               >
-                {calculateDiscount(data?.data.price, discount)}원
+                {/* {calculateDiscount(data?.data.price, discount)}원 */}
+                {calculateDiscount(classDetail.price, discount)}원
               </div>
             </li>
           </ul>
@@ -231,10 +250,14 @@ const OrderPage = () => {
             <li className="receipt-item">
               <span>최종 결제금액</span>
               <span>
-                {data?.data.price +
-                  calculateDiscount(data?.data.price, discount)}
+                {classDetail.price +
+                  calculateDiscount(classDetail.price, discount)}
                 원{" "}
               </span>
+              {/* {data?.data.price +
+                  calculateDiscount(data?.data.price, discount)}
+                원{" "}
+              </span> */}
             </li>
           </h2>
         </div>
