@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [utilOpen, setUtilOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuListActive, setmenuListActive] = useState("");
 
   const utilActive = () => {
     utilOpen === false ? setUtilOpen(true) : setUtilOpen(false);
   };
   const menuActive = () => {
     menuOpen === false ? setMenuOpen(true) : setMenuOpen(false);
+  };
+
+  const handleMenuActive = (event, name) => {
+    setmenuListActive(name);
   };
   return (
     <header className="header">
@@ -71,12 +76,21 @@ const Header = () => {
               </div>
             </div>
             <nav className="menuList">
+              {console.log(menuListActive)}
               <ul>
-                <li className="active">
-                  <a href="#">홈</a>
+                <li
+                  className={menuListActive === "홈" ? `active` : ``}
+                  onClick={(event) => handleMenuActive(event, "홈")}
+                >
+                  <a href="/">홈</a>
                 </li>
-                <li>
-                  <a href="#">클래스소개</a>
+                <li className={menuListActive === "클래스소개" ? `active` : ``}>
+                  <a
+                    href="/class"
+                    onClick={(event) => handleMenuActive(event, "클래스소개")}
+                  >
+                    클래스소개
+                  </a>
                 </li>
               </ul>
             </nav>

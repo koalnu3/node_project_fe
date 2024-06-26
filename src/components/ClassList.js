@@ -5,7 +5,8 @@ import NoData from "./NoData";
 const ClassList = ({ list }) => {
   return (
     <div className="classList">
-      {list.length > 0 ? (
+      {console.log(list)}
+      {list?.length > 0 ? (
         <ul>
           {list?.map((item) => (
             <li>

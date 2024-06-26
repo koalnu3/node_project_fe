@@ -1,0 +1,255 @@
+.homepage {
+    position: relative;
+}
+
+.homepage .titleArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+
+.homepage .titleArea .h2 {
+    margin-bottom: 0;
+}
+
+
+.textBtn {
+    background-color: transparent;
+    border: none;
+    color: var(--color-gray);
+    height: auto;
+}
+
+.textBtn span {
+    display: inline-block;
+    position: relative;
+    padding-right: 3px;
+}
+
+.textBtn span::after {
+    position: absolute;
+    right: -10px;
+    top: 32%;
+    transform: translateY(-50%);
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-left: 1px solid var(--color-gray);
+    border-bottom: 1px solid var(--color-gray);
+    transform: rotate(225deg);
+}
+
+/* swiper*/
+.swiper {
+    width: 100%;
+    height: 100%;
+    margin: 20px 0;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* .swiper {
+    width: 100%;
+    height: 300px;
+    margin: 20px auto;
+} */
+
+.append-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.append-buttons button {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #007aff;
+    color: #007aff;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin: 0 10px;
+    font-size: 13px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--color-white);
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-gray);
+}
+
+.swiper-pagination {
+    left: inherit;
+    right: 20px;
+    bottom: 20px;
+    width: 65px;
+    transform: inherit;
+    width: auto;
+    padding: 3px 10px;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--color-white);
+    font-size: 15px;
+}
+
+/* mainSlide */
+
+
+
+
+
+
+
+/* classSwiper */
+
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.classSwiper .classItem {
+    width: 100%;
+    text-align: left;
+}
+
+.classSwiper {
+    margin-top: 0;
+    padding-top: 25px;
+}
+
+.classSwiper .swiper-pagination {
+    display: none;
+    bottom: inherit;
+    top: 0;
+    right: 0;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+/* category */
+.category {
+    margin: 35px 0 10px;
+}
+
+.categoryList {
+    display: flex;
+}
+
+.categoryList li {
+    width: 100px;
+    height: 100px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.categoryList li:first-child {
+    margin-left: 0;
+}
+
+.categoryList li a {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--color-gray);
+}
+
+.categoryList li a::before {
+    content: "";
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border-radius: var(--border-radius);
+    background-color: var(--color-light-gray);
+}
+
+.categoryList li .name {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: border;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.fixedBtnArea {
+    position: fixed;
+    right: 30px;
+    bottom: 25px;
+    z-index: 100;
+    width: 50px;
+    opacity: 0.85;
+}
+
+.guideBtn {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: var(--color-light-gray);
+}
+
+.guideBtn svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 22px;
+    fill: var(--color-white);
+}
+
+@media screen and (max-width: 769px) {
+    .mainSlide {
+        margin: 0 -15px;
+        width: 100vw;
+        height: 250px;
+    }
+
+    .mainSlide img {
+        width: 100%;
+    }
+
+    .fixedBtnArea {
+        position: fixed;
+        right: 15px;
+        bottom: 20px;
+    }
+
+    /* .classSwiper .classItem {
+        width: inherit;
+    } */
+
+}

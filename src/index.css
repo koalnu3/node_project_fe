@@ -726,6 +726,11 @@ p {
   height: 168px;
   border-radius: var(--border-radius);
   background-color: var(--color-light-gray);
+  border: 1px solid #ddd;
+}
+
+.classItem .img img {
+  width: 100%;
 }
 
 .classItem .info {

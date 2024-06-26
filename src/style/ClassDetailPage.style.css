@@ -270,6 +270,21 @@
     background-color: var(--color-primary);
 }
 
+
+.toggleList.onlyList .title {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.toggleList.onlyList .toggle .title::after {
+    display: none;
+}
+
+.toggleList+.toggleList {
+    margin-top: 20px;
+}
+
 .teacherIntroduce {
     background-color: var(--background-color);
     border-radius: var(--border-radius);
