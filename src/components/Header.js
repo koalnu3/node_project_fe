@@ -62,7 +62,11 @@ const Header = ({ user, setUser }) => {
                 <ul className="utilList">
                   <li>
                     <div
-                      onClick={() => navigate("/")}
+                      onClick={() => {
+                        user.level === "customer"
+                          ? navigate("/studentMypage")
+                          : navigate("/teacherMypage");
+                      }}
                       style={{ cursor: "pointer" }}
                     >
                       마이페이지

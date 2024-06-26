@@ -32,7 +32,7 @@ const AppRouter = () => {
       };
       checkAuth();
     }
-  }, []);
+  }, [user._id]);
 
   return (
     <Routes>
@@ -44,16 +44,14 @@ const AppRouter = () => {
           </MainLayout>
         }
       />
-      {!user._id && (
-        <Route
-          path="/login"
-          element={
-            <AppLayout>
-              <LoginPage />
-            </AppLayout>
-          }
-        />
-      )}
+      <Route
+        path="/login"
+        element={
+          <AppLayout>
+            <LoginPage />
+          </AppLayout>
+        }
+      />
       <Route
         path="/register"
         element={
@@ -89,36 +87,55 @@ const AppRouter = () => {
         />
       </Route>
 
-      <Route element={<PrivateRoute permissionLevel="student" />}>
-        <Route
-          path="/studentMypage"
-          element={
-            <MainLayout>
-              <StudentMyPage />
-            </MainLayout>
-          }
-        />
-      </Route>
-      <Route element={<PrivateRoute permissionLevel="teacher" />}>
-        <Route
-          path="/teacherMypage"
-          element={
-            <MainLayout>
-              <TeacherMyPage />
-            </MainLayout>
-          }
-        />
-      </Route>
-      {/* <Route element={<PrivateRoute permissionLevel="admin" />}> */}
-        <Route
-          path="/admin"
-          element={
-            <MainLayout>
-              <AdminPage />
-            </MainLayout>
-          }
-        />
-      {/* </Route> */}
+      {!!user._id && (
+        <>
+          <Route
+            element={
+              <PrivateRoute
+                permissionLevels={
+                  user && user.level === "customer" ? ["customer"] : []
+                }
+                user={user}
+              />
+            }
+          >
+            <Route
+              path="/studentMypage"
+              element={
+                <MainLayout>
+                  <StudentMyPage user={user} setUser={setUser} />
+                </MainLayout>
+              }
+            />
+          </Route>
+          <Route
+            element={
+              <PrivateRoute
+                permissionLevels={[user.level === "teacher" && "teacher"]}
+              />
+            }
+          >
+            <Route
+              path="/teacherMypage"
+              element={
+                <MainLayout>
+                  <TeacherMyPage />
+                </MainLayout>
+              }
+            />
+          </Route>
+          <Route element={<PrivateRoute permissionLevels={["admin"]} />}>
+            <Route
+              path="/admin"
+              element={
+                <MainLayout>
+                  <AdminPage />
+                </MainLayout>
+              }
+            />
+          </Route>
+        </>
+      )}
       <Route
         path="/guide"
         element={
