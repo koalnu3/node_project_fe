@@ -5,7 +5,7 @@ import "../style/ClassDetailPage.style.css";
 import ClassList from "../components/ClassList";
 import VideoModal from "../components/VideoModal";
 import { useGetClassDetailQuery } from "../hooks/useGetClassDetail";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; //추가
 import Curriculum from "../components/Curriculum";
 import NoData from "../components/NoData";
 import { useGetClassQuery } from "../hooks/useGetClass";
@@ -152,6 +152,16 @@ const ClassDetailPage = () => {
     handleDataSetting();
   }, [classList]);
 
+  const navigate = useNavigate();
+
+  const handleNavigateToOrder = () => {
+    navigate(`/order`, {
+      state: {
+        classDetail: classDetailList,
+      },
+    });
+  };
+
   return (
     <>
       <VideoModal
@@ -177,7 +187,9 @@ const ClassDetailPage = () => {
                 </p>
               </div>
               <div className="right">
-                <button type="button">클래스 결제하기</button>
+                <button type="button" onClick={handleNavigateToOrder}>
+                  클래스 결제하기
+                </button>
               </div>
             </div>
             <div className="noticeBox">{classDetailList?.notice}</div>
