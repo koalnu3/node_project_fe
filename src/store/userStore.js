@@ -7,7 +7,7 @@ const userStore = create((set) => ({
     email: "",
     profileImage: "",
     phoneNumber: "",
-    level: "student",
+    level: "customer",
     greetings: "",
   },
   setUser: (user) => set({ user }),

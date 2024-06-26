@@ -6,6 +6,7 @@ const Header = ({ user, setUser }) => {
   const navigate = useNavigate();
   const [utilOpen, setUtilOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuListActive, setmenuListActive] = useState("");
 
   const utilActive = () => {
     !utilOpen ? setUtilOpen(true) : setUtilOpen(false);
@@ -25,6 +26,10 @@ const Header = ({ user, setUser }) => {
       greetings: "",
     });
     toast.success("로그아웃되었습니다.");
+  };
+
+  const handleMenuActive = (event, name) => {
+    setmenuListActive(name);
   };
   return (
     <header className="header">
@@ -62,7 +67,13 @@ const Header = ({ user, setUser }) => {
                 <ul className="utilList">
                   <li>
                     <div
-                      onClick={() => navigate("/")}
+                      onClick={() => {
+                        user.level === "customer"
+                          ? navigate("/studentMypage")
+                          : user.level === "teacher"
+                          ? navigate("/teacherMypage")
+                          : navigate("/admin");
+                      }}
                       style={{ cursor: "pointer" }}
                     >
                       마이페이지
@@ -102,12 +113,21 @@ const Header = ({ user, setUser }) => {
               </div>
             </div>
             <nav className="menuList">
+              {console.log(menuListActive)}
               <ul>
-                <li className="active">
-                  <a href="#">홈</a>
+                <li
+                  className={menuListActive === "홈" ? `active` : ``}
+                  onClick={(event) => handleMenuActive(event, "홈")}
+                >
+                  <a href="/">홈</a>
                 </li>
-                <li>
-                  <a href="#">클래스소개</a>
+                <li className={menuListActive === "클래스소개" ? `active` : ``}>
+                  <a
+                    href="/class"
+                    onClick={(event) => handleMenuActive(event, "클래스소개")}
+                  >
+                    클래스소개
+                  </a>
                 </li>
               </ul>
             </nav>

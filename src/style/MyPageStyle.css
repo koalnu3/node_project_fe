@@ -1,0 +1,70 @@
+.mypageContainer {
+  display: flex;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.mypageLeftSide {
+  width: 30%;
+}
+
+.mypageRightSide {
+  width: 70%;
+  padding-left: 50px;
+}
+
+.ulStyle {
+  display: flex;
+  align-items: center;
+}
+
+.ulStyle li:first-child {
+  width: 200px;
+  margin: 20px 0;
+  font-weight: 500;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.ulStyle li:last-child {
+  width: 200px;
+  padding: 20px 0;
+  font-weight: 500;
+  color: var(--color-gray);
+  display: flex;
+  align-items: center;
+}
+
+.svgStyle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray);
+  background-color: var(--color-white);
+}
+
+.cameraStyle {
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-white);
+  border-radius: 50px;
+  position: relative;
+  border: 1px solid var(--color-light-gray);
+}
+
+.paymentDate {
+  width: 20%;
+  text-align: center;
+}
+
+.paymentClassName {
+  width: 70%;
+  text-align: center;
+}
+
+.paymentPrice {
+  width: 30%;
+  text-align: center;
+}

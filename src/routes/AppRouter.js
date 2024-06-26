@@ -14,6 +14,7 @@ import MainLayout from "../Layout/MainLayout";
 import AppLayout from "../Layout/AppLayout";
 import userStore from "../store/userStore";
 import { loginWithToken } from "../hooks/useUser";
+import OrderPage from "../page/OrderPage";
 
 const AppRouter = () => {
   const { user, setUser } = userStore();
@@ -31,7 +32,7 @@ const AppRouter = () => {
       };
       checkAuth();
     }
-  }, []);
+  }, [user._id]);
 
   return (
     <Routes>
@@ -43,22 +44,28 @@ const AppRouter = () => {
           </MainLayout>
         }
       />
-      {!user._id && (
-        <Route
-          path="/login"
-          element={
-            <AppLayout>
-              <LoginPage />
-            </AppLayout>
-          }
-        />
-      )}
+      <Route
+        path="/login"
+        element={
+          <AppLayout>
+            <LoginPage />
+          </AppLayout>
+        }
+      />
       <Route
         path="/register"
         element={
           <AppLayout>
             <RegisterPage />
           </AppLayout>
+        }
+      />
+      <Route
+        path="/order"
+        element={
+          <MainLayout>
+            <OrderPage />
+          </MainLayout>
         }
       />
       <Route path="class">
@@ -80,36 +87,40 @@ const AppRouter = () => {
         />
       </Route>
 
-      <Route element={<PrivateRoute permissionLevel="student" />}>
-        <Route
-          path="/studentMypage"
-          element={
-            <MainLayout>
-              <StudentMyPage />
-            </MainLayout>
-          }
-        />
-      </Route>
-      <Route element={<PrivateRoute permissionLevel="teacher" />}>
-        <Route
-          path="/teacherMypage"
-          element={
-            <MainLayout>
-              <TeacherMyPage />
-            </MainLayout>
-          }
-        />
-      </Route>
-      <Route element={<PrivateRoute permissionLevel="admin" />}>
-        <Route
-          path="/admin"
-          element={
-            <MainLayout>
-              <AdminPage />
-            </MainLayout>
-          }
-        />
-      </Route>
+      {!!user._id && (
+        <>
+          <Route element={<PrivateRoute user={user} />}>
+            <Route
+              path="/studentMypage"
+              element={
+                <MainLayout>
+                  <StudentMyPage user={user} setUser={setUser} />
+                </MainLayout>
+              }
+            />
+          </Route>
+          <Route element={<PrivateRoute user={user} />}>
+            <Route
+              path="/teacherMypage"
+              element={
+                <MainLayout>
+                  <TeacherMyPage />
+                </MainLayout>
+              }
+            />
+          </Route>
+          <Route element={<PrivateRoute user={user} />}>
+            <Route
+              path="/admin"
+              element={
+                <MainLayout>
+                  <AdminPage />
+                </MainLayout>
+              }
+            />
+          </Route>
+        </>
+      )}
       <Route
         path="/guide"
         element={

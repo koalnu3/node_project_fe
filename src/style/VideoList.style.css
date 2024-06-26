@@ -1,0 +1,87 @@
+.videoList {
+    border-top: 1px solid #ddd;
+    text-align: left;
+}
+
+.videoList button {
+    height: inherit;
+    padding-left: 20px;
+}
+
+.videoList>ul>li>button {
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    background-color: var(--background-color);
+    color: var(--color-black);
+}
+
+.videoList>ul {
+    display: grid;
+    gap: 2px;
+}
+
+.videoList .videoTitle {
+    text-align: left;
+    min-height: 50px;
+}
+
+.videoList .description {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s;
+    overflow: hidden;
+
+}
+
+.videoList .description ul {
+    overflow: hidden;
+}
+
+.videoList>ul>li.active .description {
+    grid-template-rows: 1fr;
+}
+
+.description .descriptionInfo {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 10px 10px 45px;
+    border-radius: 0;
+    border: none;
+    background-color: var(--color-white);
+    color: var(--color-gray);
+    text-align: left;
+    box-shadow: 0 1px 1px 1px inset rgba(0, 0, 0, 0.05);
+}
+
+.description .descriptionInfo svg {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    fill: #ddd;
+}
+
+.description .descriptionInfo.done svg {
+    fill: var(--color-primary);
+}
+
+.description .descriptionInfo span {
+    display: inline-block;
+    color: var(--color-gray);
+}
+
+.description .descriptionInfo .time {
+    font-size: 12px;
+}
+
+.description .descriptionInfo .descriptionTitle {
+    word-break: keep-all;
+
+}
