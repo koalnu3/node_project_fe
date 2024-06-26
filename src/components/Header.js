@@ -70,7 +70,9 @@ const Header = ({ user, setUser }) => {
                       onClick={() => {
                         user.level === "customer"
                           ? navigate("/studentMypage")
-                          : navigate("/teacherMypage");
+                          : user.level === "teacher"
+                          ? navigate("/teacherMypage")
+                          : navigate("/admin");
                       }}
                       style={{ cursor: "pointer" }}
                     >
