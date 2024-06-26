@@ -4,6 +4,10 @@
   padding: 30px 0;
 }
 
+.menuTab {
+  display: none;
+}
+
 .mypageLeftSide {
   width: 30%;
 }
@@ -67,4 +71,85 @@
 .paymentPrice {
   width: 30%;
   text-align: center;
+}
+
+/* 어드민페이지 스타일 */
+.user-list {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.user-list-header {
+  display: flex;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.header-date,
+.header-price {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+  padding: 10px;
+}
+.header-title {
+  flex: 2;
+  text-align: left;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.user-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-list-item:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+.user-date {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+}
+.user-title {
+  flex: 2;
+  text-align: left;
+  font-size: 16px;
+}
+.user-price {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 1300px) {
+  .mypageLeftSide {
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .mypageLeftSide {
+    display: none;
+  }
+  .mypageRightSide {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .menuTab {
+    display: block;
+  }
 }

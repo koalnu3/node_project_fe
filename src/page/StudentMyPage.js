@@ -6,30 +6,27 @@ import CameraImage from "../svg/CameraImage";
 import MyPageMenu from "../components/MyPageMenu";
 import CircleCheckImage from "../svg/CircleCheckImage";
 import UpdateIcon from "../svg/UpdateIcon";
-import { useGetUserClassQuery } from "../hooks/useGetUserClass";
 import api from "../utils/api";
 import { toast } from "react-toastify";
-const LOCAL_BACKEND = process.env.REACT_APP_LOCAL_BACKEND;
-const PROD_BACKEND = process.env.REACT_APP_PROD_BACKEND;
-const BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY;
+import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
+import Tab from "../components/Tab";
 
 const StudentMyPage = ({ user, setUser }) => {
-  const menuArray = [
-    { key: 0, title: "프로필" },
-    { key: 1, title: "결제 내역" },
-    { key: 2, title: "내 강의실" },
-  ];
-
   //TODO test
   const testBuyData = [
-    { key: 0, date: "2023-10-03", name: "마음이 편해지는 요가", price: 50000 },
+    {
+      key: 0,
+      date: "2023-10-03",
+      name: "마음이 편해지는 요가123123123123123123",
+      price: 50000,
+    },
     { key: 1, date: "2024-10-03", name: "강해지는 요가", price: 80000 },
   ];
 
   const testClassData = [
     {
       key: 0,
-      title: "마음이 편해지는 요가",
+      title: "마음이 편해지는 요가123123123123",
       sub: "마음이 편해져요 스트레스 해소!",
       price: 50000,
     },
@@ -39,15 +36,34 @@ const StudentMyPage = ({ user, setUser }) => {
       sub: "튼튼하고 강해지는 요가에요",
       price: 80000,
     },
+    {
+      key: 3,
+      title: "마음이 편해지는 요가123123123123",
+      sub: "마음이 편해져요 스트레스 해소!",
+      price: 50000,
+    },
+    {
+      key: 4,
+      title: "강해지는 요가",
+      sub: "튼튼하고 강해지는 요가에요",
+      price: 80000,
+    },
   ];
-  const [selectMenu, setSelectMenu] = useState({ key: 0, title: "프로필" });
+  const tabList = [
+    {
+      name: "프로필",
+    },
+    { name: "결제 내역" },
+    { name: "내 강의실" },
+  ];
+  const [selectMenu, setSelectMenu] = useState({ name: "프로필" });
   const [openUpdateInput, setOpenUpdateInput] = useState(false);
   const [nickname, setNickname] = useState(user.nickname);
-  const [image, setImage] = useState(user.profileImage);
+  const [image, setImage] = useState(user.image);
+  const [tabActive, setTabActive] = useState("");
 
-  const { data, isLoading, isError, error } = useGetUserClassQuery();
-  const fileInputRef = useRef(null);
-  console.log("openUpdateInput", openUpdateInput);
+  const widgetRef = useRef(null);
+
   const handleNickname = () => {
     setOpenUpdateInput(true);
   };
@@ -70,48 +86,45 @@ const StudentMyPage = ({ user, setUser }) => {
       toast.error(error.error);
     }
   };
-  const handleCameraClick = () => {
-    fileInputRef.current.click();
-  };
-  //TODO : 작업중
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-      console.log("formData", formData);
-      try {
-        const response = await api.put(`/user`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
 
-        console.log("response", response);
-        if (response.status !== 200) throw new Error(response.statusText);
-        toast.success("이미지 저장이 완료되었습니다.");
-      } catch (error) {
-        console.log("error", error);
-        toast.error("이미지 저장에 실패했습니다.");
-      }
+  const uploadImage = (url) => {
+    setImage(url);
+  };
+
+  const handleUploadImage = async () => {
+    try {
+      const response = await api.put(`/user`, { image });
+
+      if (response.status !== 200) throw new Error(response.statusText);
+      toast.success("이미지 저장이 완료되었습니다.");
+    } catch (error) {
+      console.log("error", error);
+      toast.error("이미지 저장에 실패했습니다.");
     }
   };
-  //TODO: test중 test잘 되면 지울것
-  function ProfileImage({ imagePath }) {
-    return (
-      <img
-        src={`${LOCAL_BACKEND}/uploads/${imagePath}`}
-        alt="Profile Image"
-        style={{ width: "50px", height: "50px" }}
-      />
-    );
-  }
 
+  useEffect(() => {
+    setSelectMenu({ name: tabActive });
+  }, [tabActive]);
   return (
     <div
       style={{ height: "80vh", maxWidth: "var(--max-width)", margin: "0 auto" }}
     >
-      <ProfileImage imagePath="8c75148e6515058f360e0f53afab9281" />;
+      <div className="menuTab">
+        <div
+          style={{
+            justifyContent: "space-around",
+            padding: "10px 0",
+            cursor: "pointer",
+          }}
+        >
+          <Tab
+            list={tabList}
+            setTabActive={setTabActive}
+            tabActive={tabActive}
+          />
+        </div>
+      </div>
       <div className="mypageContainer">
         <div className="mypageLeftSide">
           <div
@@ -148,7 +161,7 @@ const StudentMyPage = ({ user, setUser }) => {
             </div>
           </div>
           <div style={{ marginTop: "30px" }}>
-            {menuArray.map((menu, index) => {
+            {tabList.map((menu, index) => {
               return (
                 <MyPageMenu
                   menu={menu}
@@ -162,7 +175,7 @@ const StudentMyPage = ({ user, setUser }) => {
         </div>
         <div className="mypageRightSide">
           {/* 프로필 */}
-          {selectMenu.title === "프로필" && (
+          {selectMenu.name === "프로필" && (
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div className="h3">내 프로필</div>
@@ -220,6 +233,12 @@ const StudentMyPage = ({ user, setUser }) => {
               <ul className="ulStyle">
                 <li>프로필 이미지</li>
                 <li style={{ position: "relative" }}>
+                  <CloudinaryUploadWidget
+                    ref={widgetRef}
+                    uploadImage={uploadImage}
+                    handleUploadImage={handleUploadImage}
+                  />
+
                   <div className="cameraStyle">
                     {image ? (
                       <img src={image} className="cameraStyle" />
@@ -244,16 +263,10 @@ const StudentMyPage = ({ user, setUser }) => {
                         display: "flex",
                         cursor: "pointer",
                       }}
-                      onClick={handleCameraClick}
+                      onClick={() => widgetRef.current.openWidget()}
                     >
                       <CameraImage />
                     </div>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      style={{ display: "none" }}
-                      onChange={handleFileChange}
-                    />
                   </div>
                 </li>
               </ul>
@@ -267,55 +280,40 @@ const StudentMyPage = ({ user, setUser }) => {
               </ul>
             </>
           )}
-          {selectMenu.title === "결제 내역" && (
+          {selectMenu.name === "결제 내역" && (
             <>
               <div>
                 <div className="h3">결제 내역</div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  marginTop: "50px",
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  color: "var(--color-white)",
-                  backgroundColor: "var(--color-gray)",
-                  padding: "10px 0",
-                }}
-              >
-                <div className="paymentDate">결제일</div>
-                <div className="paymentClassName">강의명</div>
-                <div className="paymentPrice">가격</div>
-              </div>
-              <div style={{ marginTop: "20px" }}>
-                {testBuyData.map((data, index) => {
-                  return (
-                    <div
-                      style={{
-                        display: "flex",
-                        padding: "10px 0",
-                        borderBottom: "1px solid var(--color-gray)",
-                      }}
-                      key={index}
-                    >
-                      <div className="paymentDate">{data.date}</div>
-                      <div className="paymentClassName">{data.name}</div>
-                      <div className="paymentPrice">
+              <div className="user-list">
+                <div className="user-list-header">
+                  <div className="header-date">결제일</div>
+                  <div className="header-title">강의명</div>
+                  <div className="header-price">가격</div>
+                </div>
+                <div className="user-list-items">
+                  {testBuyData?.map((data, index) => (
+                    <div className="user-list-item selected">
+                      <div className="user-date">{data.date}</div>
+                      <div className="user-title">{data.name}</div>
+                      <div className="user-price">
                         {data.price.toLocaleString()}원
                       </div>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
             </>
           )}
-          {selectMenu.title === "내 강의실" && (
+          {selectMenu.name === "내 강의실" && (
             <>
               <div className="h3">내 강의실</div>
 
               <div
                 style={{
                   display: "flex",
+                  flexWrap: "wrap",
+                  overflowY: "auto",
                 }}
               >
                 {testClassData.map((data, index) => {

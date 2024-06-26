@@ -26,6 +26,7 @@ const Header = ({ user, setUser }) => {
       greetings: "",
     });
     toast.success("로그아웃되었습니다.");
+    navigate("/");
   };
 
   const handleMenuActive = (event, name) => {
