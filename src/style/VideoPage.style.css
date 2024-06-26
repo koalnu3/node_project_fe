@@ -1,0 +1,279 @@
+.videoModal {
+    width: 100%;
+    height: 100%;
+    z-index: 700;
+    padding: 0;
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.videoArea {
+    display: flex;
+    height: 100%;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.videoModal .closeBtn {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 7px;
+    width: 100%;
+    height: 55px;
+    /* background-color: #ececec; */
+    background-color: #b6b6b6;
+    border: none;
+    /* border-color: var(--color-white); */
+    border-radius: 0;
+    vertical-align: middle;
+}
+
+.videoModal .closeBtn svg {
+    vertical-align: middle;
+    width: 25px;
+    fill: var(--color-white);
+}
+
+.videoModal .videoView {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* height: 100%; */
+}
+
+.videoModal .videoView .view {
+    flex-grow: 1;
+}
+
+.videoModal .videoView iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.videoModal .videoView>.title {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px 20px 10px;
+    font-size: 20px;
+    min-height: 80px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.videoModal .videoUtil {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #e1e1e1;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+.videoModal .videoUtil .util {
+    position: relative;
+    padding-top: 60px;
+    width: 70px;
+}
+
+.curriculumBtn {
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.curriculumBtn svg {
+    width: 30px;
+    vertical-align: middle;
+}
+
+
+.videoModal .videoCurriculum {
+    overflow: hidden;
+    width: 0;
+    transition: 0.7s;
+    background-color: var(--color-white);
+}
+
+.videoModal .videoCurriculum .h3 {
+    font-size: 18px;
+    margin: 0;
+    padding: 30px 0 23px 20px;
+    min-height: 80px;
+    text-align: left;
+}
+
+.videoModal .videoCurriculum.active {
+    display: inline-block;
+    width: 300px;
+}
+
+.videoView .controller {
+    text-align: center;
+    background-color: var(--color-black);
+}
+
+.videoView .controller button {
+    background-color: var(--color-black);
+    border: none;
+    margin: 0 7px;
+}
+
+.iconNext,
+.iconPrev {
+    display: inline-block;
+    position: relative;
+}
+
+.iconNext {
+    padding-right: 3px;
+}
+
+.iconPrev {
+    padding-left: 3px;
+}
+
+.iconPrev::after,
+.iconNext::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-left: 1px solid var(--color-white);
+    border-bottom: 1px solid var(--color-white);
+}
+
+.iconNext::after {
+    right: -10px;
+    transform: translateY(-50%) rotate(225deg);
+}
+
+.iconPrev::after {
+    left: -10px;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.controller .prevBtn:disabled,
+.controller .completeBtn:disabled,
+.controller .nextBtn:disabled {
+    opacity: 0.5;
+}
+
+@media (hover: hover) {
+    .videoModal .closeBtn:hover {
+        background-color: var(--color-primary);
+
+    }
+
+    .curriculumBtn:hover {
+        background-color: var(--color-primary);
+        border: none;
+    }
+
+    .curriculumBtn:hover svg {
+        fill: var(--color-white)
+    }
+
+    .videoView .controller button:hover {
+        font-weight: bold;
+    }
+}
+
+
+/* @media screen and (min-width: 770px) {
+    .videoModal .closeBtn:hover {
+        background-color: var(--color-primary);
+
+    }
+
+    .curriculumBtn:hover {
+        background-color: var(--color-primary);
+        border: none;
+    }
+
+    .curriculumBtn:hover svg {
+        fill: var(--color-white)
+    }
+
+} */
+
+@media screen and (max-width: 769px) {
+    .videoModal {
+        margin: 0;
+        border-radius: 0;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .videoArea {
+        flex-direction: column;
+    }
+
+    .videoModal .videoView>.title {
+        padding-right: 50px;
+        font-size: 17px;
+    }
+
+    .videoModal .videoUtil {
+        flex-direction: column;
+        /* border-radius: var(--border-radius);
+        overflow: hidden;*/
+    }
+
+    .videoModal .closeBtn {
+        position: fixed;
+        top: 5px;
+        right: 0;
+        left: inherit;
+        width: 50px;
+        height: 50px;
+        transform: inherit;
+        background-color: transparent;
+    }
+
+    .videoModal .videoUtil .util {
+        width: 100%;
+        height: 50px;
+        padding-top: 0;
+    }
+
+    .videoModal .videoCurriculum {
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .videoModal .videoCurriculum:hover {
+        background-color: in;
+    }
+
+    .videoModal .videoCurriculum.active {
+        height: auto;
+        width: 100%;
+    }
+
+    .videoModal .videoCurriculum .h3 {
+        padding: 25px 0 20px 20px;
+        min-height: inherit;
+        font-weight: bold;
+    }
+
+    .curriculumBtn {
+        background-color: var(--color-primary);
+    }
+
+    .curriculumBtn svg {
+        fill: var(--color-white)
+    }
+
+    .videoView .controller {
+        display: none;
+    }
+}
