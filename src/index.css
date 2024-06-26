@@ -173,12 +173,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #d5617e;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-radius);
-}
-
 button.small {
   height: 35px;
   font-size: 12px;
@@ -374,6 +368,14 @@ p {
   transform: translateY(-50%);
 }
 
+.header.navHidden .menuContent {
+  display: none;
+}
+
+.header.navHidden .menuBtn {
+  display: none;
+}
+
 .logo {
   display: inline-block;
   padding-top: 14px;
@@ -386,7 +388,7 @@ p {
 }
 
 .logo img {
-  height: 52px;
+  height: 50px;
 }
 
 .util .utilBtn {
@@ -552,7 +554,6 @@ p {
   top: 0;
   right: 0;
   height: 100%;
-  /* font-size: 18px; */
   width: 45px;
   border: 0;
   background-color: transparent;
@@ -712,6 +713,7 @@ p {
 /* classItem */
 .classItem {
   position: relative;
+  text-align: left;
 }
 
 .classItem a {
@@ -796,6 +798,7 @@ p {
   padding: 5px;
   border: none;
   background-color: transparent;
+  transition: 0.3s;
 }
 
 .likeBtn svg {
@@ -816,6 +819,11 @@ p {
   z-index: 100;
 }
 
+.loadingArea {
+  position: relative;
+  min-height: 140px;
+}
+
 .loader {
   position: fixed;
   left: 50%;
@@ -833,10 +841,7 @@ p {
 }
 
 .loader.noFixed {
-  position: relative;
-  left: inherit;
-  top: inherit;
-  transform: inherit;
+  position: absolute;
 }
 
 .noData {
@@ -1067,6 +1072,10 @@ p {
     padding: 15px 15px 15px 65px;
   }
 
+  .header.navHidden .top {
+    padding-left: 15px;
+  }
+
   .util .utilBtn span b {
     font-size: 13px;
   }
@@ -1205,6 +1214,36 @@ p {
 
   .classItem .img {
     height: 100px;
+  }
+}
+
+@media (hover: hover) {
+  button:hover {
+    background-color: #b60330;
+  }
+
+  button.white:hover {
+    background-color: #eee;
+  }
+
+  button.gray:hover {
+    background-color: #afafaf;
+    color: var(--color-white);
+  }
+
+  .likeBtn:hover {
+    background-color: transparent;
+    transform: scale(1.15);
+  }
+
+  .likeBtn:hover svg {
+    fill: var(--color-primary);
+  }
+
+  .search button:hover,
+  .searchInput button:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
   }
 }
 

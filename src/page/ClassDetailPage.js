@@ -120,22 +120,15 @@ const ClassDetailPage = () => {
   const [classDetailList, setClassDetailList] = useState([]);
   const [classListData, setClassListData] = useState([]);
   const [page, setPage] = useState(1);
-  const [name, setName] = useState("1");
+  const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [clickVideoUrl, setClickVideoUrl] = useState("");
-  // const { data, isLoading, isError, error } = useGetClassQuery({
-  //   page,
-  //   name,
-  //   category,
-  // });
-  // console.log(data);
   const classList = useGetClassQuery({
     page,
     name,
     category,
   });
-  console.log(classDetailList);
-  console.log(classList?.data?.dat);
+
   const handleDataSetting = () => {
     setClassDetailList(data?.data);
     setClassListData(classList?.data?.data);

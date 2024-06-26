@@ -4,7 +4,9 @@ const Loading = ({ noBg, noFixed }) => {
   return (
     <>
       {!noBg ? <div className="bg"></div> : ``}
-      <div class={`loader ${!noFixed ? `` : `noFixed`}`}></div>
+      <div className="loadingArea">
+        <div class={`loader ${!noFixed ? `` : `noFixed`}`}></div>
+      </div>
     </>
   );
 };

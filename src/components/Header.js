@@ -45,7 +45,7 @@ const Header = ({ user, setUser }) => {
   };
 
   return (
-    <header className="header">
+    <header className={`header ${user.level === "admin" ? `navHidden` : ``}`}>
       <div className="inner">
         <div className="top">
           <button
