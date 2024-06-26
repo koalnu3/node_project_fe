@@ -13,6 +13,7 @@ const ClassPage = () => {
   const name = query.get("name") || "";
   const category = query.get("category") || "";
   const observerRef = useRef();
+  const [roundTabActive, setRoundTabActive] = useState("");
 
   useEffect(() => {
     setQuery({ name, category });
@@ -45,8 +46,6 @@ const ClassPage = () => {
     { name: "댄스", link: "#" },
     { name: "개발", link: "#" },
   ];
-
-  const [roundTabActive, setRoundTabActive] = useState("");
 
   const handleRoundTabClick = (category) => {
     setRoundTabActive(category);
