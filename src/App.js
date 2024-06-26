@@ -1,14 +1,26 @@
 import React from "react";
-import './App.css';
-import AppLayout from './Layout/AppLayout';
-import AppRouter from './routes/AppRouter';
+import { ToastContainer } from "react-toastify";
+import "./App.css";
+import AppRouter from "./routes/AppRouter";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <AppLayout>
-  
+    <>
       <AppRouter />
-  </AppLayout>  
+      <ToastContainer
+        position="bottom-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
   );
 }
 
