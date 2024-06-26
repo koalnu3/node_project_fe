@@ -30,7 +30,6 @@ const LoginPage = () => {
   const handleSubmit = async () => {
     try {
       const response = await loginUser({ email, password });
-      console.log("response", response);
       if (response.status !== 200) throw new Error(response.error);
       sessionStorage.setItem("token", response.data.token);
 
