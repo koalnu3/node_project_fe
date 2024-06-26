@@ -857,6 +857,17 @@ p {
 
 @media screen and (max-width: 1300px) {
 
+  .content,
+  .footer,
+  .header .top {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .menu .searchArea {
+    left: 262px;
+  }
+
   .classItem a {
     color: var(--color-gray);
     text-decoration: none;
@@ -990,302 +1001,290 @@ p {
     fill: var(--color-gray);
   }
 
-  @media screen and (max-width: 1300px) {
+}
 
-    .content,
-    .footer,
-    .header .top {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+@media screen and (max-width: 1000px) {
 
-    .menu .searchArea {
-      left: 262px;
-    }
+  /* classItem */
+  .classList ul li {
+    width: 33.33%;
   }
 
-  @media screen and (max-width: 1000px) {
+  .classItem .img {
+    height: 140px;
+  }
+}
 
-    /* classItem */
-    .classList ul li {
-      width: 33.33%;
-    }
+@media screen and (max-width: 769px) {
 
-    .classItem .img {
-      height: 140px;
-    }
+  .classItem .img {
+    height: 140px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+
+  input[type="text"],
+  input[type="password"],
+  input[type="search"] {
+    width: 100%;
   }
 
-  @media screen and (max-width: 769px) {
-
-    .classItem .img {
-      height: 140px;
-    }
+  textarea {
+    width: 100%;
   }
 
-  @media screen and (max-width: 769px) {
-
-    input[type="text"],
-    input[type="password"],
-    input[type="search"] {
-      width: 100%;
-    }
-
-    textarea {
-      width: 100%;
-    }
-
-    .wrap {
-      width: 100%;
-    }
-
-    .inner {
-      max-width: 100%;
-      margin: inherit;
-      width: 100%;
-    }
-
-    .footer {
-      padding: 20px 15px;
-      font-size: 14px;
-    }
-
-    .logo {
-      padding-top: 0;
-    }
-
-    .logo img {
-      height: 35px;
-    }
-
-    .header {
-      padding-top: 0;
-    }
-
-    .header .top {
-      width: 100%;
-      height: 65px;
-      padding: 15px 15px 15px 65px;
-    }
-
-    .util .utilBtn span b {
-      font-size: 13px;
-    }
-
-    .header .util .utilList {
-      right: 15px;
-      min-width: inherit;
-    }
-
-    .header .menuBtn {
-      position: absolute;
-      display: inline-block;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: transparent;
-      border: none;
-    }
-
-    .header .menuBtn svg {
-      width: 25px;
-      vertical-align: middle;
-    }
-
-    .header .menu {
-      display: none;
-      opacity: 0;
-      width: 0;
-      transition: 1s;
-    }
-
-    .header .menu.active {
-      display: block;
-      position: fixed;
-      z-index: 100;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      opacity: 1;
-    }
-
-    .menu .menuContent {
-      position: relative;
-      width: 80%;
-      height: 100%;
-      padding: 50px 20px 20px;
-      background-color: var(--background-color);
-    }
-
-    .menu .searchArea {
-      position: relative;
-      left: inherit;
-      top: inherit;
-    }
-
-    .searchArea .search {
-      width: 100%;
-      margin-bottom: 25px;
-    }
-
-    .searchArea .search input {
-      padding-right: 47px;
-    }
-
-    .menu .menuList {
-      margin: 0 -20px;
-    }
-
-    .menu .menuList ul {
-      flex-direction: column;
-    }
-
-    .menu .menuList a {
-      width: 100%;
-      padding: 12px 20px;
-      font-weight: bold;
-    }
-
-    .menu .menuList li.active a {
-      background-color: var(--color-primary);
-      color: var(--color-white);
-    }
-
-    .menu .closeBtn {
-      display: block;
-      position: absolute;
-      top: 12px;
-      right: 7px;
-      height: initial;
-      border: none;
-      background-color: transparent;
-      color: var(--color-gray);
-      font-size: 20px;
-    }
-
-    .content {
-      padding: 25px 15px;
-    }
-
-    /* tab */
-    .tabList {
-      margin: 0 -15px 20px;
-    }
-
-    .tabList li {
-      flex-grow: 1;
-    }
-
-    .tabList li .tab {
-      width: 100%;
-    }
-
-    /* roundTabList */
-    .roundTabList {
-      margin: 0 -15px 20px;
-      padding: 0 15px;
-      white-space: nowrap;
-      overflow-y: auto;
-    }
-
-    /* searchInput*/
-    .searchInput {
-      width: 100%;
-    }
-
-    .searchInput input {
-      padding-right: 47px;
-    }
-
-    /* classItem */
-    .classList ul li {
-      width: 50%;
-    }
-
-    .classItem .img {
-      height: 100px;
-    }
+  .wrap {
+    width: 100%;
   }
 
-  @keyframes l7 {
-    0% {
-      background-size: 20% 50%, 20% 50%, 20% 50%
-    }
-
-    20% {
-      background-size: 20% 20%, 20% 50%, 20% 50%
-    }
-
-    40% {
-      background-size: 20% 100%, 20% 20%, 20% 50%
-    }
-
-    60% {
-      background-size: 20% 50%, 20% 100%, 20% 20%
-    }
-
-    80% {
-      background-size: 20% 50%, 20% 50%, 20% 100%
-    }
-
-    100% {
-      background-size: 20% 50%, 20% 50%, 20% 50%
-    }
+  .inner {
+    max-width: 100%;
+    margin: inherit;
+    width: 100%;
   }
 
-  /* 가이드용 */
-  .guideTitle:first-child {
-    margin-top: 0;
+  .footer {
+    padding: 20px 15px;
+    font-size: 14px;
   }
 
-  .guideTitle {
-    font-weight: bold;
-    font-size: 22px;
-    margin: 20px 0 25px;
+  .logo {
+    padding-top: 0;
   }
 
-  hr {
-    margin: 25px 0;
-    border: 1px solid var(--border-color-default);
+  .logo img {
+    height: 35px;
   }
 
-  .colorList {
-    display: flex;
+  .header {
+    padding-top: 0;
   }
 
-  .colorList li {
-    display: flex;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid var(--border-color-default);
-    border-radius: var(--border-radius);
-    color: var(--color-white);
+  .header .top {
+    width: 100%;
+    height: 65px;
+    padding: 15px 15px 15px 65px;
+  }
+
+  .util .utilBtn span b {
     font-size: 13px;
   }
 
-  .colorList li:nth-child(1) {
+  .header .util .utilList {
+    right: 15px;
+    min-width: inherit;
+  }
+
+  .header .menuBtn {
+    position: absolute;
+    display: inline-block;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+  }
+
+  .header .menuBtn svg {
+    width: 25px;
+    vertical-align: middle;
+  }
+
+  .header .menu {
+    display: none;
+    opacity: 0;
+    width: 0;
+    transition: 1s;
+  }
+
+  .header .menu.active {
+    display: block;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+  }
+
+  .menu .menuContent {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    padding: 50px 20px 20px;
+    background-color: var(--background-color);
+  }
+
+  .menu .searchArea {
+    position: relative;
+    left: inherit;
+    top: inherit;
+  }
+
+  .searchArea .search {
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .searchArea .search input {
+    padding-right: 47px;
+  }
+
+  .menu .menuList {
+    margin: 0 -20px;
+  }
+
+  .menu .menuList ul {
+    flex-direction: column;
+  }
+
+  .menu .menuList a {
+    width: 100%;
+    padding: 12px 20px;
+    font-weight: bold;
+  }
+
+  .menu .menuList li.active a {
     background-color: var(--color-primary);
+    color: var(--color-white);
   }
 
-  .colorList li:nth-child(2) {
-    background-color: var(--color-gray);
+  .menu .closeBtn {
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: 7px;
+    height: initial;
+    border: none;
+    background-color: transparent;
+    color: var(--color-gray);
+    font-size: 20px;
   }
 
-  .colorList li:nth-child(3) {
-    background-color: var(--color-black);
+  .content {
+    padding: 25px 15px;
   }
 
-  .colorList li:nth-child(4) {
-    background-color: var(--color-white);
-    color: var(--color-black);
+  /* tab */
+  .tabList {
+    margin: 0 -15px 20px;
   }
 
-  .colorList li:nth-child(5) {
-    background-color: var(--color-light-gray);
-    color: var(--color-black);
+  .tabList li {
+    flex-grow: 1;
   }
+
+  .tabList li .tab {
+    width: 100%;
+  }
+
+  /* roundTabList */
+  .roundTabList {
+    margin: 0 -15px 20px;
+    padding: 0 15px;
+    white-space: nowrap;
+    overflow-y: auto;
+  }
+
+  /* searchInput*/
+  .searchInput {
+    width: 100%;
+  }
+
+  .searchInput input {
+    padding-right: 47px;
+  }
+
+  /* classItem */
+  .classList ul li {
+    width: 50%;
+  }
+
+  .classItem .img {
+    height: 100px;
+  }
+}
+
+@keyframes l7 {
+  0% {
+    background-size: 20% 50%, 20% 50%, 20% 50%
+  }
+
+  20% {
+    background-size: 20% 20%, 20% 50%, 20% 50%
+  }
+
+  40% {
+    background-size: 20% 100%, 20% 20%, 20% 50%
+  }
+
+  60% {
+    background-size: 20% 50%, 20% 100%, 20% 20%
+  }
+
+  80% {
+    background-size: 20% 50%, 20% 50%, 20% 100%
+  }
+
+  100% {
+    background-size: 20% 50%, 20% 50%, 20% 50%
+  }
+}
+
+/* 가이드용 */
+.guideTitle:first-child {
+  margin-top: 0;
+}
+
+.guideTitle {
+  font-weight: bold;
+  font-size: 22px;
+  margin: 20px 0 25px;
+}
+
+hr {
+  margin: 25px 0;
+  border: 1px solid var(--border-color-default);
+}
+
+.colorList {
+  display: flex;
+}
+
+.colorList li {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid var(--border-color-default);
+  border-radius: var(--border-radius);
+  color: var(--color-white);
+  font-size: 13px;
+}
+
+.colorList li:nth-child(1) {
+  background-color: var(--color-primary);
+}
+
+.colorList li:nth-child(2) {
+  background-color: var(--color-gray);
+}
+
+.colorList li:nth-child(3) {
+  background-color: var(--color-black);
+}
+
+.colorList li:nth-child(4) {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.colorList li:nth-child(5) {
+  background-color: var(--color-light-gray);
+  color: var(--color-black);
+}
