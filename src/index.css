@@ -143,6 +143,8 @@ input[type="search"] {
 }
 
 input[type="radio"] {
+  width: 20px;
+  height: 20px;
   accent-color: var(--color-primary);
   vertical-align: middle;
 }
@@ -297,11 +299,11 @@ button.white span::after {
 /* title */
 h1,
 h2,
-h2,
+h3,
 h4,
 h5,
 h6 {
-  /* font-weight: bold; */
+  font-weight: bold;
   line-height: 1.25;
 }
 
@@ -348,8 +350,10 @@ p {
 }
 
 .header {
+  position: relative;
   padding-top: 20px;
   border-bottom: 1px solid #ddd;
+  z-index: 10;
 }
 
 .header .inner {

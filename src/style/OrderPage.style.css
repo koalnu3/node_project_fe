@@ -1,12 +1,14 @@
 .red-text {
-  color: red;
+  /* color: red; */
+  color: #adadad;
 }
 
 .iconMore2 {
   display: inline-block;
   position: relative;
   padding-right: 15px;
-  width: 200px; /* 원하는 고정 너비로 설정하세요 */
+  width: 100%;
+  /* 원하는 고정 너비로 설정하세요 */
 }
 
 .iconMore2::after {
@@ -23,6 +25,16 @@
   transform: rotate(-45deg);
 }
 
+.couponSet {
+  position: relative;
+}
+
+.couponSet .order-payment>button {
+  width: 100%;
+  text-align: left;
+  padding: 5px 20px;
+}
+
 .coupon-modal {
   position: absolute;
   background: #fff;
@@ -30,7 +42,8 @@
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1001;
-  width: 250px; /* 원하는 너비로 설정하세요 */
+  width: 100%;
+  /* 원하는 너비로 설정하세요 */
 }
 
 .coupon-modal-header {
@@ -86,19 +99,57 @@
   color: var(--text-color);
   text-decoration: underline;
   cursor: pointer;
-  padding: 0;
-  margin-left: 10px; /* Optional: Add space between the text and button */
-}
-
-.view-button:hover {
-  /* text-decoration: none;  */
-  /* Optional: Remove underline on hover */
+  padding: 5px 10px;
+  margin: 2px -10px 0 10px;
+  height: inherit;
+  /* Optional: Add space between the text and button */
 }
 
 .receipt-list {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  /* justify-content: space-between; */
   width: 100%;
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid black;
+}
+
+
+.receipt-list li {
+  padding-bottom: 10px;
+}
+
+.receipt-list .receipt-item .price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.receipt-list .receipt-item:first-child .price {
+  color: var(--color-gray);
+}
+
+.receipt-list .receipt-item .unit,
+.receipt-item .unit {
+  display: inline-block;
+  margin-left: 5px;
+  color: var(--color-gray);
+  font-size: 14px;
+}
+
+.receipt-item.total {
+  font-size: 18px;
+  color: var(--color-gray);
+}
+
+.receipt-item.total .price {
+  color: var(--color-primary);
+  font-size: 24px;
+
+}
+
+.receipt-item.total .unit {
+  font-size: 16px;
 }
 
 .receipt-item {
@@ -110,9 +161,11 @@
 
 .payment-options {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   margin-top: 10px;
+  /* flex-direction: column; */
+
 }
 
 .payment-option {
@@ -126,15 +179,22 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
-  .payment-options {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.consentArea {
+  margin: 0 -25px -15px;
+  padding: 25px 25px 15px;
+  background-color: #e6e6e6;
+}
 
-  .payment-option {
-    margin-bottom: 10px;
-  }
+.consentArea>p {
+  margin-bottom: 6px;
+}
+
+.orderPage .btnArea {
+  margin-top: 30px;
+}
+
+.paymentBtn {
+  width: 300px;
 }
 
 .receipt-container {
@@ -144,15 +204,217 @@
 
 .order-payment {
   /* border: 1px solid gray; */
-  padding: 10px 24px;
+  /* padding: 10px 24px; */
+  padding: 10px 0;
 }
 
-.receipt-list {
-  list-style-type: none;
-  padding: 0;
-  border-bottom: 1px solid black;
+.payInfo {
+  margin-top: 30px;
+  display: flex;
+  border: 1px solid #cdcdcd;
+  border-radius: var(--border-radius);
+  /* flex-direction: column; */
+  /* width: 400px; */
 }
 
-.receipt-list li {
-  padding-bottom: 10px;
+.payInfo .left,
+.payInfo .right {
+  flex-grow: 1;
+  padding: 20px 25px 15px;
+}
+
+.payInfo .right {
+  border-left: 1px solid #cdcdcd;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background-color: #f1f1f1;
+}
+
+.payInfo h2 {
+  margin-bottom: 15px;
+}
+
+.orderList {
+  display: flex;
+  margin-top: 25px;
+  flex-direction: column;
+}
+
+.orderList>ul {
+  flex-grow: 1;
+  border-top: 1px solid var(--color-gray);
+  padding-top: 20px;
+}
+
+.orderList>ul>li {
+  display: flex;
+}
+
+.orderList .detailImg {
+  width: 300px;
+  height: 200px;
+}
+
+.orderList .classInfo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 0 0 0 25px;
+}
+
+.orderList .classInfo .class {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.orderList .classInfo .title {
+  display: block;
+  font-size: 25px;
+  min-height: 60px;
+  /* padding-bottom: 20px;
+  border-bottom: 1px solid #ddd; */
+}
+
+.orderList .classInfo .price {
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: right;
+}
+
+.orderList .classInfo .price .unit {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 16px;
+}
+
+.orderList .classInfo .noticeBox {
+  margin: 15px 0 0;
+}
+
+@media (max-width: 1000px) {
+  .payInfo .order-payment .payment-options {
+    flex-direction: column;
+    align-items: inherit;
+  }
+
+  .left .order-payment {
+    padding: 0;
+  }
+
+  .payment-option {
+    margin-bottom: 10px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .orderPage>.h2 {
+    margin-top: 0;
+  }
+
+  .payment-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .orderList>ul {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .orderList>ul>li {
+    flex-direction: column;
+  }
+
+  .orderList .detailImg {
+    width: 100%;
+  }
+
+  .orderList .classInfo {
+    padding-top: 15px;
+    padding-left: 0;
+  }
+
+  .orderList .classInfo .title {
+    font-size: 20px;
+    min-height: inherit;
+  }
+
+  .orderList .classInfo .price {
+    font-size: 17px;
+  }
+
+  .orderList .classInfo .noticeBox {
+    padding: 15px;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .payInfo {
+    flex-direction: column;
+    margin-top: 20px;
+    border-width: 1px 0 0;
+    border-radius: 0;
+  }
+
+  .payInfo .left {
+    padding: 5px 0 15px;
+    padding-bottom: 20px;
+  }
+
+  .payInfo .right {
+    margin: 0 -15px;
+    padding: 0 15px 15px;
+  }
+
+  .receipt-list .receipt-item .price {
+    font-size: 18px;
+  }
+
+  .receipt-item.total .price {
+    font-size: 21px;
+  }
+
+  .order-payment .receipt-list .receipt-item>div {
+    font-size: 15px;
+  }
+
+  .receipt-item.total {
+    font-size: 16px;
+  }
+
+  .receipt-list li {
+    padding-bottom: 0;
+  }
+
+  .consentArea {
+    margin: 0 -15px -15px;
+    padding: 15px;
+  }
+
+  .consentArea>p {
+    word-break: keep-all;
+    font-size: 14px;
+  }
+
+  .consentArea .view-button {
+    padding: 3px 10px;
+  }
+
+  .consentArea .subText2 {
+    font-size: 13px;
+  }
+
+  .paymentBtn {
+    width: 100%;
+  }
+}
+
+@media (hover: hover) {
+  .view-button:hover {
+    background-color: transparent;
+    font-weight: bold;
+  }
 }
