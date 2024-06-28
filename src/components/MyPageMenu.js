@@ -15,13 +15,13 @@ const MyPageMenu = ({ menu, selectMenu, setSelectMenu, index }) => {
       <div
         style={{
           color:
-            menu.title === selectMenu.title
+            menu.name === selectMenu.name
               ? "var(--color-primary)"
               : "var(--color-gray)",
           fontWeight: 600,
         }}
       >
-        {menu.title}
+        {menu.name}
       </div>
       <div
         style={{
@@ -33,7 +33,7 @@ const MyPageMenu = ({ menu, selectMenu, setSelectMenu, index }) => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
           fill={
-            menu.title === selectMenu.title
+            menu.name === selectMenu.name
               ? "var(--color-primary)"
               : "var(--color-gray)"
           }

@@ -104,7 +104,7 @@ const AppRouter = () => {
               path="/teacherMypage"
               element={
                 <MainLayout>
-                  <TeacherMyPage />
+                  <TeacherMyPage user={user} setUser={setUser} />
                 </MainLayout>
               }
             />
