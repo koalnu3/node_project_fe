@@ -8,6 +8,7 @@ import NoData from "../components/NoData";
 import Loading from "../components/Loading";
 import Content from "../components/Content";
 import { createOrder } from "../hooks/useOrder";
+import Modal from "../components/Modal";
 
 const OrderPage = () => {
   const [selectedPayment, setSelectedPayment] = useState("card");
@@ -17,10 +18,11 @@ const OrderPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const couponButtonRef = useRef(null);
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const classDetail = location.state?.classDetail;
+
+  const [timer, setTimer] = useState(5); // 타이머를 위한 상태 추가
+  const [modalVisible, setModalVisible] = useState(true);
 
   const handlePaymentChange = (event) => {
     setSelectedPayment(event.target.value);
@@ -36,22 +38,6 @@ const OrderPage = () => {
     setCouponModalVisible(false);
   };
 
-  // const [id, setId] = useState("6676c6d1f6dbee872e0e635d");
-  // const { data, isLoading, isError, error } = useGetClassDetailQuery({ id });
-
-  // useEffect(() => {
-  //   if (data && data.data) {
-  //     const price = data.data.price || 0;
-  //     const discountAmount = calculateDiscount(price, discount);
-  //     setTotalPrice(price + discountAmount);
-  //   }
-  // }, [data, discount]);
-  // if (isLoading) {
-  //   return <Loading noBg noFixed />;
-  // }
-  // if (isError) {
-  //   return <NoData icon>Error: {error.message}</NoData>;
-
   useEffect(() => {
     if (classDetail) {
       const price = classDetail.price || 0;
@@ -59,6 +45,21 @@ const OrderPage = () => {
       setTotalPrice(price + discountAmount);
     }
   }, [classDetail, discount]);
+
+  useEffect(() => {
+    if (modalVisible) {
+      const countdown = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 1) {
+            clearInterval(countdown);
+            handleHistoryClick();
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+      return () => clearInterval(countdown);
+    }
+  }, [modalVisible]);
 
   const calculateDiscount = (price, discount) => {
     if (discount === 0) {
@@ -69,20 +70,31 @@ const OrderPage = () => {
 
   const handlePaymentClick = async () => {
     try {
-      const response = await createOrder({
-        classId: classDetail._id,
-        price: totalPrice,
-        payMethod: selectedPayment,
-      });
-      if (response.status !== 200) throw new Error(response.error);
-      toast.success("결제가 완료되었습니다!");
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      // const response = await createOrder({
+      //   classId: classDetail._id,
+      //   price: totalPrice,
+      //   payMethod: selectedPayment,
+      // });
+      // if (response.status !== 200) throw new Error(response.error);
+      // toast.success("결제가 완료되었습니다!");
+      document.querySelector(`#modalSmallTest`).showModal();
+      // setTimeout(() => {
+      //   navigate("/");
+      // }, 1000);
     } catch (error) {
       toast.error(error.error);
       console.log("error", error);
     }
+  };
+
+  const handleHomeClick = () => {
+    setModalVisible(false);
+    navigate("/");
+  };
+
+  const handleHistoryClick = () => {
+    setModalVisible(false);
+    navigate("/class");
   };
 
   if (!classDetail) {
@@ -310,7 +322,6 @@ const OrderPage = () => {
           </div>
         </div>
       </div>
-      {/* <h2 className="h2">{data?.data.name}</h2> */}
 
       <div className="btnArea">
         <button
@@ -321,6 +332,46 @@ const OrderPage = () => {
           결제하기
         </button>
       </div>
+
+      {modalVisible && (
+        <Modal id="modalSmallTest" size="small">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width="50"
+            height="50"
+            style={{ marginBottom: "10px" }}
+          >
+            <path
+              fill="#d60036"
+              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
+            />
+          </svg>
+          <h1>결제가 완료되었습니다.</h1>
+          <hr />
+          <div style={{ textAlign: "left", marginLeft: "10px" }}>
+            <h1 style={{ marginBottom: "5px", display: "inline-block" }}>
+              클래스명 : {classDetail.name}
+            </h1>
+          </div>
+          <div style={{ textAlign: "left", marginLeft: "10px" }}>
+            <h1 style={{ display: "inline-block" }}>
+              결제금액 : {totalPrice.toLocaleString()} 원
+            </h1>
+          </div>
+          <hr />
+          <p>{timer}초 후에 결제 내역으로 이동합니다.</p>
+          <div className="timer-bar"></div>
+          <div className="btnArea full">
+            <button type="button" className="gray" onClick={handleHomeClick}>
+              홈으로
+            </button>
+            <button type="button" onClick={handleHistoryClick}>
+              결제내역
+            </button>
+          </div>
+        </Modal>
+      )}
     </Content>
   );
 };

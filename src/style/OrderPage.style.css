@@ -1,3 +1,19 @@
+.timer-bar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-primary);
+  animation: countdown 3.4s linear forwards;
+}
+
+@keyframes countdown {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
 .red-text {
   /* color: red; */
   color: #adadad;
@@ -29,7 +45,7 @@
   position: relative;
 }
 
-.couponSet .order-payment>button {
+.couponSet .order-payment > button {
   width: 100%;
   text-align: left;
   padding: 5px 20px;
@@ -115,7 +131,6 @@
   border-bottom: 1px solid black;
 }
 
-
 .receipt-list li {
   padding-bottom: 10px;
 }
@@ -145,7 +160,6 @@
 .receipt-item.total .price {
   color: var(--color-primary);
   font-size: 24px;
-
 }
 
 .receipt-item.total .unit {
@@ -165,7 +179,6 @@
   align-items: center;
   margin-top: 10px;
   /* flex-direction: column; */
-
 }
 
 .payment-option {
@@ -185,7 +198,7 @@
   background-color: #e6e6e6;
 }
 
-.consentArea>p {
+.consentArea > p {
   margin-bottom: 6px;
 }
 
@@ -239,13 +252,13 @@
   flex-direction: column;
 }
 
-.orderList>ul {
+.orderList > ul {
   flex-grow: 1;
   border-top: 1px solid var(--color-gray);
   padding-top: 20px;
 }
 
-.orderList>ul>li {
+.orderList > ul > li {
   display: flex;
 }
 
@@ -306,11 +319,10 @@
   .payment-option {
     margin-bottom: 10px;
   }
-
 }
 
 @media (max-width: 768px) {
-  .orderPage>.h2 {
+  .orderPage > .h2 {
     margin-top: 0;
   }
 
@@ -319,12 +331,12 @@
     align-items: flex-start;
   }
 
-  .orderList>ul {
+  .orderList > ul {
     border-top: none;
     padding-top: 0;
   }
 
-  .orderList>ul>li {
+  .orderList > ul > li {
     flex-direction: column;
   }
 
@@ -377,7 +389,7 @@
     font-size: 21px;
   }
 
-  .order-payment .receipt-list .receipt-item>div {
+  .order-payment .receipt-list .receipt-item > div {
     font-size: 15px;
   }
 
@@ -394,7 +406,7 @@
     padding: 15px;
   }
 
-  .consentArea>p {
+  .consentArea > p {
     word-break: keep-all;
     font-size: 14px;
   }
