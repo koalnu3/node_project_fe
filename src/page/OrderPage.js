@@ -361,7 +361,9 @@ const OrderPage = () => {
           </h1>
         </div>
         <hr />
-        <p>{timer}초 후에 결제 내역으로 이동합니다.</p>
+        <p style={{ marginBottom: "10px" }}>
+          {timer}초 후에 결제 내역으로 이동합니다.
+        </p>
         <div className="timer-bar"></div>
         <div className="btnArea full">
           <button type="button" className="gray" onClick={handleHomeClick}>
