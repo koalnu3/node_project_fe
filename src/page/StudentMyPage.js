@@ -10,6 +10,7 @@ import api from "../utils/api";
 import { toast } from "react-toastify";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
 import Tab from "../components/Tab";
+import MyPageClassComponent from "../components/MyPageClassComponent";
 
 const StudentMyPage = ({ user, setUser }) => {
   //TODO test
@@ -75,7 +76,6 @@ const StudentMyPage = ({ user, setUser }) => {
         return toast.error("닉네임은 3자 이상 입력해주세요");
       }
       const response = await api.put(`/user`, { nickname });
-      console.log("response", response);
       if (response.status !== 200) throw new Error(response.error);
 
       setUser((prev) => ({ ...prev, nickname: response.data.data.nickname }));
@@ -99,6 +99,7 @@ const StudentMyPage = ({ user, setUser }) => {
       toast.success("이미지 저장이 완료되었습니다.");
     } catch (error) {
       console.log("error", error);
+      setImage("");
       toast.error("이미지 저장에 실패했습니다.");
     }
   };
@@ -309,51 +310,13 @@ const StudentMyPage = ({ user, setUser }) => {
             <>
               <div className="h3">내 강의실</div>
 
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  overflowY: "auto",
-                }}
-              >
+              <div className="myClass">
                 {testClassData.map((data, index) => {
-                  return (
-                    <div key={index}>
-                      <div
-                        style={{
-                          padding: "10px 10px",
-                        }}
-                      >
-                        <img
-                          style={{
-                            width: "250px",
-                            height: "170px",
-                            backgroundColor: "gray",
-                          }}
-                        />
-                        <div style={{ marginTop: "5px", fontWeight: "600" }}>
-                          {data.title}
-                        </div>
-                        <div
-                          style={{
-                            marginTop: "5px",
-                            color: "var(--color-gray)",
-                          }}
-                        >
-                          {data.sub}
-                        </div>
-                        <div
-                          style={{
-                            marginTop: "5px",
-                            fontWeight: "600",
-                            fontSize: "15px",
-                          }}
-                        >
-                          {data.price.toLocaleString()}원
-                        </div>
-                      </div>
-                    </div>
-                  );
+                  <MyPageClassComponent
+                    data={data}
+                    key={index}
+                    setStatus={""}
+                  />;
                 })}
               </div>
             </>

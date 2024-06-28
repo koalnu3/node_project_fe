@@ -32,6 +32,18 @@ const Header = ({ user, setUser }) => {
   const handleMenuActive = (event, name) => {
     setmenuListActive(name);
   };
+
+  const enterMyPage = () => {
+    if (user.level === "customer") {
+      navigate("/studentMypage");
+    } else if (user.level === "teacher") {
+      navigate("/teacherMypage");
+    } else if (user.level === "admin") {
+      navigate("/admin");
+    } else {
+      return toast.error("강사 승인 대기중입니다");
+    }
+  };
   return (
     <header className="header">
       <div className="inner">
@@ -67,16 +79,7 @@ const Header = ({ user, setUser }) => {
                 </button>
                 <ul className="utilList">
                   <li>
-                    <div
-                      onClick={() => {
-                        user.level === "customer"
-                          ? navigate("/studentMypage")
-                          : user.level === "teacher"
-                          ? navigate("/teacherMypage")
-                          : navigate("/admin");
-                      }}
-                      style={{ cursor: "pointer" }}
-                    >
+                    <div onClick={enterMyPage} style={{ cursor: "pointer" }}>
                       마이페이지
                     </div>
                   </li>

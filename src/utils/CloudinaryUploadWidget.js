@@ -7,7 +7,7 @@ class CloudinaryUploadWidget extends Component {
   widget = null;
 
   componentDidMount() {
-    this.widget = window.cloudinary.createUploadWidget(
+    this.widget = window.cloudinary?.createUploadWidget(
       {
         cloudName: CLOUDNAME,
         uploadPreset: UPLOADPRESET,
@@ -16,7 +16,8 @@ class CloudinaryUploadWidget extends Component {
         if (!error && result && result.event === "success") {
           console.log("Done! Here is the image info: ", result.info);
           this.props.uploadImage(result.info.secure_url);
-          this.props.handleUploadImage(result.info.secure_url);
+          this.props.handleUploadImage &&
+            this.props.handleUploadImage(result.info.secure_url);
         }
       }
     );
