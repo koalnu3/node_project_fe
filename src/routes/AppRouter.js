@@ -124,7 +124,7 @@ const AppRouter = () => {
               }
             />
           </Route>
-          <Route element={<PrivateRoute permissionLevels={["admin"]} />}>
+          {/* <Route element={<PrivateRoute permissionLevels={["admin"]} />}> */}
             <Route
               path="/admin"
               element={
@@ -133,7 +133,7 @@ const AppRouter = () => {
                 </MainLayout>
               }
             />
-          </Route>
+          {/* </Route> */}
         </>
       )}
       <Route

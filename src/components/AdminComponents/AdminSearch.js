@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import '../../style/AdminPage.style.css';
 import Loading from '../Loading';
 import UserList from './UserList';
+import TeacherList from './TeacherList';
 import useAdminPageStore from '../../store/useAdminPageStore';
 import { useGetUserListQuery } from '../../hooks/useGetUserList';
+import UnsignedList from './UnsignedList';
 
 const AdminSearch = ({ userList, isLoading, }) => {
     const {
@@ -16,22 +18,17 @@ const AdminSearch = ({ userList, isLoading, }) => {
         inputName,
         setInputName,
         setNickName,
-      } = useAdminPageStore();
+    } = useAdminPageStore();
 
 
     const handleNameChange = async () => {
         await setNickName(inputName);
     };
 
-   
-    const { data, authorIsLoading, isError, error } = useGetUserListQuery({
-        page,
-        email,
-        nickname,
-        level : "unsigned",
-        status
-      });
 
+    if (isLoading) {
+        return <Loading noBg={true} noFixed={true} />;
+    }
 
     return (
         <div className="admin-search-container">
@@ -59,11 +56,7 @@ const AdminSearch = ({ userList, isLoading, }) => {
                 level == "teacher"
                     ? <div >
                         <div className='h4'>신규 강사 요청</div>
-                        {
-                            authorIsLoading == true
-                                ? <Loading noBg={true} noFixed={true} />
-                                : <UserList userList={data?.data} isLoading={isLoading}/>
-                        }
+                        <UnsignedList />
                     </div>
                     : null
             }
@@ -72,11 +65,13 @@ const AdminSearch = ({ userList, isLoading, }) => {
             <div style={{ marginTop: '30px' }} className='h4'>
                 {level == "teacher" ? "강사 리스트" : "회원 리스트"}
             </div>
-            {
-                isLoading == true
-                    ? <Loading noBg={true} noFixed={true} />
-                    : <UserList userList={userList}/>
-            }
+            <div>
+                {
+                    level === 'teacher'
+                        ? <TeacherList userList={userList} />
+                        : <UserList userList={userList} />
+                }
+            </div>
 
         </div>
     );

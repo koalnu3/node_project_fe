@@ -6,18 +6,17 @@ import AdminSearch from './AdminSearch';
 import Tab from '../Tab';
 import { useGetUserListQuery } from '../../hooks/useGetUserList';
 import useAdminPageStore from '../../store/useAdminPageStore';
-
+import TeacherInformation from './TeacherInformation';
+import { useEffect } from 'react';
 const HandleTeacher = () => {
   const [tabActive, setTabActive] = useState("");
 
   const {
     page,
-    email,
     nickname,
     level,
-    status,
     selectedUser,
-    selectedUserId,
+    selectedUserId
   } = useAdminPageStore();
 
   const tabList = [
@@ -25,35 +24,29 @@ const HandleTeacher = () => {
     { name: "클래스", link: "#" }
   ];
 
-  const { data, isLoading, isError, error } = useGetUserListQuery({
+
+  const { data, isLoading, isError, error, refetch } = useGetUserListQuery({
     page,
-    email,
     nickname,
     level,
-    status
   });
+
+  useEffect(() => {
+    if (selectedUserId) {
+      refetch();
+    }
+  }, [selectedUserId, refetch]);
 
  
 
   return (
     <div>
-      <Row>
-        <Col md={4}>
           <AdminSearch
             userList={data?.data}
             isLoading={isLoading}
-            
           />
-        </Col>
-        <Col md={8}>
-          <Row>
-            <Col md={6}>
               <AdminPageProfile />
-            </Col>
-            <Col md={6}>
               <AdminInfo  />
-            </Col>
-            <Col>
               <Tab
                 list={tabList}
                 tabActive={tabActive}
@@ -63,9 +56,9 @@ const HandleTeacher = () => {
               />
               {tabActive === "강사정보" ? (
                 <div>
-                  <h4>인사말</h4>
+                  <div className='h4'>인사말</div>
                   <p>{selectedUser?.introduction}</p>
-                  <h4>이력</h4>
+                  <div className='h4'>이력</div>
                   <ol>
                     {selectedUser?.career.map((item, index) => (
                       <li key={index}>{item}</li>
@@ -73,12 +66,8 @@ const HandleTeacher = () => {
                   </ol>
                 </div>
               ) : (
-                <h4>클래스</h4>
+                  <TeacherInformation/>
               )}
-            </Col>
-          </Row>
-        </Col>
-      </Row>
     </div>
   );
 };

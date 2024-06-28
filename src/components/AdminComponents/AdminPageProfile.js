@@ -9,13 +9,15 @@ const AdminPageProfile = () => {
         selectedUser,
       } = useAdminPageStore();
 
+      if (!selectedUser) {
+        return <div></div>;
+    }
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('ko-KR', options);
       }
-
-    console.log(selectedUser)
+      
     return (
         <div>
             <div className="profile-container-header">
