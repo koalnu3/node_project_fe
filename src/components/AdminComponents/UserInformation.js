@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGetOrderListByIdQuery } from '../../hooks/useGetOrderListById';
 import useAdminPageStore from '../../store/useAdminPageStore';
 import '../../style/AdminPage.style.css';
-import { useState } from 'react';
+import api from '../../utils/api';
 const UserInformation = () => {
   const { selectedUserId } = useAdminPageStore();
 
@@ -23,12 +23,22 @@ const UserInformation = () => {
     return new Date(dateString).toLocaleDateString('ko-KR', options);
   };
 
-
   const handleStatusChange = (orderId, newStatus) => {
     setOrderStatus((prevStatus) => ({
       ...prevStatus,
       [orderId]: newStatus,
     }));
+  };
+
+  const handleSaveStatus = async (orderId) => {
+    const newStatus = orderStatus[orderId];
+    try {
+      await api.put(`/order/${orderId}`, { status: newStatus });
+      alert('주문정보 수정 성공');
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      alert('Error updating status');
+    }
   };
 
   return (
@@ -37,10 +47,11 @@ const UserInformation = () => {
       {data?.orderList?.length > 0 ? (
         <div className='class-list'>
           {data?.orderList.map(order => (
-            <div key={order._id} className='class-item'>
-              <img src={order.classId?.image[0]} alt="" className="class-item-image" />
-              <p className="class-item-name">{order.classId?.name}</p>
-            </div>
+            order.status == "payment" ?
+              <div key={order._id} className='class-item'>
+                <img src={order.classId?.image[0]} alt="" className="class-item-image" />
+                <p className="class-item-name">{order.classId?.name}</p>
+              </div> : null
           ))}
         </div>
       ) : (
@@ -70,6 +81,12 @@ const UserInformation = () => {
                     <option value="payment">payment</option>
                     <option value="refund">refund</option>
                   </select>
+                  <button
+                    className='save-button'
+                    onClick={() => handleSaveStatus(order._id)}
+                  >
+                    Save
+                  </button>
                 </div>
                 <div className='header-status'>{order.payMethod}</div>
                 <div className='header-status'>{formatDate(order.createdAt)}</div>

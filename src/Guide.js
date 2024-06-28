@@ -4,6 +4,7 @@ import Tab from "./components/Tab";
 import RoundTab from "./components/RoundTab";
 import NoData from "./components/NoData";
 import Loading from "./components/Loading";
+import Modal from "./components/Modal";
 
 const Guide = () => {
   const tabList = [
@@ -49,6 +50,10 @@ const Guide = () => {
   const [tabActive2, setTabActive2] = useState("");
   const [roundTabActive, setRoundTabActive] = useState("");
   const [roundTabActive2, setRoundTabActive2] = useState("");
+
+  const handleModal = (id) => {
+    document.querySelector(`#${id}`).showModal();
+  };
 
   return (
     <Content>
@@ -201,6 +206,30 @@ const Guide = () => {
         <br />* 둘 다 안 쓸경우 검정 배경에, 로딩 가운데 고정
       </p>
       <Loading noBg noFixed />
+
+      <hr />
+      <h2 className="guideTitle">모달</h2>
+      <div className="btnArea left">
+        <button type="button" onClick={() => handleModal("modalTest")}>
+          모달열기
+        </button>
+        <button type="button" onClick={() => handleModal("modalTitleTest")}>
+          타이틀 모달열기
+        </button>
+        <button type="button" onClick={() => handleModal("modalSmallTest")}>
+          small 모달열기
+        </button>
+      </div>
+      <Modal id="modalTest">모달에 들어갈 내용을 적어주시면 됩니다!</Modal>
+      <Modal id="modalTitleTest" title="모달 제목입니다.">
+        제목이 있는 모달입니다.
+      </Modal>
+      <Modal id="modalSmallTest" size="small" title="모달 제목">
+        <p>모달 작은 사이즈</p>
+        <div className="btnArea full">
+          <button type="button">확인</button>
+        </div>
+      </Modal>
     </Content>
   );
 };

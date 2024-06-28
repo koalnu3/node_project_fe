@@ -89,16 +89,7 @@ const AppRouter = () => {
 
       {!!user._id && (
         <>
-          <Route
-            element={
-              <PrivateRoute
-                permissionLevels={
-                  user && user.level === "customer" ? ["customer"] : []
-                }
-                user={user}
-              />
-            }
-          >
+          <Route element={<PrivateRoute user={user} />}>
             <Route
               path="/studentMypage"
               element={
@@ -108,18 +99,12 @@ const AppRouter = () => {
               }
             />
           </Route>
-          <Route
-            element={
-              <PrivateRoute
-                permissionLevels={[user.level === "teacher" && "teacher"]}
-              />
-            }
-          >
+          <Route element={<PrivateRoute user={user} />}>
             <Route
               path="/teacherMypage"
               element={
                 <MainLayout>
-                  <TeacherMyPage />
+                  <TeacherMyPage user={user} setUser={setUser} />
                 </MainLayout>
               }
             />
