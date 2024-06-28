@@ -22,7 +22,7 @@ const OrderPage = () => {
   const classDetail = location.state?.classDetail;
 
   const [timer, setTimer] = useState(5); // 타이머를 위한 상태 추가
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handlePaymentChange = (event) => {
     setSelectedPayment(event.target.value);
@@ -70,13 +70,14 @@ const OrderPage = () => {
 
   const handlePaymentClick = async () => {
     try {
-      // const response = await createOrder({
-      //   classId: classDetail._id,
-      //   price: totalPrice,
-      //   payMethod: selectedPayment,
-      // });
-      // if (response.status !== 200) throw new Error(response.error);
+      const response = await createOrder({
+        classId: classDetail._id,
+        price: totalPrice,
+        payMethod: selectedPayment,
+      });
+      if (response.status !== 200) throw new Error(response.error);
       // toast.success("결제가 완료되었습니다!");
+      setModalVisible(true);
       document.querySelector(`#modalSmallTest`).showModal();
       // setTimeout(() => {
       //   navigate("/");
@@ -333,45 +334,45 @@ const OrderPage = () => {
         </button>
       </div>
 
-      {modalVisible && (
-        <Modal id="modalSmallTest" size="small">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            width="50"
-            height="50"
-            style={{ marginBottom: "10px" }}
-          >
-            <path
-              fill="#d60036"
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
-            />
-          </svg>
-          <h1>결제가 완료되었습니다.</h1>
-          <hr />
-          <div style={{ textAlign: "left", marginLeft: "10px" }}>
-            <h1 style={{ marginBottom: "5px", display: "inline-block" }}>
-              클래스명 : {classDetail.name}
-            </h1>
-          </div>
-          <div style={{ textAlign: "left", marginLeft: "10px" }}>
-            <h1 style={{ display: "inline-block" }}>
-              결제금액 : {totalPrice.toLocaleString()} 원
-            </h1>
-          </div>
-          <hr />
-          <p>{timer}초 후에 결제 내역으로 이동합니다.</p>
-          <div className="timer-bar"></div>
-          <div className="btnArea full">
-            <button type="button" className="gray" onClick={handleHomeClick}>
-              홈으로
-            </button>
-            <button type="button" onClick={handleHistoryClick}>
-              결제내역
-            </button>
-          </div>
-        </Modal>
-      )}
+      {/* {modalVisible && ( */}
+      <Modal id="modalSmallTest" size="small">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          width="50"
+          height="50"
+          style={{ marginBottom: "10px" }}
+        >
+          <path
+            fill="#d60036"
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
+          />
+        </svg>
+        <h1>결제가 완료되었습니다.</h1>
+        <hr />
+        <div style={{ textAlign: "left", marginLeft: "10px" }}>
+          <h1 style={{ marginBottom: "5px", display: "inline-block" }}>
+            클래스명 : {classDetail.name}
+          </h1>
+        </div>
+        <div style={{ textAlign: "left", marginLeft: "10px" }}>
+          <h1 style={{ display: "inline-block" }}>
+            결제금액 : {totalPrice.toLocaleString()} 원
+          </h1>
+        </div>
+        <hr />
+        <p>{timer}초 후에 결제 내역으로 이동합니다.</p>
+        <div className="timer-bar"></div>
+        <div className="btnArea full">
+          <button type="button" className="gray" onClick={handleHomeClick}>
+            홈으로
+          </button>
+          <button type="button" onClick={handleHistoryClick}>
+            결제내역
+          </button>
+        </div>
+      </Modal>
+      {/* )} */}
     </Content>
   );
 };
