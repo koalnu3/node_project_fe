@@ -1,76 +1,59 @@
-import React, { useEffect } from 'react'
-import { Row, Col } from 'react-bootstrap'
-import ClassList from '../ClassList'
-import AdminPageProfile from './AdminPageProfile'
-import AdminInfo from './AdminInfo'
-import AdminSearch from './AdminSearch'
-import { useState } from 'react'
-import Tab from '../Tab'
-import { useGetUserListQuery } from '../../hooks/useGetUserList'
-import useAdminPageStore from '../../store/useAdminPageStore'
-
+import React, { useEffect, useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
+import ClassList from '../ClassList';
+import AdminPageProfile from './AdminPageProfile';
+import AdminInfo from './AdminInfo';
+import AdminSearch from './AdminSearch';
+import Tab from '../Tab';
+import { useGetUserListQuery } from '../../hooks/useGetUserList';
+import useAdminPageStore from '../../store/useAdminPageStore';
+import UserInformation from './UserInformation';
 
 const HandleUser = () => {
-
-  const [tabActive, setTabActive] = useState("");
-  const tabList = [
-    { name: "회원정보", link: "#" }
-  ]
+  const [tabActive, setTabActive] = useState('');
+  const tabList = [{ name: '회원정보', link: '#' }];
 
   const {
     page,
-    setPage,
-    email,
     nickname,
     level,
-    status,
-    selectedUser,
     selectedUserId,
-  } = useAdminPageStore()
+  } = useAdminPageStore();
 
-  const { data, isLoading, isError, error } = useGetUserListQuery({
+  const { data, isLoading, isError, error, refetch } = useGetUserListQuery({
     page,
-    email,
     nickname,
     level,
-    status
   });
-  
+
+  useEffect(() => {
+    if (selectedUserId) {
+      refetch();
+    }
+  }, [selectedUserId, refetch]);
 
   return (
     <div>
-      <Row>
-        <Col md={4}>
-          <AdminSearch
-            userList={data?.data}
-            isLoading={isLoading}
-          />
-        </Col>
-        <Col md={8}>
-          <Row>
-            <Col lg={6}>
-              <AdminPageProfile/>
-            </Col>
-            <Col lg={6}>
-              <AdminInfo />
-            </Col>
-            <Col>
-              <Tab
-                list={tabList}
-                tabActive={tabActive}
-                setTabActive={setTabActive}
-                tagType="a"
-                preventDefault={true}
-              />
-              <div className='h4'>수강중인 강의</div>
+      <AdminSearch
+        userList={data?.data}
+        isLoading={isLoading}
+      />
 
-              <div className='h4'>결제내역</div>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <AdminPageProfile />
+
+      <AdminInfo />
+
+      <Tab
+        list={tabList}
+        tabActive={tabActive}
+        setTabActive={setTabActive}
+        tagType="a"
+        preventDefault={true}
+      />
+
+      <UserInformation />
     </div>
-  )
-}
+  );
+};
 
-export default HandleUser
+export default HandleUser;

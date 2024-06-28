@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import '../../style/AdminPage.style.css';
+import { useQueryClient } from "@tanstack/react-query";
 import useAdminPageStore from '../../store/useAdminPageStore';
+import api from '../../utils/api';
+import Loading from '../Loading';
 
-const UserList = ({ userList }) => {
+const TeacherList = ({ userList }) => {
   const { selectedUserId, setSelectedUserId, setSelectedUser, setUserList } = useAdminPageStore();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (userList && selectedUserId) {
@@ -13,7 +17,16 @@ const UserList = ({ userList }) => {
   }, [selectedUserId, userList, setSelectedUser]);
 
 
-  console.log(userList)
+  const handleRevokeApproval = async (userId) => {
+    try {
+      await api.put(`/user/${userId}`, { level: 'unsigned' })
+      setUserList(prevList => prevList.map(user => user._id === userId ? { ...user, level: 'unsigned' } : user))
+      queryClient.invalidateQueries("get-userList")
+    } catch (error) {
+      console.error("Error revoking approval:", error)
+    }
+  };
+
   
 
   return (
@@ -21,7 +34,7 @@ const UserList = ({ userList }) => {
       <div className="user-list-header">
         <div className="header-name">회원명</div>
         <div className="header-phone">전화번호</div>
-        <div className="header-status"></div>
+        <div className="header-status">승인</div>
       </div>
       <div className="user-list-items">
         {userList?.map((user, index) => (
@@ -35,7 +48,7 @@ const UserList = ({ userList }) => {
             <div className="user-name">{user.nickname}</div>
             <div className="user-phone">{user.phoneNumber}</div>
             <div className="user-status">
-            
+                <span className='small' onClick={() => handleRevokeApproval(user._id)}>승인취소</span>
             </div>
           </div>
         ))}
@@ -44,4 +57,4 @@ const UserList = ({ userList }) => {
   );
 };
 
-export default UserList;
+export default TeacherList;

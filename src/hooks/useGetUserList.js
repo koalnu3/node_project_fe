@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
-const fetchGetUserList = ({ page, email, nickname, level, status }) => {
-  return api.get(`/user?page=${page}&email=${email}&nickname=${nickname}&level=${level}&status=${status}`);
+const fetchGetUserList = ({ page, nickname, level }) => {
+  return api.get(`/user?page=${page}&nickname=${nickname}&level=${level}`);
 };
 
-export const useGetUserListQuery = ({ page, email, nickname, level, status }) => {
+export const useGetUserListQuery = ({ page, nickname, level }) => {
   return useQuery({
-    queryKey: ["get-userList", { page, email, nickname, level, status }],
-    queryFn: () => fetchGetUserList({ page, email, nickname, level, status }),
+    queryKey: ["get-userList", { page, nickname, level }],
+    queryFn: () => fetchGetUserList({ page, nickname, level }),
     select: (result) => result.data,
   });
 };
