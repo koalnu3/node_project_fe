@@ -90,9 +90,9 @@ const StudentMyPage = ({ user, setUser }) => {
     setImage(url);
   };
 
-  const handleUploadImage = async () => {
+  const handleUploadImage = async (url) => {
     try {
-      const response = await api.put(`/user`, { image });
+      const response = await api.put(`/user`, { image: url });
 
       if (response.status !== 200) throw new Error(response.statusText);
       toast.success("이미지 저장이 완료되었습니다.");
@@ -179,14 +179,6 @@ const StudentMyPage = ({ user, setUser }) => {
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div className="h3">내 프로필</div>
-                {/* TODO 저장기능 필요한가? */}
-                {/* <button
-                  type="button"
-                  className="small"
-                  style={{ marginTop: "20px" }}
-                >
-                  저장
-                </button> */}
               </div>
               <ul className="ulStyle">
                 <li>닉네임(별명)</li>
@@ -293,7 +285,7 @@ const StudentMyPage = ({ user, setUser }) => {
                 </div>
                 <div className="user-list-items">
                   {testBuyData?.map((data, index) => (
-                    <div className="user-list-item selected">
+                    <div className="user-list-item selected" key={index}>
                       <div className="user-date">{data.date}</div>
                       <div className="user-title">{data.name}</div>
                       <div className="user-price">

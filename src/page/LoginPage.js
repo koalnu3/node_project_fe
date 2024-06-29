@@ -29,6 +29,8 @@ const LoginPage = () => {
 
   const handleSubmit = async () => {
     try {
+      if (password.length < 8)
+        return toast.error("비밀번호는 8자 이상이여야 합니다");
       const response = await loginUser({ email, password });
       if (response.status !== 200) throw new Error(response.error);
       sessionStorage.setItem("token", response.data.token);

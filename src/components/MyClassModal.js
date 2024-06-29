@@ -247,7 +247,10 @@ const MyClassModal = ({
             </div>
           </li>
           <li>
-            <div style={{ display: "block", flexDirection: "column" }}>
+            <div className="curriculumAddList">
+              {fields.length === 0 && (
+                <p className="helpMessage">커리큘럼 목록을 추가해주세요.</p>
+              )}
               {(fields || []).map((title, titleIndex) => (
                 <div
                   key={titleIndex}
