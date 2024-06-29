@@ -45,7 +45,7 @@ const TeacherMyPage = ({ user, setUser }) => {
 
   const { data, isLoading, error } = useGetMyClass();
 
-  const [myClassData, setMyClassData] = useState([]);
+  const [myClassData, setMyClassData] = useState(data || []);
 
   const handleResizeHeight = () => {
     if (textareaRef.current) {
@@ -443,8 +443,9 @@ const TeacherMyPage = ({ user, setUser }) => {
                 {myClassData.map((myClass, index) => {
                   return (
                     <MyPageClassComponent
-                      data={myClass}
                       key={index}
+                      data={myClass}
+                      type={"teacher"}
                       setOpenClassDetail={setOpenClassDetail}
                       setStatus={setStatus}
                       setClickId={setClickId}

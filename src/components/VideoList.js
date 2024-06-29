@@ -37,7 +37,6 @@ const VideoList = ({ list, setVideoUrl, setTitle, setIsComplete }) => {
                 {/* {item?.list.map((sub) => ( */}
                 {item?.subItems.map((sub) => (
                   <li key={`sub${sub._id}`}>
-                    {/* {console.log("sub.url", sub)} */}
                     <button
                       type="button"
                       className={`descriptionInfo ${

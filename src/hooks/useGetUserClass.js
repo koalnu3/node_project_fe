@@ -10,5 +10,6 @@ export const useGetUserClassQuery = () => {
     queryKey: ["get-user-class"],
     queryFn: () => getUserClass(),
     select: (result) => result.data,
+    staleTime: 60000,
   });
 };

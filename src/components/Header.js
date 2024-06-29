@@ -62,7 +62,11 @@ const Header = ({ user, setUser }) => {
   // const splitLocation = pathname.split("/");
 
   return (
-    <header className={`header ${user.level === "admin" ? `navHidden` : ``}`}>
+    <header
+      className={`header ${
+        user.level === "admin" && pathname === "/admin" ? `navHidden` : ``
+      }`}
+    >
       <div className="inner">
         <div className="top">
           <button
@@ -137,7 +141,6 @@ const Header = ({ user, setUser }) => {
               </div>
             </div>
             <nav className="menuList">
-              {console.log(menuListActive)}
               <ul>
                 <li className={pathname === "/" ? `active` : ``}>
                   <Link to="/">홈</Link>

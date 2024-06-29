@@ -9,7 +9,6 @@ const Curriculum = ({ list, isDescription, handleVideoModal }) => {
       setToggleActive(idx);
     }
   };
-  console.log(list);
   return (
     <div className={`toggleList ${!isDescription ? `onlyList` : ``}`}>
       <ul className="toggle">

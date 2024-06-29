@@ -117,7 +117,7 @@ const ClassDetailPage = () => {
   const [tabActive, setTabActive] = useState("");
 
   const { id } = useParams();
-  // console.log(id);
+  console.log(id);
   const { data, isLoading, isError, error } = useGetClassDetailQuery({ id });
   const {
     data: orderdata,
@@ -172,8 +172,7 @@ const ClassDetailPage = () => {
     });
   };
 
-  // console.log("data", data);
-  // console.log("Orderdata", orderdata);
+  // console.log(classDetailList);
 
   return (
     <>
