@@ -100,7 +100,9 @@ const HomePage = () => {
     // setClassListData(data?.data);
     setClassLikeListData(dataLike?.data);
     setClassRecentListData(dataRecent?.data);
-  }, []);
+  }, [dataRecent?.data, dataLike?.data]);
+
+  // console.log("dataLike", dataLike);
 
   useEffect(() => {
     if (categoryData) {
