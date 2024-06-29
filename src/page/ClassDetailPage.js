@@ -11,6 +11,7 @@ import NoData from "../components/NoData";
 import { useGetClassQuery } from "../hooks/useGetClass";
 import { useGetUserClassQuery } from "../hooks/useGetUserClass";
 import { useGetOrderByUserAndClassQuery } from "../hooks/useGetOrderByUserAndClass";
+import userStore from "../store/userStore";
 
 const ClassDetailPage = () => {
   const tabList = [
@@ -128,7 +129,7 @@ const ClassDetailPage = () => {
     // userId: data?.data.userId?._id,
     classId: id,
   });
-
+  const { user } = userStore();
   const [classDetailList, setClassDetailList] = useState([]);
   const [classListData, setClassListData] = useState([]);
   const [page, setPage] = useState(1);
@@ -208,24 +209,25 @@ const ClassDetailPage = () => {
                 </p>
               </div>
               <div className="right">
-                {orderdata?.orderExists ? (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleVideoModal(
-                        classDetailList?.curriculum[0].subItems[0].link,
-                        classDetailList?.curriculum[0].subItems[0].title,
-                        classDetailList?.curriculum[0].subItems[0]._id
-                      )
-                    }
-                  >
-                    클래스 수강하기
-                  </button>
-                ) : (
-                  <button type="button" onClick={handleNavigateToOrder}>
-                    클래스 결제하기
-                  </button>
-                )}
+                {user.level === "customer" &&
+                  (orderdata?.orderExists ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleVideoModal(
+                          classDetailList?.curriculum[0].subItems[0].link,
+                          classDetailList?.curriculum[0].subItems[0].title,
+                          classDetailList?.curriculum[0].subItems[0]._id
+                        )
+                      }
+                    >
+                      클래스 수강하기
+                    </button>
+                  ) : (
+                    <button type="button" onClick={handleNavigateToOrder}>
+                      클래스 결제하기
+                    </button>
+                  ))}
               </div>
             </div>
             <div className="noticeBox">{classDetailList?.notice}</div>
