@@ -114,8 +114,6 @@ const StudentMyPage = ({ user, setUser }) => {
     }
   }, [tabName]);
 
-  console.log("tabName", tabName);
-
   useEffect(() => {
     setSelectMenu({ name: tabActive });
   }, [tabActive]);
@@ -306,7 +304,7 @@ const StudentMyPage = ({ user, setUser }) => {
                 </div>
                 <div className="user-list-items">
                   {testBuyData?.map((data, index) => (
-                    <div className="user-list-item selected">
+                    <div className="user-list-item selected" key={index}>
                       <div className="user-date">{data.date}</div>
                       <div className="user-title">{data.name}</div>
                       <div className="user-price">

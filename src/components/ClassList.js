@@ -5,11 +5,10 @@ import NoData from "./NoData";
 const ClassList = ({ list }) => {
   return (
     <div className="classList">
-      {console.log(list)}
       {list?.length > 0 ? (
         <ul>
-          {list?.map((item) => (
-            <li>
+          {list?.map((item, index) => (
+            <li key={index}>
               <ClassItem item={item} />
             </li>
           ))}

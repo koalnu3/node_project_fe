@@ -137,7 +137,6 @@ const Header = ({ user, setUser }) => {
               </div>
             </div>
             <nav className="menuList">
-              {console.log(menuListActive)}
               <ul>
                 <li className={pathname === "/" ? `active` : ``}>
                   <Link to="/">홈</Link>

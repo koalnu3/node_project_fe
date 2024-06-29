@@ -14,7 +14,6 @@ class CloudinaryUploadWidget extends Component {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          console.log("Done! Here is the image info: ", result.info);
           this.props.uploadImage(result.info.secure_url);
           this.props.handleUploadImage &&
             this.props.handleUploadImage(result.info.secure_url);

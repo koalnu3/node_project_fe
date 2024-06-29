@@ -10,6 +10,7 @@ export const useGetOrderByUserAndClassQuery = ({ classId }) => {
     queryKey: ["get-orderByUserAndClass", { classId }],
     queryFn: () => fetchGetOrderByUserAndClass({ classId }),
     select: (result) => result.data,
+    staleTime: 60000,
   });
 };
 // const fetchGetOrderByUserAndClass = ({ userId, classId }) => {

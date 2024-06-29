@@ -102,8 +102,6 @@ const HomePage = () => {
     setClassRecentListData(dataRecent?.data);
   }, [dataRecent?.data, dataLike?.data]);
 
-  // console.log("dataLike", dataLike);
-
   useEffect(() => {
     if (categoryData) {
       setCategoryList(categoryData?.data?.data);
@@ -129,21 +127,21 @@ const HomePage = () => {
         >
           <SwiperSlide>
             <img
-              srcset="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fhxfgybdil8_2024-05-20.png&w=750&q=75 769w,https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2F3rr9hyov3rk_2024-05-20.png&w=3840&q=75 3840w"
+              srcSet="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fhxfgybdil8_2024-05-20.png&w=750&q=75 769w,https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2F3rr9hyov3rk_2024-05-20.png&w=3840&q=75 3840w"
               src="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2F3rr9hyov3rk_2024-05-20.png&w=3840&q=75"
               alt="main-banner"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              srcset="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fibuj78n4alb_2024-05-21.png&w=750&q=75 769w,https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fvc98xurw36m_2024-05-21.png&w=3840&q=75 3840w"
+              srcSet="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fibuj78n4alb_2024-05-21.png&w=750&q=75 769w,https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fvc98xurw36m_2024-05-21.png&w=3840&q=75 3840w"
               src="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fvc98xurw36m_2024-05-21.png&w=3840&q=75"
               alt="main-banner"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
-              srcset="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fg5ew1iixsc_2023-12-11.png&w=750&q=75 769w,https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fjdoq5lzzm4g_2023-12-11.png&w=3840&q=75 3840w"
+              srcSet="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fg5ew1iixsc_2023-12-11.png&w=750&q=75 769w,https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fjdoq5lzzm4g_2023-12-11.png&w=3840&q=75 3840w"
               src="https://www.taling.me/_next/image?url=https%3A%2F%2Fd14w7j944shu9e.cloudfront.net%2Fonsite%2Fmedia%2Fbanner%2Fjdoq5lzzm4g_2023-12-11.png&w=3840&q=75"
               alt="main-banner"
             />
