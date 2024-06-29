@@ -16,9 +16,12 @@ import MyClassModal from "../components/MyClassModal";
 import { useGetMyClass } from "../hooks/useGetMyClass";
 import Loading from "../components/Loading";
 import NoData from "../components/NoData";
+import useCategoryStore from "../store/useCategoryStore";
+import { useGetCategoryQuery } from "../hooks/useGetCategory";
 
 const TeacherMyPage = ({ user, setUser }) => {
-  //TODO test
+  const { categoryStore, setCategoryStore } = useCategoryStore();
+  const categoryData = useGetCategoryQuery();
 
   const tabList = [
     {
@@ -133,6 +136,12 @@ const TeacherMyPage = ({ user, setUser }) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (categoryData) {
+      setCategoryStore(categoryData?.data?.data);
+    }
+  }, [categoryData.data]);
+
   if (isLoading) {
     return (
       <div
@@ -171,6 +180,7 @@ const TeacherMyPage = ({ user, setUser }) => {
           onClose={() => setOpenClassDetail(false)}
           myClassData={myClassData}
           setMyClassData={setMyClassData}
+          categoryStore={categoryStore}
         />
       )}
       <div className="menuTab">

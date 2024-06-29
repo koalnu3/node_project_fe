@@ -15,6 +15,7 @@ import {
   useGetClassRecentQuery,
 } from "../hooks/useGetClass";
 import { useGetCategoryQuery } from "../hooks/useGetCategory";
+import useCategoryStore from "../store/useCategoryStore";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
@@ -54,7 +55,9 @@ const HomePage = () => {
     category,
   });
 
+  const { setCategoryStore } = useCategoryStore();
   const categoryData = useGetCategoryQuery();
+
   const categoryIcon = [
     {
       name: "헬스",
@@ -93,14 +96,18 @@ const HomePage = () => {
     });
   };
 
-  // console.log(categoryData?.data?.data);
-  // console.log("data", dataLike?.data);
   useEffect(() => {
     // setClassListData(data?.data);
     setClassLikeListData(dataLike?.data);
     setClassRecentListData(dataRecent?.data);
-    setCategoryList(categoryData?.data?.data);
-  });
+  }, []);
+
+  useEffect(() => {
+    if (categoryData) {
+      setCategoryList(categoryData?.data?.data);
+      setCategoryStore(categoryData?.data?.data);
+    }
+  }, [categoryData.data]);
 
   return (
     <Content className="homepage">
