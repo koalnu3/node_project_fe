@@ -95,7 +95,8 @@ const OrderPage = () => {
 
   const handleHistoryClick = () => {
     setModalVisible(false);
-    navigate("/class");
+    // navigate("/studentMypage");
+    navigate("/studentMypage", { state: { tabName: "결제 내역" } });
   };
 
   if (!classDetail) {
