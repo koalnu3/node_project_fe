@@ -11,45 +11,10 @@ import { toast } from "react-toastify";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
 import Tab from "../components/Tab";
 import MyPageClassComponent from "../components/MyPageClassComponent";
+import { useGetUserClassQuery } from "../hooks/useGetUserClass";
+import { useNavigate } from "react-router-dom";
 
 const StudentMyPage = ({ user, setUser }) => {
-  //TODO test
-  const testBuyData = [
-    {
-      key: 0,
-      date: "2023-10-03",
-      name: "마음이 편해지는 요가123123123123123123",
-      price: 50000,
-    },
-    { key: 1, date: "2024-10-03", name: "강해지는 요가", price: 80000 },
-  ];
-
-  const testClassData = [
-    {
-      key: 0,
-      title: "마음이 편해지는 요가123123123123",
-      sub: "마음이 편해져요 스트레스 해소!",
-      price: 50000,
-    },
-    {
-      key: 2,
-      title: "강해지는 요가",
-      sub: "튼튼하고 강해지는 요가에요",
-      price: 80000,
-    },
-    {
-      key: 3,
-      title: "마음이 편해지는 요가123123123123",
-      sub: "마음이 편해져요 스트레스 해소!",
-      price: 50000,
-    },
-    {
-      key: 4,
-      title: "강해지는 요가",
-      sub: "튼튼하고 강해지는 요가에요",
-      price: 80000,
-    },
-  ];
   const tabList = [
     {
       name: "프로필",
@@ -62,9 +27,15 @@ const StudentMyPage = ({ user, setUser }) => {
   const [nickname, setNickname] = useState(user.nickname);
   const [image, setImage] = useState(user.image);
   const [tabActive, setTabActive] = useState("");
-
+  const navigate = useNavigate();
   const widgetRef = useRef(null);
 
+  const userClass = useGetUserClassQuery();
+  const userClassData = userClass?.data?.orderList;
+
+  const setClickId = (id) => {
+    navigate(`/class/${id}`);
+  };
   const handleNickname = () => {
     setOpenUpdateInput(true);
   };
@@ -284,10 +255,12 @@ const StudentMyPage = ({ user, setUser }) => {
                   <div className="header-price">가격</div>
                 </div>
                 <div className="user-list-items">
-                  {testBuyData?.map((data, index) => (
+                  {userClassData?.map((data, index) => (
                     <div className="user-list-item selected" key={index}>
-                      <div className="user-date">{data.date}</div>
-                      <div className="user-title">{data.name}</div>
+                      <div className="user-date">
+                        {data.createdAt.slice(0, 10)}
+                      </div>
+                      <div className="user-title">{data.classId.name}</div>
                       <div className="user-price">
                         {data.price.toLocaleString()}원
                       </div>
@@ -302,13 +275,13 @@ const StudentMyPage = ({ user, setUser }) => {
               <div className="h3">내 강의실</div>
 
               <div className="myClass">
-                {testClassData.map((data, index) => {
+                {userClassData?.map((data, index) => (
                   <MyPageClassComponent
                     data={data}
                     key={index}
-                    setStatus={""}
-                  />;
-                })}
+                    setClickId={setClickId}
+                  />
+                ))}
               </div>
             </>
           )}

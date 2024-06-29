@@ -6,10 +6,11 @@ const MyPageClassComponent = ({
   setStatus,
   setClickId,
 }) => {
+  const classId = data.classId;
   const navigateRouter = () => {
-    setOpenClassDetail(true);
-    setStatus("update");
-    setClickId(data._id);
+    setOpenClassDetail && setOpenClassDetail(true);
+    setStatus && setStatus("update");
+    setClickId && setClickId(classId._id);
   };
 
   return (
@@ -26,18 +27,18 @@ const MyPageClassComponent = ({
           height: "170px",
           backgroundColor: "gray",
         }}
-        src={data?.image[0]}
+        src={classId?.image[0]}
       />
-      <div style={{ marginTop: "5px", fontWeight: "600" }}>{data.name}</div>
+      <div style={{ marginTop: "5px", fontWeight: "600" }}>{classId.name}</div>
       <div
         style={{
           marginTop: "5px",
           color: "var(--color-gray)",
         }}
       >
-        {data.description.split("").length > 10
-          ? data.description.slice(0, 10) + "..."
-          : data.description}
+        {data?.description?.split("").length > 10
+          ? data?.description?.slice(0, 10) + "..."
+          : data?.description}
       </div>
       <div
         style={{
