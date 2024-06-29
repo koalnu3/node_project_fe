@@ -2,6 +2,7 @@ import React from "react";
 
 const MyPageClassComponent = ({
   data,
+  type,
   setOpenClassDetail,
   setStatus,
   setClickId,
@@ -10,7 +11,7 @@ const MyPageClassComponent = ({
   const navigateRouter = () => {
     setOpenClassDetail && setOpenClassDetail(true);
     setStatus && setStatus("update");
-    setClickId && setClickId(classId._id);
+    setClickId && setClickId(type === "customer" ? classId._id : data._id);
   };
 
   return (
@@ -27,9 +28,8 @@ const MyPageClassComponent = ({
           height: "170px",
           backgroundColor: "gray",
         }}
-        src={classId?.image[0]}
+        src={type === "customer" ? classId?.image[0] : data.image[0]}
       />
-      <div style={{ marginTop: "5px", fontWeight: "600" }}>{classId.name}</div>
       <div
         style={{
           marginTop: "5px",

@@ -277,8 +277,9 @@ const StudentMyPage = ({ user, setUser }) => {
               <div className="myClass">
                 {userClassData?.map((data, index) => (
                   <MyPageClassComponent
-                    data={data}
                     key={index}
+                    type={"customer"}
+                    data={data}
                     setClickId={setClickId}
                   />
                 ))}

@@ -45,7 +45,7 @@ const TeacherMyPage = ({ user, setUser }) => {
 
   const { data, isLoading, error } = useGetMyClass();
 
-  const [myClassData, setMyClassData] = useState([]);
+  const [myClassData, setMyClassData] = useState(data || []);
 
   const handleResizeHeight = () => {
     if (textareaRef.current) {
@@ -79,9 +79,9 @@ const TeacherMyPage = ({ user, setUser }) => {
     setImage(url);
   };
 
-  const handleUploadImage = async (url) => {
+  const handleUploadImage = async () => {
     try {
-      const response = await api.put(`/user`, { image: url });
+      const response = await api.put(`/user`, { image });
 
       if (response.status !== 200) throw new Error(response.statusText);
       toast.success("이미지 저장이 완료되었습니다.");
@@ -443,8 +443,9 @@ const TeacherMyPage = ({ user, setUser }) => {
                 {myClassData.map((myClass, index) => {
                   return (
                     <MyPageClassComponent
-                      data={myClass}
                       key={index}
+                      data={myClass}
+                      type={"teacher"}
                       setOpenClassDetail={setOpenClassDetail}
                       setStatus={setStatus}
                       setClickId={setClickId}
