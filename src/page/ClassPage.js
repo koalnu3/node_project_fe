@@ -51,12 +51,6 @@ const ClassPage = () => {
     setCategoryList(categoryData?.data?.data);
   });
 
-  // const roundTabList = [
-  //   { name: "전체", link: "#" },
-  //   { name: "피트니스", link: "#" },
-  //   { name: "개발", link: "#" },
-  // ];
-
   const handleRoundTabClick = (category) => {
     setRoundTabActive(category);
     if (category === "전체") {

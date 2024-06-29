@@ -27,7 +27,7 @@ const ClassItem = ({ item }) => {
         <div className="info">
           <strong className="title">{item?.name}</strong>
           <p className="price">
-            <span>{item?.price}</span>
+            <span>{item?.price.toLocaleString()}</span>
             <span className="unit">원</span>
           </p>
           <p className="util">
