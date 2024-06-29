@@ -9,20 +9,51 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "../style/HomePage.style.css";
 import ClassItem from "../components/ClassItem";
-import { useGetClassQuery } from "../hooks/useGetClass";
+import {
+  useGetClassQuery,
+  useGetClassLikeQuery,
+  useGetClassRecentQuery,
+} from "../hooks/useGetClass";
 import { useGetCategoryQuery } from "../hooks/useGetCategory";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-  const [classListData, setClassListData] = useState([]);
+  // const [classListData, setClassListData] = useState([]);
+  const [classLikeListData, setClassLikeListData] = useState([]);
+  const [classRecentListData, setClassRecentListData] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-  const { data, isLoading, isError, error } = useGetClassQuery({
+  // const { data, isLoading, isError, error } = useGetClassQuery({
+  //   page,
+  //   name,
+  //   category,
+  // });
+
+  //주간베스트 클래스
+  const {
+    data: dataLike,
+    isLoading: isLoadingLike,
+    isError: isErrorLike,
+    error: errorLike,
+  } = useGetClassLikeQuery({
     page,
     name,
     category,
   });
+
+  //신규클래스
+  const {
+    data: dataRecent,
+    isLoading: isLoadingRecent,
+    isError: isErrorRecent,
+    error: errorRecent,
+  } = useGetClassRecentQuery({
+    page,
+    name,
+    category,
+  });
+
   const categoryData = useGetCategoryQuery();
   const categoryIcon = [
     {
@@ -62,9 +93,12 @@ const HomePage = () => {
     });
   };
 
-  console.log(categoryData?.data?.data);
+  // console.log(categoryData?.data?.data);
+  // console.log("data", dataLike?.data);
   useEffect(() => {
-    setClassListData(data?.data);
+    // setClassListData(data?.data);
+    setClassLikeListData(dataLike?.data);
+    setClassRecentListData(dataRecent?.data);
     setCategoryList(categoryData?.data?.data);
   });
 
@@ -187,7 +221,7 @@ const HomePage = () => {
         modules={[Pagination, Navigation]}
         className="classSwiper"
       >
-        {classListData?.map((item) => (
+        {classLikeListData?.map((item) => (
           <SwiperSlide key={item?._id} virtualIndex={item?._id}>
             <ClassItem item={item} />
           </SwiperSlide>
@@ -223,7 +257,7 @@ const HomePage = () => {
         modules={[Pagination, Navigation]}
         className="classSwiper"
       >
-        {classListData?.map((item) => (
+        {classRecentListData?.map((item) => (
           <SwiperSlide key={item?._id} virtualIndex={item?._id}>
             <ClassItem item={item} />
           </SwiperSlide>
@@ -259,7 +293,7 @@ const HomePage = () => {
         modules={[Pagination, Navigation]}
         className="classSwiper"
       >
-        {classListData?.map((item) => (
+        {classRecentListData?.map((item) => (
           <SwiperSlide key={item?._id} virtualIndex={item?._id}>
             <ClassItem item={item} />
           </SwiperSlide>
