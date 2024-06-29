@@ -10,6 +10,7 @@ import Curriculum from "../components/Curriculum";
 import NoData from "../components/NoData";
 import { useGetClassQuery } from "../hooks/useGetClass";
 import { useGetUserClassQuery } from "../hooks/useGetUserClass";
+import { useGetOrderByUserAndClassQuery } from "../hooks/useGetOrderByUserAndClass";
 
 const ClassDetailPage = () => {
   const tabList = [
@@ -23,7 +24,7 @@ const ClassDetailPage = () => {
   let curriculumList = [
     {
       title: "섹션 0. 자세교정",
-      subItem: [
+      subItems: [
         {
           id: "01",
           title: "발목",
@@ -49,7 +50,7 @@ const ClassDetailPage = () => {
     },
     {
       title: "섹션 1. 굳어진 몸",
-      subItem: [
+      subItems: [
         {
           id: "11",
           title: "굳은 몸",
@@ -82,7 +83,7 @@ const ClassDetailPage = () => {
     },
     {
       title: "섹션 2. 거북목",
-      subItem: [
+      subItems: [
         {
           id: "21",
           title: "일자목, 거북목 스트레칭, 버섯증후군교정운동",
@@ -94,7 +95,7 @@ const ClassDetailPage = () => {
     },
     {
       title: "섹션 3. 몸매",
-      subItem: [
+      subItems: [
         {
           id: "31",
           title: "앞벅지 없애기/ 앞벅지 없애는 운동",
@@ -118,6 +119,16 @@ const ClassDetailPage = () => {
   const { id } = useParams();
   console.log(id);
   const { data, isLoading, isError, error } = useGetClassDetailQuery({ id });
+  const {
+    data: orderdata,
+    isLoading: orderisLoading,
+    isError: orderisError,
+    error: orderError,
+  } = useGetOrderByUserAndClassQuery({
+    // userId: data?.data.userId?._id,
+    classId: id,
+  });
+
   const [classDetailList, setClassDetailList] = useState([]);
   const [classListData, setClassListData] = useState([]);
   const [page, setPage] = useState(1);
@@ -140,7 +151,6 @@ const ClassDetailPage = () => {
 
   const handleVideoModal = (link, title, id) => {
     document.querySelector("#classVideo").showModal();
-    console.log(link);
     setClickVideoUrl(link);
     setClickVideoTitle(title);
     setClickVideoId(id);
@@ -162,7 +172,8 @@ const ClassDetailPage = () => {
     });
   };
 
-  // console.log(classDetailList);
+  console.log("data", data);
+  console.log("Orderdata", orderdata);
 
   return (
     <>
@@ -198,9 +209,24 @@ const ClassDetailPage = () => {
                 </p>
               </div>
               <div className="right">
-                <button type="button" onClick={handleNavigateToOrder}>
-                  클래스 결제하기
-                </button>
+                {orderdata?.orderExists ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleVideoModal(
+                        classDetailList?.curriculum[0].subItems[0].link,
+                        classDetailList?.curriculum[0].subItems[0].title,
+                        classDetailList?.curriculum[0].subItems[0]._id
+                      )
+                    }
+                  >
+                    클래스 수강하기
+                  </button>
+                ) : (
+                  <button type="button" onClick={handleNavigateToOrder}>
+                    클래스 결제하기
+                  </button>
+                )}
               </div>
             </div>
             <div className="noticeBox">{classDetailList?.notice}</div>
