@@ -273,7 +273,7 @@ const StudentMyPage = ({ user, setUser }) => {
                       <div className="user-date">
                         {data.createdAt.slice(0, 10)}
                       </div>
-                      <div className="user-title">{data.classId.name}</div>
+                      <div className="user-title">{data.classId?.name}</div>
                       <div className="user-price">
                         {data.price.toLocaleString()}원
                       </div>
