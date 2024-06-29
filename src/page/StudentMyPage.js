@@ -20,42 +20,6 @@ const StudentMyPage = ({ user, setUser }) => {
   const location = useLocation();
   const tabName = location.state?.tabName;
 
-  const testBuyData = [
-    {
-      key: 0,
-      date: "2023-10-03",
-      name: "마음이 편해지는 요가123123123123123123",
-      price: 50000,
-    },
-    { key: 1, date: "2024-10-03", name: "강해지는 요가", price: 80000 },
-  ];
-
-  const testClassData = [
-    {
-      key: 0,
-      title: "마음이 편해지는 요가123123123123",
-      sub: "마음이 편해져요 스트레스 해소!",
-      price: 50000,
-    },
-    {
-      key: 2,
-      title: "강해지는 요가",
-      sub: "튼튼하고 강해지는 요가에요",
-      price: 80000,
-    },
-    {
-      key: 3,
-      title: "마음이 편해지는 요가123123123123",
-      sub: "마음이 편해져요 스트레스 해소!",
-      price: 50000,
-    },
-    {
-      key: 4,
-      title: "강해지는 요가",
-      sub: "튼튼하고 강해지는 요가에요",
-      price: 80000,
-    },
-  ];
   const tabList = [
     {
       name: "프로필",
@@ -119,6 +83,7 @@ const StudentMyPage = ({ user, setUser }) => {
     if (tabName) {
       setSelectMenu({ name: tabName });
       setTabActive(tabName);
+      userClass.refetch();
     }
   }, [tabName]);
 
