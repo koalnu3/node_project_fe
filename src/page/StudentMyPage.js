@@ -11,9 +11,13 @@ import { toast } from "react-toastify";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
 import Tab from "../components/Tab";
 import MyPageClassComponent from "../components/MyPageClassComponent";
+import { useLocation } from "react-router-dom";
 
 const StudentMyPage = ({ user, setUser }) => {
   //TODO test
+  const location = useLocation();
+  const tabName = location.state?.tabName;
+
   const testBuyData = [
     {
       key: 0,
@@ -102,6 +106,15 @@ const StudentMyPage = ({ user, setUser }) => {
       toast.error("이미지 저장에 실패했습니다.");
     }
   };
+
+  useEffect(() => {
+    if (tabName) {
+      setSelectMenu({ name: tabName });
+      setTabActive(tabName);
+    }
+  }, [tabName]);
+
+  console.log("tabName", tabName);
 
   useEffect(() => {
     setSelectMenu({ name: tabActive });
