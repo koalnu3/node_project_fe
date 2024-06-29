@@ -8,14 +8,19 @@ import XImage from "../svg/XImage";
 import api from "../utils/api";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
 
-const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
-  const [selectedCategory, setSelectedCategory] = useState([]);
-
+const MyClassModal = ({
+  id,
+  status,
+  onClose,
+  myClassData,
+  setMyClassData,
+  categoryStore,
+}) => {
   const { user } = userStore();
   const filterMyClassData = myClassData.filter((data) => data._id === id);
-  //TODO 카테고리 불러오기
-  const [category, setCategory] = useState(
-    filterMyClassData[0]?.category || []
+
+  const filterMyCategory = (categoryStore || []).filter(
+    (list) => list._id === filterMyClassData[0]?.categoryId
   );
   const [className, setClassName] = useState(filterMyClassData[0]?.name || "");
   const [thumbnail, setThumbnail] = useState(filterMyClassData[0]?.image || "");
@@ -24,17 +29,19 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
   );
   const [price, setPrice] = useState(filterMyClassData[0]?.price || 0);
   const [fields, setFields] = useState(filterMyClassData[0]?.curriculum || []);
-
+  const [selectedCategory, setSelectedCategory] = useState(
+    filterMyCategory[0] || {}
+  );
   const widgetRef = useRef(null);
   const textareaRef = useRef(null);
 
   const handleAddTitle = () => {
-    setFields([
-      ...fields,
+    setFields((prevFields) => [
+      ...prevFields,
       {
         id: Date.now(),
         title: "",
-        fields: [{ id: Date.now(), title: "", link: "" }],
+        subItems: [{ id: Date.now(), title: "", link: "" }],
       },
     ]);
   };
@@ -47,7 +54,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
 
   const handleAddField = (titleIndex) => {
     const newFields = [...fields];
-    newFields[titleIndex].fields.push({
+    newFields[titleIndex].subItems.push({
       id: Date.now(),
       title: "",
       link: "",
@@ -57,13 +64,13 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
 
   const handleFieldChange = (titleIndex, fieldIndex, key, value) => {
     const newFields = [...fields];
-    newFields[titleIndex].fields[fieldIndex][key] = value;
+    newFields[titleIndex].subItems[fieldIndex][key] = value;
     setFields(newFields);
   };
 
   const handleRemoveField = (titleIndex, fieldIndex) => {
     const newFields = [...fields];
-    newFields[titleIndex].fields.splice(fieldIndex, 1);
+    newFields[titleIndex].subItems.splice(fieldIndex, 1);
     setFields(newFields);
   };
 
@@ -76,8 +83,12 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
   const uploadImage = (url) => {
     setThumbnail(url);
   };
-  const handleChange = (event) => {
-    setSelectedCategory(event.target.value);
+
+  const handleChange = (selectedValue) => {
+    const selectedData = categoryStore.filter(
+      (data) => data.id === selectedValue
+    );
+    setSelectedCategory(selectedData);
   };
 
   const classSubscripChange = (event) => {
@@ -92,8 +103,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
         image: thumbnail,
         curriculum: fields,
         price,
-        //TODO 카테고리 아이디 넣기
-        categoryId: "category001",
+        categoryId: selectedCategory[0]._id,
         userId: user._id,
       });
       if (response.status !== 200) throw new Error(response.error);
@@ -118,8 +128,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
         image: thumbnail,
         curriculum: fields,
         price,
-        //TODO 카테고리 아이디 넣기
-        categoryId: "category001",
+        categoryId: selectedCategory[0]._id,
         userId: user._id,
       });
       if (response.status !== 200) throw new Error(response.error);
@@ -130,7 +139,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
       console.log("err", error);
     }
   };
-  useEffect(() => {}, []);
+
   return (
     <div className="modal">
       <div className="modalContent">
@@ -138,13 +147,13 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
           <li>카테고리명</li>
           <li>
             <select
-              value={selectedCategory}
-              onChange={handleChange}
+              value={selectedCategory.id}
               className="categoryDropdown"
+              onChange={(e) => handleChange(e.target.value)}
             >
-              {category.map((data, index) => (
-                <option key={index} value={data}>
-                  {data}
+              {categoryStore.map((data, index) => (
+                <option key={index} value={data.id}>
+                  {data.name}
                 </option>
               ))}
             </select>
@@ -239,79 +248,78 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
           </li>
           <li>
             <div style={{ display: "block", flexDirection: "column" }}>
-              {fields.length > 0 &&
-                fields.map((title, titleIndex) => (
-                  <div
-                    key={title.id}
-                    style={{ flexDirection: "column", marginBottom: "20px" }}
-                  >
-                    <div className="inputFieldContainer">
-                      <span>{titleIndex + 1}강</span>
+              {(fields || []).map((title, titleIndex) => (
+                <div
+                  key={titleIndex}
+                  style={{ flexDirection: "column", marginBottom: "20px" }}
+                >
+                  <div className="inputFieldContainer">
+                    <span>{titleIndex + 1}강</span>
+                    <input
+                      type="text"
+                      value={title.title}
+                      onChange={(e) =>
+                        handleTitleChange(titleIndex, e.target.value)
+                      }
+                      placeholder="타이틀 입력"
+                      className="inputField"
+                    />
+                    <div
+                      className="plusButtonIcon"
+                      onClick={() => handleAddField(titleIndex)}
+                      style={{ width: "20px", height: "20px" }}
+                    >
+                      <PlusImage />
+                    </div>
+                    <div
+                      className="buttonIcon"
+                      onClick={() => handleRemoveTitle(titleIndex)}
+                    >
+                      <TrashCanImage />
+                    </div>
+                  </div>
+                  {title.subItems.map((field, fieldIndex) => (
+                    <div key={field.id} className="inputFieldContainer">
                       <input
                         type="text"
-                        value={title.title}
+                        value={field.title}
                         onChange={(e) =>
-                          handleTitleChange(titleIndex, e.target.value)
+                          handleFieldChange(
+                            titleIndex,
+                            fieldIndex,
+                            "title",
+                            e.target.value
+                          )
                         }
-                        placeholder="타이틀 입력"
+                        placeholder="커리큘럼 제목"
+                        className="inputField"
+                      />
+                      <input
+                        type="text"
+                        value={field.link}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            titleIndex,
+                            fieldIndex,
+                            "link",
+                            e.target.value
+                          )
+                        }
+                        placeholder="링크"
                         className="inputField"
                       />
                       <div
-                        className="plusButtonIcon"
-                        onClick={() => handleAddField(titleIndex)}
-                        style={{ width: "20px", height: "20px" }}
-                      >
-                        <PlusImage />
-                      </div>
-                      <div
                         className="buttonIcon"
-                        onClick={() => handleRemoveTitle(titleIndex)}
+                        onClick={() =>
+                          handleRemoveField(titleIndex, fieldIndex)
+                        }
                       >
                         <TrashCanImage />
                       </div>
                     </div>
-                    {title.fields.map((field, fieldIndex) => (
-                      <div key={field.id} className="inputFieldContainer">
-                        <input
-                          type="text"
-                          value={field.title}
-                          onChange={(e) =>
-                            handleFieldChange(
-                              titleIndex,
-                              fieldIndex,
-                              "title",
-                              e.target.value
-                            )
-                          }
-                          placeholder="커리큘럼 제목"
-                          className="inputField"
-                        />
-                        <input
-                          type="text"
-                          value={field.link}
-                          onChange={(e) =>
-                            handleFieldChange(
-                              titleIndex,
-                              fieldIndex,
-                              "link",
-                              e.target.value
-                            )
-                          }
-                          placeholder="링크"
-                          className="inputField"
-                        />
-                        <div
-                          className="buttonIcon"
-                          onClick={() =>
-                            handleRemoveField(titleIndex, fieldIndex)
-                          }
-                        >
-                          <TrashCanImage />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                  ))}
+                </div>
+              ))}
             </div>
           </li>
         </ul>

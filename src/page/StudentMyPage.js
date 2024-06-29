@@ -69,7 +69,6 @@ const StudentMyPage = ({ user, setUser }) => {
     setOpenUpdateInput(true);
   };
 
-  //TODO: 닉네임 중복체크, 업데이트
   const updateNicknameServer = async () => {
     try {
       if (nickname.split("").length < 3) {
