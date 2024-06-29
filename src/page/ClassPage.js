@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 import RoundTab from "../components/RoundTab";
 import NoData from "../components/NoData";
 import "../style/ClassDetailPage.style.css";
+import Content from "../components/Content";
 
 const ClassPage = () => {
   const [query, setQuery] = useSearchParams();
@@ -17,6 +18,9 @@ const ClassPage = () => {
 
   useEffect(() => {
     setQuery({ name, category });
+    if (category === "") {
+      setRoundTabActive("전체"); //검색어 입력하여 검색시 기본값 전체로 하기위해서
+    }
   }, [name, category]);
 
   const { data, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } =
@@ -28,7 +32,7 @@ const ClassPage = () => {
         const { data } = await api.get(
           `/class?page=${pageParam}&name=${name}&category=${category}`
         );
-        console.log("data infi", data);
+        // console.log("data infi", data);
         return data;
       },
       initialPageParam: 1,
@@ -43,16 +47,15 @@ const ClassPage = () => {
   const roundTabList = [
     { name: "전체", link: "#" },
     { name: "피트니스", link: "#" },
-    { name: "댄스", link: "#" },
     { name: "개발", link: "#" },
   ];
 
   const handleRoundTabClick = (category) => {
     setRoundTabActive(category);
     if (category === "전체") {
-      setQuery({ name });
+      setQuery({ name: "" });
     } else {
-      setQuery({ name, category });
+      setQuery({ name: "", category });
     }
     refetch();
   };
@@ -71,14 +74,15 @@ const ClassPage = () => {
     [isFetchingNextPage, fetchNextPage, hasNextPage]
   );
 
-  console.log("dddddddddd", data);
+  // console.log("dddddddddd", data);
 
   // 마지막 페이지의 data.length 확인
   const lastPageDataLength =
     data?.pages?.[data.pages.length - 1]?.data.length || 0;
 
   return (
-    <div className="App">
+    <Content>
+      {/* <div className="App"> */}
       <RoundTab
         list={roundTabList}
         setRoundTabActive={handleRoundTabClick}
@@ -102,7 +106,8 @@ const ClassPage = () => {
         <NoData icon>데이터가 없습니다</NoData>
       ) : (
         data?.pages.map((item, index) => (
-          <div className="classList" key={index}>
+          <div key={index}>
+            {/* <div className="classList" key={index}> */}
             {item.data.length > 0 ? <ClassList list={item?.data} /> : null}
           </div>
         ))
@@ -123,7 +128,8 @@ const ClassPage = () => {
         data?.pages[0]?.totalPageNum === "0" && (
           <div className="noMoreData">더 이상 데이터가 없습니다.</div>
         )} */}
-    </div>
+      {/* </div> */}
+    </Content>
   );
 };
 

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import userStore from "../store/userStore";
 
-const PrivateRoute = ({ permissionLevels, user }) => {
+const PrivateRoute = ({ user }) => {
   const isAuthenticated =
     user.level === "admin" ||
     user.level === "customer" ||

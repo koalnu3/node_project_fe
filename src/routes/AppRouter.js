@@ -104,12 +104,12 @@ const AppRouter = () => {
               path="/teacherMypage"
               element={
                 <MainLayout>
-                  <TeacherMyPage />
+                  <TeacherMyPage user={user} setUser={setUser} />
                 </MainLayout>
               }
             />
           </Route>
-          <Route element={<PrivateRoute user={user} />}>
+          {/* <Route element={<PrivateRoute permissionLevels={["admin"]} />}> */}
             <Route
               path="/admin"
               element={
@@ -118,7 +118,7 @@ const AppRouter = () => {
                 </MainLayout>
               }
             />
-          </Route>
+          {/* </Route> */}
         </>
       )}
       <Route

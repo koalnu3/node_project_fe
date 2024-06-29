@@ -5,7 +5,7 @@ import "../style/ClassDetailPage.style.css";
 import ClassList from "../components/ClassList";
 import VideoModal from "../components/VideoModal";
 import { useGetClassDetailQuery } from "../hooks/useGetClassDetail";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; //추가
 import Curriculum from "../components/Curriculum";
 import NoData from "../components/NoData";
 import { useGetClassQuery } from "../hooks/useGetClass";
@@ -120,22 +120,15 @@ const ClassDetailPage = () => {
   const [classDetailList, setClassDetailList] = useState([]);
   const [classListData, setClassListData] = useState([]);
   const [page, setPage] = useState(1);
-  const [name, setName] = useState("1");
+  const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [clickVideoUrl, setClickVideoUrl] = useState("");
-  // const { data, isLoading, isError, error } = useGetClassQuery({
-  //   page,
-  //   name,
-  //   category,
-  // });
-  // console.log(data);
   const classList = useGetClassQuery({
     page,
     name,
     category,
   });
-  console.log(classDetailList);
-  console.log(classList?.data?.dat);
+
   const handleDataSetting = () => {
     setClassDetailList(data?.data);
     setClassListData(classList?.data?.data);
@@ -151,6 +144,16 @@ const ClassDetailPage = () => {
   useEffect(() => {
     handleDataSetting();
   }, [classList]);
+
+  const navigate = useNavigate();
+
+  const handleNavigateToOrder = () => {
+    navigate(`/order`, {
+      state: {
+        classDetail: classDetailList,
+      },
+    });
+  };
 
   return (
     <>
@@ -177,7 +180,9 @@ const ClassDetailPage = () => {
                 </p>
               </div>
               <div className="right">
-                <button type="button">클래스 결제하기</button>
+                <button type="button" onClick={handleNavigateToOrder}>
+                  클래스 결제하기
+                </button>
               </div>
             </div>
             <div className="noticeBox">{classDetailList?.notice}</div>

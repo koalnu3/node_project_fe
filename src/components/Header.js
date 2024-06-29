@@ -7,6 +7,7 @@ const Header = ({ user, setUser }) => {
   const [utilOpen, setUtilOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuListActive, setmenuListActive] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const utilActive = () => {
     !utilOpen ? setUtilOpen(true) : setUtilOpen(false);
@@ -26,13 +27,37 @@ const Header = ({ user, setUser }) => {
       greetings: "",
     });
     toast.success("로그아웃되었습니다.");
+    navigate("/");
   };
 
   const handleMenuActive = (event, name) => {
     setmenuListActive(name);
   };
+
+  const handleSearch = () => {
+    navigate(`/class?name=${searchQuery}&category=`);
+    setSearchQuery("");
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const enterMyPage = () => {
+    if (user.level === "customer") {
+      navigate("/studentMypage");
+    } else if (user.level === "teacher") {
+      navigate("/teacherMypage");
+    } else if (user.level === "admin") {
+      navigate("/admin");
+    } else {
+      return toast.error("강사 승인 대기중입니다");
+    }
+  };
   return (
-    <header className="header">
+    <header className={`header ${user.level === "admin" ? `navHidden` : ``}`}>
       <div className="inner">
         <div className="top">
           <button
@@ -66,16 +91,7 @@ const Header = ({ user, setUser }) => {
                 </button>
                 <ul className="utilList">
                   <li>
-                    <div
-                      onClick={() => {
-                        user.level === "customer"
-                          ? navigate("/studentMypage")
-                          : user.level === "teacher"
-                          ? navigate("/teacherMypage")
-                          : navigate("/admin");
-                      }}
-                      style={{ cursor: "pointer" }}
-                    >
+                    <div onClick={enterMyPage} style={{ cursor: "pointer" }}>
                       마이페이지
                     </div>
                   </li>
@@ -103,9 +119,12 @@ const Header = ({ user, setUser }) => {
               <div className="search">
                 <input
                   type="search"
-                  placeholder="강의/강사명을 입력해주세요."
+                  placeholder="강의명을 입력해주세요."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={handleKeyPress}
                 />
-                <button className="searchBtn">
+                <button className="searchBtn" onClick={handleSearch}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                   </svg>

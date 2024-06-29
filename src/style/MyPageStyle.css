@@ -4,6 +4,10 @@
   padding: 30px 0;
 }
 
+.menuTab {
+  display: none;
+}
+
 .mypageLeftSide {
   width: 30%;
 }
@@ -67,4 +71,240 @@
 .paymentPrice {
   width: 30%;
   text-align: center;
+}
+
+/* 어드민페이지 스타일 */
+.user-list {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.user-list-header {
+  display: flex;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.header-date,
+.header-price {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+  padding: 10px;
+}
+.header-title {
+  flex: 2;
+  text-align: left;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.user-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-list-item:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+.user-date {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+}
+.user-title {
+  flex: 2;
+  text-align: left;
+  font-size: 16px;
+}
+.user-price {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+}
+
+.myClass {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modalContent ul {
+  display: flex;
+  width: 100%;
+  margin: 10px 0;
+  padding: 0 30px;
+}
+
+.modalContent ul li:first-child {
+  /* width: 30%; */
+  width: 150px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.modalContent ul li:last-child {
+  width: 70%;
+}
+
+.modalContent ul li input {
+  display: flex;
+  width: 100%;
+  margin: auto 0;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+.modalButton {
+  display: flex;
+  margin-top: 20px;
+  width: 150px;
+  justify-content: space-between;
+}
+
+.categoryDropdown {
+  width: 100%;
+  min-width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.categoryDropdown option {
+  width: auto;
+  min-width: 200px;
+}
+
+.thumnailContainer {
+  width: 200px;
+  height: 100px;
+  background-color: var(--color-light-gray);
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.thumnailSize {
+  width: 200px;
+  height: 100px;
+}
+
+.xButtonContainer {
+  width: 25px;
+  height: 25px;
+  /* padding: 5px; */
+  border-radius: 25px;
+  background-color: var(--color-light-gray);
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.xButton {
+  width: 12px;
+  height: 15px;
+}
+
+.inputFieldContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.inputFieldContainer span {
+  width: 80px;
+}
+.inputField {
+  margin-right: 10px;
+  width: 200px;
+}
+.plusButtonIcon {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.buttonIcon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1300px) {
+  .mypageLeftSide {
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .mypageLeftSide {
+    display: none;
+  }
+  .mypageRightSide {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .menuTab {
+    display: block;
+  }
+  .modalContent ul {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 0 30px;
+  }
+
+  .modalContent ul li:last-child {
+    margin-top: 10px;
+    width: 100%;
+  }
 }

@@ -15,7 +15,8 @@ const AdminPage = () => {
   const {
     setLevel,
     setInputName,
-    setNickName
+    setNickName,
+    setSelectedUserId
   } = useAdminPageStore()
 
   useEffect(() => {
@@ -23,10 +24,12 @@ const AdminPage = () => {
       setLevel('customer');
       setInputName("")
       setNickName("")
+      setSelectedUserId("")
     } else if (tabActive === '강사관리') {
       setLevel('teacher');
       setInputName("")
       setNickName("")
+      setSelectedUserId("")
     }
   }, [tabActive, setLevel]);
 

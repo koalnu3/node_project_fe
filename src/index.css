@@ -143,6 +143,8 @@ input[type="search"] {
 }
 
 input[type="radio"] {
+  width: 20px;
+  height: 20px;
   accent-color: var(--color-primary);
   vertical-align: middle;
 }
@@ -151,7 +153,7 @@ input[type="radio"]:first-child {
   margin-left: 0;
 }
 
-input[type="radio"]+label {
+input[type="radio"] + label {
   margin: 0 7px 0 5px;
   vertical-align: middle;
 }
@@ -171,12 +173,6 @@ button {
   color: var(--color-white);
   font-size: 14px;
   cursor: pointer;
-}
-
-button:hover {
-  background-color: #d5617e;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-radius);
 }
 
 button.small {
@@ -303,11 +299,11 @@ button.white span::after {
 /* title */
 h1,
 h2,
-h2,
+h3,
 h4,
 h5,
 h6 {
-  /* font-weight: bold; */
+  font-weight: bold;
   line-height: 1.25;
 }
 
@@ -354,8 +350,10 @@ p {
 }
 
 .header {
+  position: relative;
   padding-top: 20px;
   border-bottom: 1px solid #ddd;
+  z-index: 10;
 }
 
 .header .inner {
@@ -374,6 +372,14 @@ p {
   transform: translateY(-50%);
 }
 
+.header.navHidden .menuContent {
+  display: none;
+}
+
+.header.navHidden .menuBtn {
+  display: none;
+}
+
 .logo {
   display: inline-block;
   padding-top: 14px;
@@ -386,7 +392,7 @@ p {
 }
 
 .logo img {
-  height: 52px;
+  height: 50px;
 }
 
 .util .utilBtn {
@@ -449,7 +455,8 @@ p {
   background-color: #fff;
 }
 
-.util.active .utilList li {}
+.util.active .utilList li {
+}
 
 .util.active .utilList li:first-child {
   margin-top: 0;
@@ -552,7 +559,6 @@ p {
   top: 0;
   right: 0;
   height: 100%;
-  /* font-size: 18px; */
   width: 45px;
   border: 0;
   background-color: transparent;
@@ -712,6 +718,7 @@ p {
 /* classItem */
 .classItem {
   position: relative;
+  text-align: left;
 }
 
 .classItem a {
@@ -796,6 +803,7 @@ p {
   padding: 5px;
   border: none;
   background-color: transparent;
+  transition: 0.3s;
 }
 
 .likeBtn svg {
@@ -816,27 +824,26 @@ p {
   z-index: 100;
 }
 
+.loadingArea {
+  position: relative;
+  min-height: 140px;
+}
+
 .loader {
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 45px;
-  aspect-ratio: .75;
+  aspect-ratio: 0.75;
   --c: no-repeat linear-gradient(#000 0 0);
-  background:
-    var(--c) 0% 50%,
-    var(--c) 50% 50%,
-    var(--c) 100% 50%;
+  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
   animation: l7 1s infinite linear alternate;
   z-index: 200;
 }
 
 .loader.noFixed {
-  position: relative;
-  left: inherit;
-  top: inherit;
-  transform: inherit;
+  position: absolute;
 }
 
 .noData {
@@ -855,8 +862,52 @@ p {
   fill: var(--color-gray);
 }
 
-@media screen and (max-width: 1300px) {
+.ModalArea {
+  width: 50%;
+  min-height: 40%;
+  padding: 60px 20px 25px;
+  border: none;
+  border-radius: var(--border-radius);
+}
 
+.ModalArea.modalTitle {
+  padding: 20px 20px 25px;
+  text-align: left;
+}
+
+.ModalArea .closeBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 45px;
+  height: 45px;
+  background-color: transparent;
+  border: none;
+}
+
+.ModalArea .title {
+  margin: 0 -20px;
+  padding: 0 20px 20px;
+  font-size: 22px;
+}
+
+.ModalArea .modalContent {
+  height: 100%;
+  font-size: 16px;
+}
+
+.ModalArea .modalContent .btnArea {
+  margin-top: 20px;
+}
+
+.ModalArea.small {
+  width: 400px;
+  min-height: 150px;
+  padding: 20px 20px 20px;
+  text-align: center;
+}
+
+@media screen and (max-width: 1300px) {
   .content,
   .footer,
   .header .top {
@@ -979,10 +1030,7 @@ p {
   }
 
   .loader.noFixed {
-    position: relative;
-    left: inherit;
-    top: inherit;
-    transform: inherit;
+    position: absolute;
   }
 
   .noData {
@@ -1000,11 +1048,9 @@ p {
     height: 50px;
     fill: var(--color-gray);
   }
-
 }
 
 @media screen and (max-width: 1000px) {
-
   /* classItem */
   .classList ul li {
     width: 33.33%;
@@ -1016,14 +1062,12 @@ p {
 }
 
 @media screen and (max-width: 769px) {
-
   .classItem .img {
     height: 140px;
   }
 }
 
 @media screen and (max-width: 769px) {
-
   input[type="text"],
   input[type="password"],
   input[type="search"] {
@@ -1065,6 +1109,10 @@ p {
     width: 100%;
     height: 65px;
     padding: 15px 15px 15px 65px;
+  }
+
+  .header.navHidden .top {
+    padding-left: 15px;
   }
 
   .util .utilBtn span b {
@@ -1206,31 +1254,82 @@ p {
   .classItem .img {
     height: 100px;
   }
+
+  /* modal */
+  .ModalArea {
+    width: 100%;
+    min-height: 40%;
+    padding: 60px 15px 25px;
+  }
+
+  .ModalArea .closeBtn {
+    top: 5px;
+    right: 5px;
+  }
+
+  .ModalArea.modalTitle .title {
+    padding: 0 45px 25px 20px;
+    text-align: left;
+  }
+
+  .ModalArea.small {
+    width: 100%;
+  }
+}
+
+@media (hover: hover) {
+  button:hover {
+    background-color: #b60330;
+  }
+
+  button.white:hover {
+    background-color: #eee;
+  }
+
+  button.gray:hover {
+    background-color: #afafaf;
+    color: var(--color-white);
+  }
+
+  .likeBtn:hover {
+    background-color: transparent;
+    transform: scale(1.15);
+  }
+
+  .likeBtn:hover svg {
+    fill: var(--color-primary);
+  }
+
+  .search button:hover,
+  .searchInput button:hover {
+    background-color: var(--color-light-gray);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
 }
 
 @keyframes l7 {
   0% {
-    background-size: 20% 50%, 20% 50%, 20% 50%
+    background-size: 20% 50%, 20% 50%, 20% 50%;
   }
 
   20% {
-    background-size: 20% 20%, 20% 50%, 20% 50%
+    background-size: 20% 20%, 20% 50%, 20% 50%;
   }
 
   40% {
-    background-size: 20% 100%, 20% 20%, 20% 50%
+    background-size: 20% 100%, 20% 20%, 20% 50%;
   }
 
   60% {
-    background-size: 20% 50%, 20% 100%, 20% 20%
+    background-size: 20% 50%, 20% 100%, 20% 20%;
   }
 
   80% {
-    background-size: 20% 50%, 20% 50%, 20% 100%
+    background-size: 20% 50%, 20% 50%, 20% 100%;
   }
 
   100% {
-    background-size: 20% 50%, 20% 50%, 20% 50%
+    background-size: 20% 50%, 20% 50%, 20% 50%;
   }
 }
 
