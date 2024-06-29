@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import StarImage from "../svg/StarImage";
 
 const ClassItem = ({ item, className, discount }) => {
   const [likeActive, setLikeActive] = useState(false);
@@ -49,10 +50,13 @@ const ClassItem = ({ item, className, discount }) => {
               </span>
               <span className="unit">원</span>
             </span>
-            <span className="percent">{discountDefault} %</span>
+            <span className="percent">{discountDefault}%</span>
           </p>
           <p className="util">
-            <span className="average">5.0(162)</span>
+            <span className="average">
+              <StarImage />
+              <span>5.0(162)</span>
+            </span>
           </p>
         </div>
       </a>
