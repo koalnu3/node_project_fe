@@ -31,12 +31,13 @@ const MyClassModal = ({
   const [price, setPrice] = useState(filterMyClassData[0]?.price || 0);
   const [fields, setFields] = useState(filterMyClassData[0]?.curriculum || []);
   const [selectedCategory, setSelectedCategory] = useState(
-    filterMyCategory[0] || {}
+    filterMyCategory[0] || (!filterMyCategory[0] && categoryStore)[0] || {}
   );
   const widgetRef = useRef(null);
   const textareaRef = useRef(null);
 
   const handleAddTitle = () => {
+    if (fields.length >= 5) return toast.error("강의는 5강까지 가능합니다.");
     setFields((prevFields) => [
       ...prevFields,
       {
@@ -89,7 +90,7 @@ const MyClassModal = ({
     const selectedData = categoryStore.filter(
       (data) => data.id === selectedValue
     );
-    setSelectedCategory(selectedData);
+    setSelectedCategory(...selectedData);
   };
 
   const classSubscripChange = (event) => {
@@ -121,7 +122,24 @@ const MyClassModal = ({
       console.log("err", error);
     }
   };
+
   const handleNewClassUpload = async () => {
+    if (!className) {
+      return toast.error("클래스명을 입력해주세요.");
+    }
+    if (!thumbnail) {
+      return toast.error("썸네일 이미지를 넣어주세요.");
+    }
+    if (!classSubscrip) {
+      return toast.error("클래스 설명을 입력해주세요.");
+    }
+    if (fields.length == 0) {
+      return toast.error("커리큘럼을 입력해주세요.");
+    }
+    if (!price) {
+      return toast.error("가격을 입력해주세요.");
+    }
+
     try {
       const response = await api.post("/class", {
         name: className,
@@ -129,7 +147,7 @@ const MyClassModal = ({
         image: thumbnail,
         curriculum: fields,
         price,
-        categoryId: selectedCategory[0]._id,
+        categoryId: selectedCategory._id,
         userId: user._id,
       });
       if (response.status !== 200) throw new Error(response.error);
@@ -251,6 +269,9 @@ const MyClassModal = ({
           </li>
           <li>
             <div className="curriculumAddList">
+              {fields.length === 0 && (
+                <p className="helpMessage">커리큘럼 목록을 추가해주세요.</p>
+              )}
               {(fields || []).map((title, titleIndex) => (
                 <div key={titleIndex} className="addCurriculum">
                   <div className="title">
