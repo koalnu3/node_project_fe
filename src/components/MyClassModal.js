@@ -105,7 +105,7 @@ const MyClassModal = ({
         image: thumbnail,
         curriculum: fields,
         price,
-        categoryId: selectedCategory[0]._id,
+        categoryId: selectedCategory._id,
         userId: user._id,
       });
       if (response.status !== 200) throw new Error(response.error);
