@@ -33,7 +33,6 @@ const ClassPage = () => {
         const { data } = await api.get(
           `/class?page=${pageParam}&name=${name}&category=${category}`
         );
-        // console.log("data infi", data);
         return data;
       },
       initialPageParam: 1,
@@ -75,20 +74,15 @@ const ClassPage = () => {
     [isFetchingNextPage, fetchNextPage, hasNextPage]
   );
 
-  // 마지막 페이지의 data.length 확인
-  // const lastPageDataLength =
-  //   data?.pages?.[data.pages.length - 1]?.data.length || 0;
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <Content>
-      {/* <div className="App"> */}
-      {/* <RoundTab
-        list={roundTabList}
-        setRoundTabActive={handleRoundTabClick}
-        roundTabActive={roundTabActive}
-        tagType="button"
-      /> */}
-
       <div className="category" style={{ marginTop: "0px" }}>
         <ul className="categoryList">
           {categoryList?.map((category, idx) => (
@@ -166,6 +160,11 @@ const ClassPage = () => {
           <div className="noMoreData">더 이상 데이터가 없습니다.</div>
         )} */}
       {/* </div> */}
+      <div className="fixedBtnArea">
+        <button type="button" className="topBtn" onClick={scrollToTop}>
+          <span>topBtn</span>
+        </button>
+      </div>
     </Content>
   );
 };
