@@ -26,10 +26,15 @@ const VideoModal = ({
     const videoTitleList = [];
     const videoSubList = [];
 
-    list?.map((item) => item.list.map((e) => filterList.push(e.url)));
-    list?.map((item) => item.list.map((e) => videoTitleList.push(e.title)));
-    list?.map((item) => item.list.map((e) => videoSubList.push(e)));
+    // list?.map((item) => item.list.map((e) => filterList.push(e.url)));
+    // list?.map((item) => item.list.map((e) => videoTitleList.push(e.title)));
+    // list?.map((item) => item.list.map((e) => videoSubList.push(e)));
+    // console.log("listitem", list);
+    list?.map((item) => item.subItems.map((e) => filterList.push(e.link)));
+    list?.map((item) => item.subItems.map((e) => videoTitleList.push(e.title)));
+    list?.map((item) => item.subItems.map((e) => videoSubList.push(e)));
 
+    // console.log("filterList", list);
     setUrlList(filterList);
     setTitleList(videoTitleList);
     setSubList(videoSubList);
@@ -47,11 +52,11 @@ const VideoModal = ({
       setUrlIndex(checkIndex - 1);
       setTitle(titleList[checkIndex - 1]);
     }
-
     return;
   };
 
   const handleComplete = () => {
+    // document.querySelector(`#${isComplete}`).classList.add("done");
     document.querySelector(`#${isComplete}`).classList.add("done");
   };
 
@@ -60,6 +65,7 @@ const VideoModal = ({
     const urlLength = urlList.length - 1;
 
     if (checkIndex < urlLength) {
+      // console.log("urlList", urlList);
       setVideoUrl(urlList[checkIndex + 1]);
       setUrlIndex(checkIndex + 1);
       setTitle(titleList[checkIndex + 1]);
@@ -69,9 +75,11 @@ const VideoModal = ({
 
   useEffect(() => {
     if (!clickVideoUrl) {
-      setVideoUrl(list[0].list[0].url);
-      setTitle(list[0].list[0].title);
+      // console.log("list[0]", list);
+      // setVideoUrl(list?.subItems[0].link);
+      // setTitle(list?.subItems[0].title);
     } else {
+      // console.log("list[0]else", list);
       setVideoUrl(clickVideoUrl);
       setTitle(clickVideoTitle);
       setIsComplete(clickVideoId);

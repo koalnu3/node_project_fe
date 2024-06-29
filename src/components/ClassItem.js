@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ClassItem = ({ item }) => {
+const ClassItem = ({ item, className, discount }) => {
   const [likeActive, setLikeActive] = useState(false);
   const handleLike = () => {
     if (likeActive === false) {
@@ -9,8 +9,17 @@ const ClassItem = ({ item }) => {
       setLikeActive(false);
     }
   };
+
+  const discountDefault = 20;
+  const calculateDiscount = (price, discount) => {
+    if (discount === 0) {
+      return 0;
+    }
+    return price - (price * discount) / 100;
+  };
+
   return (
-    <div className="classItem">
+    <div className={`classItem ${!className ? `` : className}`}>
       <button
         type="button"
         className={`likeBtn ${likeActive === true ? `active` : ``}`}
@@ -26,9 +35,21 @@ const ClassItem = ({ item }) => {
         </div>
         <div className="info">
           <strong className="title">{item?.name}</strong>
-          <p className="price">
-            <span>{item?.price}</span>
-            <span className="unit">원</span>
+          <p className={`price ${!discount ? `` : `discount`}`}>
+            <span className="defaultPrice">
+              <span>{item?.price.toLocaleString()}</span>
+              <span className="unit">원</span>
+            </span>
+            <span className="discountPrice">
+              <span>
+                {calculateDiscount(
+                  item?.price,
+                  discountDefault
+                ).toLocaleString()}
+              </span>
+              <span className="unit">원</span>
+            </span>
+            <span className="percent">{discountDefault} %</span>
           </p>
           <p className="util">
             <span className="average">5.0(162)</span>

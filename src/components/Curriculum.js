@@ -35,19 +35,19 @@ const Curriculum = ({ list, isDescription, handleVideoModal }) => {
             {isDescription && (
               <div className="description">
                 <ul className="list">
-                  {item?.list.map((subItem) => (
-                    <li key={subItem.id}>
-                      <p>{subItem.title}</p>
+                  {item?.subItems.map((ItemDetail, idx) => (
+                    <li key={ItemDetail._id}>
+                      <p>{ItemDetail.title}</p>
                       <span>
-                        <span className="time">{subItem.time}</span>
+                        <span className="time">{ItemDetail.time}</span>
                         <button
                           type="button"
                           className="videoBtn"
                           onClick={() =>
                             handleVideoModal(
-                              subItem.url,
-                              subItem.title,
-                              `description${idx + subItem.id}`
+                              ItemDetail.link,
+                              ItemDetail.title,
+                              `description${idx + ItemDetail._id}`
                             )
                           }
                         >

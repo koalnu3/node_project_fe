@@ -7,6 +7,7 @@ import TrashCanImage from "../svg/TrashCanImage";
 import XImage from "../svg/XImage";
 import api from "../utils/api";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
+import CameraImage from "../svg/CameraImage";
 
 const MyClassModal = ({
   id,
@@ -159,7 +160,7 @@ const MyClassModal = ({
   };
 
   return (
-    <div className="modal">
+    <div className="modal myPageModal">
       <div className="modalContent">
         <ul>
           <li>카테고리명</li>
@@ -181,6 +182,7 @@ const MyClassModal = ({
           <li>클래스명</li>
           <li>
             <input
+              type="text"
               value={className}
               onChange={(e) => setClassName(e.target.value)}
             />
@@ -199,13 +201,20 @@ const MyClassModal = ({
                     ref={widgetRef}
                     uploadImage={uploadImage}
                   />
-                  <div style={{ fontSize: "15px" }}>
-                    클릭하여 이미지를 첨부해주세요
+                  <div className="helpMessage">
+                    <span className="icon">
+                      <CameraImage />
+                    </span>
+                    <p>클릭하여 이미지를 첨부해주세요</p>
                   </div>
                 </>
               ) : (
                 <div style={{ position: "relative" }}>
-                  <img src={thumbnail} className="thumnailSize" />
+                  <img
+                    src={thumbnail}
+                    className="thumnailSize"
+                    alt="클래스 썸네일"
+                  />
                   <div
                     className="xButtonContainer flexCenter"
                     onClick={() => setThumbnail("")}
@@ -221,21 +230,12 @@ const MyClassModal = ({
         </ul>
         <ul>
           <li></li>
-
           <li>
-            <div style={{ fontSize: "14px" }}>
-              클래스 썸네일 규정은 다음과 같습니다.
-            </div>
-            <div
-              style={{
-                fontSize: "12px",
-                color: "var(--color-gray)",
-                marginTop: "5px",
-              }}
-            >
-              <div>1. 1280px X 720px의 고해상도 이미지를 사용해주세요.</div>
-              <div>2. 10MB 이하의 jpg, jpen, png 파일만 등록 가능합니다.</div>
-            </div>
+            <dl className="helpMessageList">
+              <dt>* 클래스 썸네일 규정은 다음과 같습니다.</dt>
+              <dd>1. 1280px X 720px의 고해상도 이미지를 사용해주세요.</dd>
+              <dd>2. 10MB 이하의 jpg, jpen, png 파일만 등록 가능합니다.</dd>
+            </dl>
           </li>
         </ul>
         <ul>
@@ -248,7 +248,6 @@ const MyClassModal = ({
               style={{
                 width: "100%",
                 height: "100%",
-
                 padding: "10px",
                 whiteSpace: "pre-wrap",
                 display: "block",
@@ -260,9 +259,13 @@ const MyClassModal = ({
         <ul>
           <li>
             커리큘럼
-            <div className="plusButtonIcon" onClick={handleAddTitle}>
+            <button
+              type="button"
+              className="plusButtonIcon white"
+              onClick={handleAddTitle}
+            >
               <PlusImage />
-            </div>
+            </button>
           </li>
           <li>
             <div className="curriculumAddList">
@@ -270,33 +273,33 @@ const MyClassModal = ({
                 <p className="helpMessage">커리큘럼 목록을 추가해주세요.</p>
               )}
               {(fields || []).map((title, titleIndex) => (
-                <div
-                  key={titleIndex}
-                  style={{ flexDirection: "column", marginBottom: "20px" }}
-                >
-                  <div className="inputFieldContainer">
+                <div key={titleIndex} className="addCurriculum">
+                  <div className="title">
                     <span>{titleIndex + 1}강</span>
-                    <input
-                      type="text"
-                      value={title.title}
-                      onChange={(e) =>
-                        handleTitleChange(titleIndex, e.target.value)
-                      }
-                      placeholder="타이틀 입력"
-                      className="inputField"
-                    />
-                    <div
-                      className="plusButtonIcon"
-                      onClick={() => handleAddField(titleIndex)}
-                      style={{ width: "20px", height: "20px" }}
-                    >
-                      <PlusImage />
-                    </div>
-                    <div
-                      className="buttonIcon"
-                      onClick={() => handleRemoveTitle(titleIndex)}
-                    >
-                      <TrashCanImage />
+                    <div className="cont">
+                      <input
+                        type="text"
+                        value={title.title}
+                        onChange={(e) =>
+                          handleTitleChange(titleIndex, e.target.value)
+                        }
+                        placeholder="타이틀 입력"
+                        className="inputField"
+                      />
+                      <button
+                        type="button"
+                        className="plusButtonIcon white"
+                        onClick={() => handleAddField(titleIndex)}
+                      >
+                        <PlusImage />
+                      </button>
+                      <button
+                        type="button"
+                        className="buttonIcon gray"
+                        onClick={() => handleRemoveTitle(titleIndex)}
+                      >
+                        <TrashCanImage />
+                      </button>
                     </div>
                   </div>
                   {title.subItems.map((field, fieldIndex) => (
@@ -329,14 +332,15 @@ const MyClassModal = ({
                         placeholder="링크"
                         className="inputField"
                       />
-                      <div
-                        className="buttonIcon"
+                      <button
+                        type="button"
+                        className="buttonIcon gray"
                         onClick={() =>
                           handleRemoveField(titleIndex, fieldIndex)
                         }
                       >
                         <TrashCanImage />
-                      </div>
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -347,17 +351,17 @@ const MyClassModal = ({
 
         <ul>
           <li>가격</li>
-          <li style={{ display: "flex", alignItems: "center" }}>
+          <li className="inputUnit">
             <input
+              type="number"
               value={price}
-              style={{ width: "100px" }}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <div style={{ marginLeft: "10px" }}>원</div>
+            <div className="unit">원</div>
           </li>
         </ul>
-        <div className="modalButton">
-          <button onClick={onClose} className=" gray">
+        <div className="btnArea">
+          <button onClick={onClose} className="gray">
             닫기
           </button>
           <button
