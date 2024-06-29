@@ -34,19 +34,21 @@ const VideoList = ({ list, setVideoUrl, setTitle, setIsComplete }) => {
             </button>
             <div className="description">
               <ul>
-                {item?.list.map((sub) => (
-                  <li key={`sub${sub.id}`}>
+                {/* {item?.list.map((sub) => ( */}
+                {item?.subItems.map((sub) => (
+                  <li key={`sub${sub._id}`}>
+                    {/* {console.log("sub.url", sub)} */}
                     <button
                       type="button"
                       className={`descriptionInfo ${
-                        sub.isComplete === true ? `done` : ``
+                        sub.completed === true ? `done` : ``
                       }`}
-                      id={`description${idx + sub.id}`}
+                      id={`description${idx + sub._id}`}
                       onClick={() =>
                         handleVideoUrl(
-                          sub.url,
+                          sub.link,
                           sub.title,
-                          `description${idx + sub.id}`
+                          `description${idx + sub._id}`
                         )
                       }
                     >
