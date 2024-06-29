@@ -109,7 +109,7 @@ const HomePage = () => {
       setCategoryList(categoryData?.data?.data);
       setCategoryStore(categoryData?.data?.data);
     }
-  }, [categoryData.data]);
+  }, [categoryData?.data]);
 
   return (
     <Content className="homepage">

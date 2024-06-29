@@ -162,9 +162,12 @@ input[type="radio"]+label {
 
 select {
   height: 40px;
+  line-height: 40px;
   padding: 0 15px;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color-default);
+  -webkit-appearance: menulist-button;
+  -moz-appearance: none;
   /* -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -823,13 +826,24 @@ p {
 
 .classItem .util .average {
   position: relative;
-  display: inline-block;
+  display: block;
   padding-left: 20px;
   font-size: 13px;
   font-weight: bold;
 }
 
-.classItem .util .average::before {
+.classItem .util .average svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  vertical-align: middle;
+  width: 15px;
+  height: 15px;
+  fill: #ffc400;
+}
+
+/* .classItem .util .average::before {
   content: "★";
   display: inline-block;
   position: absolute;
@@ -838,7 +852,7 @@ p {
   transform: translateY(-50%);
   color: #ffc400;
   font-size: 17px;
-}
+} */
 
 .classList ul {
   display: flex;
