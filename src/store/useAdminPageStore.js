@@ -1,5 +1,5 @@
 // store/useAdminPageStore.js
-import create from 'zustand';
+import { create } from "zustand";
 
 const useAdminPageStore = create((set) => ({
   tabActive: "",
@@ -28,9 +28,9 @@ const useAdminPageStore = create((set) => ({
 
   inputName: "",
   setInputName: (name) => set({ inputName: name }),
-  
+
   userList: [],
-  setUserList: (list) => set({ userList: list })
+  setUserList: (list) => set({ userList: list }),
 }));
 
 export default useAdminPageStore;

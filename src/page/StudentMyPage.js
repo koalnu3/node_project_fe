@@ -122,8 +122,6 @@ const StudentMyPage = ({ user, setUser }) => {
     }
   }, [tabName]);
 
-  console.log("tabName", tabName);
-
   useEffect(() => {
     setSelectMenu({ name: tabActive });
   }, [tabActive]);
