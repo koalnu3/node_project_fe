@@ -79,9 +79,9 @@ const TeacherMyPage = ({ user, setUser }) => {
     setImage(url);
   };
 
-  const handleUploadImage = async () => {
+  const handleUploadImage = async (url) => {
     try {
-      const response = await api.put(`/user`, { image });
+      const response = await api.put(`/user`, { image: url });
 
       if (response.status !== 200) throw new Error(response.statusText);
       toast.success("이미지 저장이 완료되었습니다.");
