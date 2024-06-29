@@ -2,39 +2,59 @@ import React, { useEffect, useState } from "react";
 import "../style/VideoPage.style.css";
 import VideoList from "./VideoList";
 
-const VideoModal = ({ id, list, clickVideoUrl }) => {
+const VideoModal = ({
+  id,
+  list,
+  clickVideoUrl,
+  clickVideoTitle,
+  clickVideoId,
+}) => {
   const [utilActive, setUtilActive] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [urlList, setUrlList] = useState([]);
   const [urlIndex, setUrlIndex] = useState(0);
-
-  console.log(clickVideoUrl);
-
+  const [titleList, setTitleList] = useState([]);
+  const [title, setTitle] = useState("");
+  const [subList, setSubList] = useState([]);
+  const [isComplete, setIsComplete] = useState("");
   const handleModalClose = () => {
     document.querySelector(`#${id}`).close();
   };
 
   const urlListCreate = () => {
     const filterList = [];
+    const videoTitleList = [];
+    const videoSubList = [];
+
     list?.map((item) => item.list.map((e) => filterList.push(e.url)));
+    list?.map((item) => item.list.map((e) => videoTitleList.push(e.title)));
+    list?.map((item) => item.list.map((e) => videoSubList.push(e)));
+
     setUrlList(filterList);
+    setTitleList(videoTitleList);
+    setSubList(videoSubList);
   };
 
   const handleUtilOpen = () => {
     setUtilActive(!utilActive);
   };
+
   const handlePrev = () => {
     const checkIndex = urlList.indexOf(videoUrl);
 
     if (urlIndex > 0) {
       setVideoUrl(urlList[checkIndex - 1]);
       setUrlIndex(checkIndex - 1);
+      setTitle(titleList[checkIndex - 1]);
     }
 
-    console.log(checkIndex);
     return;
   };
-  const handleComplete = () => {};
+
+  const handleComplete = () => {
+    document.querySelector(`#${isComplete}`).classList.add("done");
+  };
+
   const handleNext = () => {
     const checkIndex = urlList.indexOf(videoUrl);
     const urlLength = urlList.length - 1;
@@ -42,17 +62,19 @@ const VideoModal = ({ id, list, clickVideoUrl }) => {
     if (checkIndex < urlLength) {
       setVideoUrl(urlList[checkIndex + 1]);
       setUrlIndex(checkIndex + 1);
+      setTitle(titleList[checkIndex + 1]);
     }
     return;
   };
 
   useEffect(() => {
-    console.log("찍히긴하는거야?");
     if (!clickVideoUrl) {
-      console.log("클릭비디오링크없음");
       setVideoUrl(list[0].list[0].url);
+      setTitle(list[0].list[0].title);
     } else {
       setVideoUrl(clickVideoUrl);
+      setTitle(clickVideoTitle);
+      setIsComplete(clickVideoId);
     }
     urlListCreate();
   }, [clickVideoUrl]);
@@ -62,7 +84,7 @@ const VideoModal = ({ id, list, clickVideoUrl }) => {
       <div className="videoArea">
         <div className="videoView">
           <div className="title">
-            <h2>지금 딱 5초만 해보세요! 솔직히 모든문제는 이곳에 있어요</h2>
+            <h2>{title}</h2>
           </div>
           <div className="view">
             <iframe
@@ -81,14 +103,14 @@ const VideoModal = ({ id, list, clickVideoUrl }) => {
               type="button"
               className="prevBtn"
               onClick={() => handlePrev()}
-              disabled={urlIndex > 0 ? false : true}
+              disabled={urlIndex !== 0 ? false : true}
             >
               <span className="iconPrev">이전 수업</span>
             </button>
             <button
               type="button"
               className="completeBtn"
-              onClick={() => handleComplete()}
+              onClick={() => handleComplete(title)}
             >
               봤어요
             </button>
@@ -123,7 +145,12 @@ const VideoModal = ({ id, list, clickVideoUrl }) => {
             className={`videoCurriculum ${utilActive === true ? `active` : ``}`}
           >
             <h3 className="h3">커리큘럼</h3>
-            <VideoList list={list} setVideoUrl={setVideoUrl} />
+            <VideoList
+              list={list}
+              setVideoUrl={setVideoUrl}
+              setTitle={setTitle}
+              setIsComplete={setIsComplete}
+            />
           </div>
         </div>
       </div>

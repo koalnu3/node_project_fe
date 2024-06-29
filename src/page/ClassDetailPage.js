@@ -9,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom"; //추가
 import Curriculum from "../components/Curriculum";
 import NoData from "../components/NoData";
 import { useGetClassQuery } from "../hooks/useGetClass";
+import { useGetUserClassQuery } from "../hooks/useGetUserClass";
 
 const ClassDetailPage = () => {
   const tabList = [
@@ -19,7 +20,7 @@ const ClassDetailPage = () => {
     { name: "커리큘럼", link: "#curriculum" },
     { name: "강사소개", link: "#introduceLecturer" },
   ];
-  const curriculumList = [
+  let curriculumList = [
     {
       title: "섹션 0. 자세교정",
       list: [
@@ -123,11 +124,13 @@ const ClassDetailPage = () => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [clickVideoUrl, setClickVideoUrl] = useState("");
+  const [clickVideoTitle, setClickVideoTitle] = useState("");
   const classList = useGetClassQuery({
     page,
     name,
     category,
   });
+  const [clickVideoId, setClickVideoId] = useState("");
 
   const handleDataSetting = () => {
     setClassDetailList(data?.data);
@@ -135,11 +138,15 @@ const ClassDetailPage = () => {
     setCategory(classDetailList?.category);
   };
 
-  const handleVideoModal = (url) => {
+  const handleVideoModal = (url, title, id) => {
     document.querySelector("#classVideo").showModal();
     console.log(url);
     setClickVideoUrl(url);
+    setClickVideoTitle(title);
+    setClickVideoId(id);
   };
+
+  const userClass = useGetUserClassQuery();
 
   useEffect(() => {
     handleDataSetting();
@@ -161,6 +168,8 @@ const ClassDetailPage = () => {
         id="classVideo"
         list={curriculumList}
         clickVideoUrl={clickVideoUrl}
+        clickVideoTitle={clickVideoTitle}
+        clickVideoId={clickVideoId}
       />
       <Content className="classDetail">
         {classDetailList ? (
@@ -223,7 +232,7 @@ const ClassDetailPage = () => {
             <h3 className="h3" id="curriculum">
               커리큘럼
             </h3>
-            <Curriculum list={classDetailList?.curriculum} />
+            {/* <Curriculum list={classDetailList?.curriculum} /> */}
             <Curriculum
               list={curriculumList}
               handleVideoModal={handleVideoModal}
