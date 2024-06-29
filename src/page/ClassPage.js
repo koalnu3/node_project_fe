@@ -33,8 +33,10 @@ const ClassPage = () => {
         const { data } = await api.get(
           `/class?page=${pageParam}&name=${name}&category=${category}`
         );
+        console.log("data", data);
         return data;
       },
+
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) => {
         const nextPage = allPages.length + 1;
@@ -145,7 +147,18 @@ const ClassPage = () => {
       )}
 
       <div ref={loadMoreRef} style={{ height: "1px" }}></div>
-      {isFetchingNextPage && <Loading noBg noFixed />}
+      {data?.pages[0].totalPageNum > data?.pages?.length && (
+        <Loading noBg noFixed />
+      )}
+      {/* {isFetchingNextPage && <Loading noBg noFixed />} */}
+
+      {/* {console.log("isFetchingNextPage", isFetchingNextPage)}
+      {console.log("fetchNextPage", fetchNextPage)}
+      {console.log("hasNextPage", hasNextPage)}
+      {console.log(
+        "data?.pages[0]?.totalPageNum",
+        data?.pages[0]?.totalPageNum
+      )} */}
 
       {/* {!hasNextPage && lastPageDataLength === 0 && (
         <div>
