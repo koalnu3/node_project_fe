@@ -84,7 +84,7 @@ const OrderPage = () => {
       // }, 1000);
     } catch (error) {
       toast.error(error.error);
-      console.log("error", error);
+      // console.log("error", error);
     }
   };
 
