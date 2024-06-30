@@ -31,7 +31,7 @@ const ClassPage = () => {
         const name = queryKey[1];
         const category = queryKey[2];
         const { data } = await api.get(
-          `/class?page=${pageParam}&name=${name}&categoryId=${category}`
+          `/class?page=${pageParam}&name=${name}&category=${category}`
         );
         console.log("data", data);
         return data;
@@ -89,7 +89,7 @@ const ClassPage = () => {
         <ul className="categoryList">
           {categoryList?.map((category, idx) => (
             <li key={idx}>
-              <a href={`/class?name=&categoryId=${category?.name}`}>
+              <a href={`/class?name=&category=${category?.name}`}>
                 <span className="icon">
                   {category?.name === "헬스" && (
                     <svg
