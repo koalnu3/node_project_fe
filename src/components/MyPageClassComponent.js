@@ -14,22 +14,15 @@ const MyPageClassComponent = ({
     setClickId && setClickId(type === "customer" ? classId._id : data._id);
   };
 
+  console.log(type);
   return (
-    <div
-      style={{
-        padding: "10px 10px",
-        cursor: "pointer",
-      }}
-      onClick={navigateRouter}
-    >
-      <img
-        style={{
-          width: "250px",
-          height: "170px",
-          backgroundColor: "gray",
-        }}
-        src={type === "customer" ? classId?.image[0] : data.image[0]}
-      />
+    <div className="mypageClassItem" onClick={navigateRouter}>
+      <div className="img">
+        <img
+          src={type === "customer" ? classId?.image[0] : data.image[0]}
+          alt=""
+        />
+      </div>
       <div
         style={{
           marginTop: "5px",

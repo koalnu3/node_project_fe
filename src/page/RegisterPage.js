@@ -316,7 +316,7 @@ const RegisterPage = () => {
         </div>
         <input
           type="radio"
-          id="type"
+          // id="type"
           name="radioCheck"
           value="teacher"
           onChange={handleChange}
@@ -325,7 +325,7 @@ const RegisterPage = () => {
         <label htmlFor="radio1">강사</label>
         <input
           type="radio"
-          id="type"
+          // id="type"
           name="radioCheck"
           value="customer"
           onChange={handleChange}

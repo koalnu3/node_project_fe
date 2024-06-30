@@ -18,6 +18,7 @@ import Loading from "../components/Loading";
 import NoData from "../components/NoData";
 import useCategoryStore from "../store/useCategoryStore";
 import { useGetCategoryQuery } from "../hooks/useGetCategory";
+import Content from "../components/Content";
 
 const TeacherMyPage = ({ user, setUser }) => {
   const { categoryStore, setCategoryStore } = useCategoryStore();
@@ -172,7 +173,7 @@ const TeacherMyPage = ({ user, setUser }) => {
     );
   }
   return (
-    <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
+    <Content className="teacherPage">
       {openClassDetail && (
         <MyClassModal
           id={clickId}
@@ -200,40 +201,20 @@ const TeacherMyPage = ({ user, setUser }) => {
       </div>
       <div className="mypageContainer">
         <div className="mypageLeftSide">
-          <div
-            style={{
-              backgroundColor: " var(--background-color)",
-              width: "100%",
-              height: "100px",
-              borderRadius: "5px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ display: "flex" }}>
-              <div className="cameraStyle">
-                {image ? (
-                  <img src={image} className="cameraStyle" />
-                ) : (
-                  <ProfileImage />
-                )}
-              </div>
-              <div style={{ marginLeft: "20px" }}>
-                <div style={{ fontWeight: "bold" }}>{user.nickname}님</div>
-                <div
-                  style={{
-                    marginTop: "8px",
-                    color: mainGray,
-                  }}
-                >
-                  {user.email}
-                </div>
-              </div>
+          <div className="mypageProfile">
+            <div className="cameraStyle">
+              {image ? (
+                <img src={image} className="cameraStyle" alt="" />
+              ) : (
+                <ProfileImage />
+              )}
+            </div>
+            <div className="profileInfo">
+              <div>{user.nickname}님</div>
+              <div>{user.email}</div>
             </div>
           </div>
-          <div style={{ marginTop: "30px" }}>
+          <div className="mypageSideMenu">
             {tabList.map((menu, index) => {
               return (
                 <MyPageMenu
@@ -250,192 +231,181 @@ const TeacherMyPage = ({ user, setUser }) => {
           {/* 프로필 */}
           {selectMenu.name === "프로필" && (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="titleArea">
                 <div className="h3">내 프로필</div>
               </div>
-              <ul className="ulStyle">
-                <li>닉네임(별명)</li>
-                {!openUpdateInput ? (
-                  <li>
-                    {user.nickname}
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        width: "25px",
-                        height: "25px",
-                        cursor: "pointer",
-                      }}
-                      className="svgStyle"
-                      onClick={handleNickname}
-                    >
-                      <div style={{ width: "15px", height: "15px" }}>
-                        <UpdateIcon />
-                      </div>
-                    </div>
-                  </li>
-                ) : (
-                  <li>
-                    <input
-                      type="text"
-                      placeholder={user.nickname}
-                      onChange={(e) => setNickname(e.target.value)}
-                    />
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        cursor: "pointer",
-                      }}
-                      className="svgStyle"
-                      onClick={updateNicknameServer}
-                    >
-                      <div style={{ width: "20px", height: "20px" }}>
-                        <CircleCheckImage />
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        marginLeft: "10px",
-                        padding: "3px",
-                        cursor: "pointer",
-                      }}
-                      className="svgStyle"
-                      onClick={() => setOpenUpdateInput(false)}
-                    >
-                      <div style={{ width: "15px", height: "15px" }}>
-                        <ReplyImage />
-                      </div>
-                    </div>
-                  </li>
-                )}
-              </ul>
-              <ul className="ulStyle">
-                <li>프로필 이미지</li>
-                <li style={{ position: "relative" }}>
-                  <CloudinaryUploadWidget
-                    ref={widgetRef}
-                    uploadImage={uploadImage}
-                    handleUploadImage={handleUploadImage}
-                  />
-
-                  <div className="cameraStyle">
-                    {image ? (
-                      <img src={image} className="cameraStyle" />
-                    ) : (
-                      <ProfileImage />
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      position: "absolute",
-                      left: 33,
-                      bottom: 20,
-                    }}
-                    className="svgStyle"
-                  >
-                    <div
-                      style={{
-                        width: "13px",
-                        height: "13px",
-                        display: "flex",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => widgetRef.current.openWidget()}
-                    >
-                      <CameraImage />
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <ul className="ulStyle">
-                <li>이메일(로그인 ID)</li>
-                <li>{user.email}</li>
-              </ul>
-              <ul className="ulStyle">
-                <li>전화번호</li>
-                <li>{user.phoneNumber}</li>
-              </ul>
-              <ul className="ulStyle">
-                <li>이력</li>
-                <textarea
-                  ref={textareaRef}
-                  value={career}
-                  onChange={handleChange}
-                  style={{
-                    width: "400px",
-                    height: "100%",
-
-                    padding: "10px",
-                    whiteSpace: "pre-wrap",
-                    display: "block",
-                    overflowY: "hidden",
-                    boxSizing: "border-box",
-                  }}
-                >
-                  {user.career.map((data, index) => {
-                    return <div key={index}>{data}</div>;
-                  })}
-                </textarea>
-
-                <div style={{ marginLeft: "20px" }}>
-                  {!openUpdateCareer ? (
-                    <div
-                      style={{
-                        width: "25px",
-                        height: "25px",
-                        cursor: "pointer",
-                      }}
-                      className="svgStyle"
-                      onClick={openCareer}
-                    >
-                      <div style={{ width: "15px", height: "15px" }}>
-                        <UpdateIcon />
-                      </div>
-                    </div>
-                  ) : (
-                    <>
+              <div className="profileBox">
+                <ul className="ulStyle">
+                  <li>닉네임(별명)</li>
+                  {!openUpdateInput ? (
+                    <li>
+                      {user.nickname}
                       <div
                         style={{
-                          cursor: "pointer",
+                          marginLeft: "20px",
                           width: "25px",
                           height: "25px",
+                          cursor: "pointer",
                         }}
                         className="svgStyle"
-                        onClick={updateCareerServer}
+                        onClick={handleNickname}
                       >
-                        <CircleCheckImage />
+                        <div style={{ width: "15px", height: "15px" }}>
+                          <UpdateIcon />
+                        </div>
                       </div>
+                    </li>
+                  ) : (
+                    <li>
+                      <input
+                        type="text"
+                        placeholder={user.nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                      />
                       <div
                         style={{
-                          marginTop: "10px",
-                          width: "25px",
-                          height: "25px",
+                          marginLeft: "20px",
                           cursor: "pointer",
                         }}
                         className="svgStyle"
-                        onClick={() => setOpenUpdateCareer(false)}
+                        onClick={updateNicknameServer}
+                      >
+                        <div style={{ width: "20px", height: "20px" }}>
+                          <CircleCheckImage />
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          marginLeft: "10px",
+                          padding: "3px",
+                          cursor: "pointer",
+                        }}
+                        className="svgStyle"
+                        onClick={() => setOpenUpdateInput(false)}
                       >
                         <div style={{ width: "15px", height: "15px" }}>
                           <ReplyImage />
                         </div>
                       </div>
-                    </>
+                    </li>
                   )}
-                </div>
-              </ul>
+                </ul>
+                <ul className="ulStyle">
+                  <li>프로필 이미지</li>
+                  <li style={{ position: "relative" }}>
+                    <CloudinaryUploadWidget
+                      ref={widgetRef}
+                      uploadImage={uploadImage}
+                      handleUploadImage={handleUploadImage}
+                    />
+
+                    <div className="cameraStyle">
+                      {image ? (
+                        <img src={image} className="cameraStyle" />
+                      ) : (
+                        <ProfileImage />
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        position: "absolute",
+                        left: 33,
+                        bottom: 20,
+                      }}
+                      className="svgStyle"
+                    >
+                      <div
+                        style={{
+                          width: "13px",
+                          height: "13px",
+                          display: "flex",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => widgetRef.current.openWidget()}
+                      >
+                        <CameraImage />
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <ul className="ulStyle">
+                  <li>이메일(로그인 ID)</li>
+                  <li>{user.email}</li>
+                </ul>
+                <ul className="ulStyle">
+                  <li>전화번호</li>
+                  <li>{user.phoneNumber}</li>
+                </ul>
+                <ul className="ulStyle">
+                  <li>이력</li>
+                  <li>
+                    <textarea
+                      ref={textareaRef}
+                      value={career}
+                      onChange={handleChange}
+                    >
+                      {user.career.map((data, index) => {
+                        return <div key={index}>{data}</div>;
+                      })}
+                    </textarea>
+
+                    <div style={{ marginLeft: "20px" }}>
+                      {!openUpdateCareer ? (
+                        <div
+                          style={{
+                            width: "25px",
+                            height: "25px",
+                            cursor: "pointer",
+                          }}
+                          className="svgStyle"
+                          onClick={openCareer}
+                        >
+                          <div style={{ width: "15px", height: "15px" }}>
+                            <UpdateIcon />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              width: "25px",
+                              height: "25px",
+                            }}
+                            className="svgStyle"
+                            onClick={updateCareerServer}
+                          >
+                            <CircleCheckImage />
+                          </div>
+                          <div
+                            style={{
+                              marginTop: "10px",
+                              width: "25px",
+                              height: "25px",
+                              cursor: "pointer",
+                            }}
+                            className="svgStyle"
+                            onClick={() => setOpenUpdateCareer(false)}
+                          >
+                            <div style={{ width: "15px", height: "15px" }}>
+                              <ReplyImage />
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </>
           )}
           {selectMenu.name === "클래스 관리" && (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="titleArea">
                 <div className="h3">클래스 관리</div>
-                <button
-                  type="button"
-                  className="small"
-                  style={{ marginTop: "20px", marginRight: "50px" }}
-                  onClick={newClassOpen}
-                >
+                <button type="button" className="small" onClick={newClassOpen}>
                   신규 클래스 등록
                 </button>
               </div>
@@ -457,7 +427,7 @@ const TeacherMyPage = ({ user, setUser }) => {
           )}
         </div>
       </div>
-    </div>
+    </Content>
   );
 };
 

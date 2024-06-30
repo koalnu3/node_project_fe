@@ -14,6 +14,7 @@ import MyPageClassComponent from "../components/MyPageClassComponent";
 import { useGetUserClassQuery } from "../hooks/useGetUserClass";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Content from "../components/Content";
 
 const StudentMyPage = ({ user, setUser }) => {
   //TODO test
@@ -91,9 +92,7 @@ const StudentMyPage = ({ user, setUser }) => {
     setSelectMenu({ name: tabActive });
   }, [tabActive]);
   return (
-    <div
-      style={{ height: "80vh", maxWidth: "var(--max-width)", margin: "0 auto" }}
-    >
+    <Content className="studentPage">
       <div className="menuTab">
         <div
           style={{
@@ -111,40 +110,20 @@ const StudentMyPage = ({ user, setUser }) => {
       </div>
       <div className="mypageContainer">
         <div className="mypageLeftSide">
-          <div
-            style={{
-              backgroundColor: " var(--background-color)",
-              width: "100%",
-              height: "100px",
-              borderRadius: "5px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ display: "flex" }}>
-              <div className="cameraStyle">
-                {image ? (
-                  <img src={image} className="cameraStyle" />
-                ) : (
-                  <ProfileImage />
-                )}
-              </div>
-              <div style={{ marginLeft: "20px" }}>
-                <div style={{ fontWeight: "bold" }}>{user.nickname}님</div>
-                <div
-                  style={{
-                    marginTop: "8px",
-                    color: mainGray,
-                  }}
-                >
-                  {user.email}
-                </div>
-              </div>
+          <div className="mypageProfile">
+            <div className="cameraStyle">
+              {image ? (
+                <img src={image} className="cameraStyle" alt="" />
+              ) : (
+                <ProfileImage />
+              )}
+            </div>
+            <div className="profileInfo">
+              <div>{user.nickname}님</div>
+              <div>{user.email}</div>
             </div>
           </div>
-          <div style={{ marginTop: "30px" }}>
+          <div className="mypageSideMenu">
             {tabList.map((menu, index) => {
               return (
                 <MyPageMenu
@@ -161,104 +140,106 @@ const StudentMyPage = ({ user, setUser }) => {
           {/* 프로필 */}
           {selectMenu.name === "프로필" && (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="titleArea">
                 <div className="h3">내 프로필</div>
               </div>
-              <ul className="ulStyle">
-                <li>닉네임(별명)</li>
-                {!openUpdateInput ? (
-                  <li>
-                    {user.nickname}
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        width: "25px",
-                        height: "25px",
-                        cursor: "pointer",
-                      }}
-                      className="svgStyle"
-                      onClick={handleNickname}
-                    >
-                      <div style={{ width: "15px", height: "15px" }}>
-                        <UpdateIcon />
+              <div className="profileBox">
+                <ul className="ulStyle">
+                  <li>닉네임(별명)</li>
+                  {!openUpdateInput ? (
+                    <li>
+                      {user.nickname}
+                      <div
+                        style={{
+                          marginLeft: "20px",
+                          width: "25px",
+                          height: "25px",
+                          cursor: "pointer",
+                        }}
+                        className="svgStyle"
+                        onClick={handleNickname}
+                      >
+                        <div style={{ width: "15px", height: "15px" }}>
+                          <UpdateIcon />
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ) : (
-                  <li>
-                    <input
-                      type="text"
-                      placeholder={user.nickname}
-                      onChange={(e) => setNickname(e.target.value)}
+                    </li>
+                  ) : (
+                    <li>
+                      <input
+                        type="text"
+                        placeholder={user.nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                      />
+                      <div
+                        style={{
+                          marginLeft: "20px",
+                          cursor: "pointer",
+                        }}
+                        className="svgStyle"
+                        onClick={updateNicknameServer}
+                      >
+                        <div style={{ width: "20px", height: "20px" }}>
+                          <CircleCheckImage />
+                        </div>
+                      </div>
+                    </li>
+                  )}
+                </ul>
+                <ul className="ulStyle">
+                  <li>프로필 이미지</li>
+                  <li style={{ position: "relative" }}>
+                    <CloudinaryUploadWidget
+                      ref={widgetRef}
+                      uploadImage={uploadImage}
+                      handleUploadImage={handleUploadImage}
                     />
+
+                    <div className="cameraStyle">
+                      {image ? (
+                        <img src={image} className="cameraStyle" />
+                      ) : (
+                        <ProfileImage />
+                      )}
+                    </div>
                     <div
                       style={{
-                        marginLeft: "20px",
-                        cursor: "pointer",
+                        width: "20px",
+                        height: "20px",
+                        position: "absolute",
+                        left: 33,
+                        bottom: 20,
                       }}
                       className="svgStyle"
-                      onClick={updateNicknameServer}
                     >
-                      <div style={{ width: "20px", height: "20px" }}>
-                        <CircleCheckImage />
+                      <div
+                        style={{
+                          width: "13px",
+                          height: "13px",
+                          display: "flex",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => widgetRef.current.openWidget()}
+                      >
+                        <CameraImage />
                       </div>
                     </div>
                   </li>
-                )}
-              </ul>
-              <ul className="ulStyle">
-                <li>프로필 이미지</li>
-                <li style={{ position: "relative" }}>
-                  <CloudinaryUploadWidget
-                    ref={widgetRef}
-                    uploadImage={uploadImage}
-                    handleUploadImage={handleUploadImage}
-                  />
-
-                  <div className="cameraStyle">
-                    {image ? (
-                      <img src={image} className="cameraStyle" />
-                    ) : (
-                      <ProfileImage />
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      position: "absolute",
-                      left: 33,
-                      bottom: 20,
-                    }}
-                    className="svgStyle"
-                  >
-                    <div
-                      style={{
-                        width: "13px",
-                        height: "13px",
-                        display: "flex",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => widgetRef.current.openWidget()}
-                    >
-                      <CameraImage />
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <ul className="ulStyle">
-                <li>이메일(로그인 ID)</li>
-                <li>{user.email}</li>
-              </ul>
-              <ul className="ulStyle">
-                <li>전화번호</li>
-                <li>{user.phoneNumber}</li>
-              </ul>
+                </ul>
+                <ul className="ulStyle">
+                  <li>이메일(로그인 ID)</li>
+                  <li>{user.email}</li>
+                </ul>
+                <ul className="ulStyle">
+                  <li>전화번호</li>
+                  <li>{user.phoneNumber}</li>
+                </ul>
+              </div>
             </>
           )}
           {selectMenu.name === "결제 내역" && (
             <>
-              <div>
+              <div className="titleArea">
                 <div className="h3">결제 내역</div>
               </div>
               <div className="user-list">
@@ -301,7 +282,7 @@ const StudentMyPage = ({ user, setUser }) => {
           )}
         </div>
       </div>
-    </div>
+    </Content>
   );
 };
 

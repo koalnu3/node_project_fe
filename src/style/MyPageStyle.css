@@ -1,7 +1,8 @@
 .mypageContainer {
   display: flex;
   width: 100%;
-  padding: 30px 0;
+  flex-grow: 1;
+  /* padding: 30px 0; */
 }
 
 .menuTab {
@@ -9,11 +10,15 @@
 }
 
 .mypageLeftSide {
-  width: 30%;
+  flex-shrink: 0;
+  width: 300px;
+  /* width: 30%; */
+  /* max-width: 300px; */
 }
 
 .mypageRightSide {
-  width: 70%;
+  /* width: 70%; */
+  flex-grow: 1;
   padding-left: 50px;
 }
 
@@ -56,6 +61,7 @@
   border-radius: 50px;
   position: relative;
   border: 1px solid var(--color-light-gray);
+  flex-shrink: 0;
 }
 
 .paymentDate {
@@ -136,12 +142,6 @@
   flex: 1;
   text-align: left;
   font-size: 16px;
-}
-
-.myClass {
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y: auto;
 }
 
 .myPageModal.modal {
@@ -419,11 +419,133 @@
   line-height: 1.4;
 }
 
-@media screen and (max-width: 1300px) {
-  .mypageLeftSide {
-    padding-left: 20px;
-  }
+.mypageProfile {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+}
 
+.mypageProfile .profileInfo {
+  color: var(--color-gray);
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.mypageProfile .profileInfo div:first-child {
+  font-weight: bold;
+}
+
+.mypageProfile .profileInfo div:last-child {
+  margin-top: 8px;
+
+}
+
+.mypageSideMenu {
+  margin-top: 30px;
+}
+
+.mypageContainer .mypageSideMenu>div {
+  margin-top: 0 !important;
+  padding: 15px 0;
+}
+
+.myClass {
+  display: flex;
+  flex-wrap: wrap;
+  /* overflow-y: auto; */
+  /* margin-left: -15px; */
+  gap: 20px 15px;
+}
+
+.myClass .mypageClassItem {
+  width: calc(25.3% - 15px);
+  cursor: pointer;
+  /* margin-left: 15px; */
+}
+
+.myClass .mypageClassItem .img {
+  overflow: hidden;
+  width: 100%;
+  /* height: 83%; */
+  height: 140px;
+  background-color: var(--color-light-gray);
+  border-radius: var(--border-radius);
+}
+
+.myClass .mypageClassItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.myClass .mypageClassItem div:last-child {
+  margin-top: 10px !important;
+}
+
+.myClass .mypageClassItem div:nth-child(2) {
+  margin-top: 10px !important;
+  font-size: 17px;
+}
+
+.mypageContainer .mypageRightSide .titleArea:first-child {
+  margin-top: 0;
+}
+
+.mypageContainer .titleArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0 16px
+}
+
+.mypageContainer .titleArea .h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.profileBox {
+  border-radius: 15px;
+
+}
+
+.profileBox textarea {
+  width: calc(100% - 45px);
+  height: 100%;
+  padding: 15px 10px;
+  /* box-sizing: border-box; */
+}
+
+.profileBox .ulStyle li:first-child {
+  font-weight: bold;
+  margin: 0;
+}
+
+.profileBox .ulStyle li:last-child {
+  flex-grow: 1;
+  padding: 16px 0;
+}
+
+@media screen and (max-width: 1300px) {
+  /* .mypageLeftSide {
+    padding-left: 20px;
+  } */
+
+}
+
+@media screen and (max-width: 1100px) {
+  .myClass .mypageClassItem {
+    width: calc(33.9% - 15px);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .myClass .mypageClassItem {
+    width: calc(50.9% - 15px);
+  }
 }
 
 @media screen and (max-width: 769px) {
@@ -433,11 +555,23 @@
 
   .mypageRightSide {
     width: 100%;
-    padding: 0 20px;
+    padding-left: 0;
+    /* padding: 0 20px; */
+  }
+
+  .mypageRightSide .h3 {
+    margin-top: 0;
   }
 
   .menuTab {
     display: block;
+    margin: 0 -15px;
+  }
+
+  .myPageModal .modalContent {
+    height: 100%;
+    max-height: inherit;
+    border-radius: 0;
   }
 
   .myPageModal .modalContent ul {
@@ -470,4 +604,59 @@
   .myPageModal .inputUnit input {
     flex-grow: 1;
   }
+
+  .myClass {
+    gap: 20px 0;
+  }
+
+  .myClass .mypageClassItem {
+    width: calc(50% - 10px);
+  }
+
+  .myClass .mypageClassItem .img {
+    height: 120px;
+  }
+
+  .myClass .mypageClassItem:nth-child(odd) {
+    margin-right: 15px;
+
+  }
+
+  .profileBox {
+    padding: 15px;
+    border-radius: var(--border-radius);
+    background-color: var(--background-color);
+  }
+
+  .profileBox .ulStyle {
+    flex-direction: column;
+    margin-bottom: 7px;
+  }
+
+  .profileBox .ulStyle li {
+    width: 100%;
+  }
+
+  .profileBox .ulStyle li:first-child {
+    padding: 15px 0 0;
+    font-size: 16px;
+  }
+}
+
+@media (hover: hover) {
+  /* .mypageContainer .mypageSideMenu>div:hover {
+    box-shadow: 0 -2px 0 0 inset var(--color-primary);
+  } */
+
+  /* .mypageContainer .mypageSideMenu>div:hover {
+    background-color: var(--background-color);
+  } */
+
+  /* .mypageContainer .mypageSideMenu>div:hover>div {
+    color: var(--color-primary) !important;
+  }
+
+  .mypageContainer .mypageSideMenu>div:hover>div svg {
+    fill: var(--color-primary) !important;
+  } */
 }

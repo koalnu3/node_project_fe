@@ -1315,6 +1315,10 @@ p {
   .ModalArea.small {
     width: 100%;
   }
+
+  .homepage .category {
+    margin-top: 30px
+  }
 }
 
 @media (hover: hover) {
