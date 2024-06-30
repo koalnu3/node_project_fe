@@ -9,7 +9,6 @@ const Curriculum = ({ list, isDescription, handleVideoModal }) => {
       setToggleActive(idx);
     }
   };
-  console.log(list);
   return (
     <div className={`toggleList ${!isDescription ? `onlyList` : ``}`}>
       <ul className="toggle">
@@ -35,15 +34,21 @@ const Curriculum = ({ list, isDescription, handleVideoModal }) => {
             {isDescription && (
               <div className="description">
                 <ul className="list">
-                  {item?.list.map((subItem, idx) => (
-                    <li key={idx}>
-                      <p>{subItem.title}</p>
+                  {item?.subItems.map((ItemDetail, idx) => (
+                    <li key={ItemDetail._id}>
+                      <p>{ItemDetail.title}</p>
                       <span>
-                        <span className="time">{subItem.time}</span>
+                        <span className="time">{ItemDetail.time}</span>
                         <button
                           type="button"
                           className="videoBtn"
-                          onClick={() => handleVideoModal(subItem.url)}
+                          onClick={() =>
+                            handleVideoModal(
+                              ItemDetail.link,
+                              ItemDetail.title,
+                              `description${idx + ItemDetail._id}`
+                            )
+                          }
                         >
                           영상보기
                         </button>

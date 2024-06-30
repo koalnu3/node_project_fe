@@ -7,15 +7,21 @@ import TrashCanImage from "../svg/TrashCanImage";
 import XImage from "../svg/XImage";
 import api from "../utils/api";
 import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
+import CameraImage from "../svg/CameraImage";
 
-const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
-  const [selectedCategory, setSelectedCategory] = useState([]);
-
+const MyClassModal = ({
+  id,
+  status,
+  onClose,
+  myClassData,
+  setMyClassData,
+  categoryStore,
+}) => {
   const { user } = userStore();
   const filterMyClassData = myClassData.filter((data) => data._id === id);
-  //TODO 카테고리 불러오기
-  const [category, setCategory] = useState(
-    filterMyClassData[0]?.category || []
+
+  const filterMyCategory = (categoryStore || []).filter(
+    (list) => list._id === filterMyClassData[0]?.categoryId
   );
   const [className, setClassName] = useState(filterMyClassData[0]?.name || "");
   const [thumbnail, setThumbnail] = useState(filterMyClassData[0]?.image || "");
@@ -24,17 +30,20 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
   );
   const [price, setPrice] = useState(filterMyClassData[0]?.price || 0);
   const [fields, setFields] = useState(filterMyClassData[0]?.curriculum || []);
-
+  const [selectedCategory, setSelectedCategory] = useState(
+    filterMyCategory[0] || (!filterMyCategory[0] && categoryStore)[0] || {}
+  );
   const widgetRef = useRef(null);
   const textareaRef = useRef(null);
 
   const handleAddTitle = () => {
-    setFields([
-      ...fields,
+    if (fields.length >= 5) return toast.error("강의는 5강까지 가능합니다.");
+    setFields((prevFields) => [
+      ...prevFields,
       {
         id: Date.now(),
         title: "",
-        fields: [{ id: Date.now(), title: "", link: "" }],
+        subItems: [{ id: Date.now(), title: "", link: "" }],
       },
     ]);
   };
@@ -47,7 +56,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
 
   const handleAddField = (titleIndex) => {
     const newFields = [...fields];
-    newFields[titleIndex].fields.push({
+    newFields[titleIndex].subItems.push({
       id: Date.now(),
       title: "",
       link: "",
@@ -57,13 +66,13 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
 
   const handleFieldChange = (titleIndex, fieldIndex, key, value) => {
     const newFields = [...fields];
-    newFields[titleIndex].fields[fieldIndex][key] = value;
+    newFields[titleIndex].subItems[fieldIndex][key] = value;
     setFields(newFields);
   };
 
   const handleRemoveField = (titleIndex, fieldIndex) => {
     const newFields = [...fields];
-    newFields[titleIndex].fields.splice(fieldIndex, 1);
+    newFields[titleIndex].subItems.splice(fieldIndex, 1);
     setFields(newFields);
   };
 
@@ -76,8 +85,12 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
   const uploadImage = (url) => {
     setThumbnail(url);
   };
-  const handleChange = (event) => {
-    setSelectedCategory(event.target.value);
+
+  const handleChange = (selectedValue) => {
+    const selectedData = categoryStore.filter(
+      (data) => data.id === selectedValue
+    );
+    setSelectedCategory(...selectedData);
   };
 
   const classSubscripChange = (event) => {
@@ -92,8 +105,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
         image: thumbnail,
         curriculum: fields,
         price,
-        //TODO 카테고리 아이디 넣기
-        categoryId: "category001",
+        categoryId: selectedCategory._id,
         userId: user._id,
       });
       if (response.status !== 200) throw new Error(response.error);
@@ -110,7 +122,24 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
       console.log("err", error);
     }
   };
+
   const handleNewClassUpload = async () => {
+    if (!className) {
+      return toast.error("클래스명을 입력해주세요.");
+    }
+    if (!thumbnail) {
+      return toast.error("썸네일 이미지를 넣어주세요.");
+    }
+    if (!classSubscrip) {
+      return toast.error("클래스 설명을 입력해주세요.");
+    }
+    if (fields.length == 0) {
+      return toast.error("커리큘럼을 입력해주세요.");
+    }
+    if (!price) {
+      return toast.error("가격을 입력해주세요.");
+    }
+
     try {
       const response = await api.post("/class", {
         name: className,
@@ -118,8 +147,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
         image: thumbnail,
         curriculum: fields,
         price,
-        //TODO 카테고리 아이디 넣기
-        categoryId: "category001",
+        categoryId: selectedCategory._id,
         userId: user._id,
       });
       if (response.status !== 200) throw new Error(response.error);
@@ -130,21 +158,21 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
       console.log("err", error);
     }
   };
-  useEffect(() => {}, []);
+
   return (
-    <div className="modal">
+    <div className="modal myPageModal">
       <div className="modalContent">
         <ul>
           <li>카테고리명</li>
           <li>
             <select
-              value={selectedCategory}
-              onChange={handleChange}
+              value={selectedCategory.id}
               className="categoryDropdown"
+              onChange={(e) => handleChange(e.target.value)}
             >
-              {category.map((data, index) => (
-                <option key={index} value={data}>
-                  {data}
+              {categoryStore.map((data, index) => (
+                <option key={index} value={data.id}>
+                  {data.name}
                 </option>
               ))}
             </select>
@@ -154,6 +182,7 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
           <li>클래스명</li>
           <li>
             <input
+              type="text"
               value={className}
               onChange={(e) => setClassName(e.target.value)}
             />
@@ -172,13 +201,20 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
                     ref={widgetRef}
                     uploadImage={uploadImage}
                   />
-                  <div style={{ fontSize: "15px" }}>
-                    클릭하여 이미지를 첨부해주세요
+                  <div className="helpMessage">
+                    <span className="icon">
+                      <CameraImage />
+                    </span>
+                    <p>클릭하여 이미지를 첨부해주세요</p>
                   </div>
                 </>
               ) : (
                 <div style={{ position: "relative" }}>
-                  <img src={thumbnail} className="thumnailSize" />
+                  <img
+                    src={thumbnail}
+                    className="thumnailSize"
+                    alt="클래스 썸네일"
+                  />
                   <div
                     className="xButtonContainer flexCenter"
                     onClick={() => setThumbnail("")}
@@ -194,21 +230,12 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
         </ul>
         <ul>
           <li></li>
-
           <li>
-            <div style={{ fontSize: "14px" }}>
-              클래스 썸네일 규정은 다음과 같습니다.
-            </div>
-            <div
-              style={{
-                fontSize: "12px",
-                color: "var(--color-gray)",
-                marginTop: "5px",
-              }}
-            >
-              <div>1. 1280px X 720px의 고해상도 이미지를 사용해주세요.</div>
-              <div>2. 10MB 이하의 jpg, jpen, png 파일만 등록 가능합니다.</div>
-            </div>
+            <dl className="helpMessageList">
+              <dt>* 클래스 썸네일 규정은 다음과 같습니다.</dt>
+              <dd>1. 1280px X 720px의 고해상도 이미지를 사용해주세요.</dd>
+              <dd>2. 10MB 이하의 jpg, jpen, png 파일만 등록 가능합니다.</dd>
+            </dl>
           </li>
         </ul>
         <ul>
@@ -221,7 +248,6 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
               style={{
                 width: "100%",
                 height: "100%",
-
                 padding: "10px",
                 whiteSpace: "pre-wrap",
                 display: "block",
@@ -233,20 +259,24 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
         <ul>
           <li>
             커리큘럼
-            <div className="plusButtonIcon" onClick={handleAddTitle}>
+            <button
+              type="button"
+              className="plusButtonIcon white"
+              onClick={handleAddTitle}
+            >
               <PlusImage />
-            </div>
+            </button>
           </li>
           <li>
-            <div style={{ display: "block", flexDirection: "column" }}>
-              {fields.length > 0 &&
-                fields.map((title, titleIndex) => (
-                  <div
-                    key={title.id}
-                    style={{ flexDirection: "column", marginBottom: "20px" }}
-                  >
-                    <div className="inputFieldContainer">
-                      <span>{titleIndex + 1}강</span>
+            <div className="curriculumAddList">
+              {fields.length === 0 && (
+                <p className="helpMessage">커리큘럼 목록을 추가해주세요.</p>
+              )}
+              {(fields || []).map((title, titleIndex) => (
+                <div key={titleIndex} className="addCurriculum">
+                  <div className="title">
+                    <span>{titleIndex + 1}강</span>
+                    <div className="cont">
                       <input
                         type="text"
                         value={title.title}
@@ -256,79 +286,82 @@ const MyClassModal = ({ id, status, onClose, myClassData, setMyClassData }) => {
                         placeholder="타이틀 입력"
                         className="inputField"
                       />
-                      <div
-                        className="plusButtonIcon"
+                      <button
+                        type="button"
+                        className="plusButtonIcon white"
                         onClick={() => handleAddField(titleIndex)}
-                        style={{ width: "20px", height: "20px" }}
                       >
                         <PlusImage />
-                      </div>
-                      <div
-                        className="buttonIcon"
+                      </button>
+                      <button
+                        type="button"
+                        className="buttonIcon gray"
                         onClick={() => handleRemoveTitle(titleIndex)}
                       >
                         <TrashCanImage />
-                      </div>
+                      </button>
                     </div>
-                    {title.fields.map((field, fieldIndex) => (
-                      <div key={field.id} className="inputFieldContainer">
-                        <input
-                          type="text"
-                          value={field.title}
-                          onChange={(e) =>
-                            handleFieldChange(
-                              titleIndex,
-                              fieldIndex,
-                              "title",
-                              e.target.value
-                            )
-                          }
-                          placeholder="커리큘럼 제목"
-                          className="inputField"
-                        />
-                        <input
-                          type="text"
-                          value={field.link}
-                          onChange={(e) =>
-                            handleFieldChange(
-                              titleIndex,
-                              fieldIndex,
-                              "link",
-                              e.target.value
-                            )
-                          }
-                          placeholder="링크"
-                          className="inputField"
-                        />
-                        <div
-                          className="buttonIcon"
-                          onClick={() =>
-                            handleRemoveField(titleIndex, fieldIndex)
-                          }
-                        >
-                          <TrashCanImage />
-                        </div>
-                      </div>
-                    ))}
                   </div>
-                ))}
+                  {title.subItems.map((field, fieldIndex) => (
+                    <div key={field.id} className="inputFieldContainer">
+                      <input
+                        type="text"
+                        value={field.title}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            titleIndex,
+                            fieldIndex,
+                            "title",
+                            e.target.value
+                          )
+                        }
+                        placeholder="커리큘럼 제목"
+                        className="inputField"
+                      />
+                      <input
+                        type="text"
+                        value={field.link}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            titleIndex,
+                            fieldIndex,
+                            "link",
+                            e.target.value
+                          )
+                        }
+                        placeholder="링크"
+                        className="inputField"
+                      />
+                      <button
+                        type="button"
+                        className="buttonIcon gray"
+                        onClick={() =>
+                          handleRemoveField(titleIndex, fieldIndex)
+                        }
+                      >
+                        <TrashCanImage />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </li>
         </ul>
 
         <ul>
           <li>가격</li>
-          <li style={{ display: "flex", alignItems: "center" }}>
+          <li className="inputUnit">
             <input
+              type="number"
               value={price}
-              style={{ width: "100px" }}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <div style={{ marginLeft: "10px" }}>원</div>
+            <div className="unit">원</div>
           </li>
         </ul>
-        <div className="modalButton">
-          <button onClick={onClose} className=" gray">
+        <div className="btnArea">
+          <button onClick={onClose} className="gray">
             닫기
           </button>
           <button

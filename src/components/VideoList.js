@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style/VideoList.style.css";
 
-const VideoList = ({ list, setVideoUrl }) => {
+const VideoList = ({ list, setVideoUrl, setTitle, setIsComplete }) => {
   const [toggleActive, setToggleActive] = useState("");
   const handleToggle = (idx) => {
     if (toggleActive === idx) {
@@ -11,16 +11,20 @@ const VideoList = ({ list, setVideoUrl }) => {
     }
   };
 
-  const handleVideoUrl = (url) => {
+  const handleVideoUrl = (url, title, id) => {
     setVideoUrl(url);
+    setTitle(title);
+    setIsComplete(id);
   };
 
-  console.log(list);
   return (
     <div className="videoList">
       <ul>
         {list?.map((item, idx) => (
-          <li key={idx} className={toggleActive === idx ? `active` : ``}>
+          <li
+            key={idx + item?.title}
+            className={toggleActive === idx ? `active` : ``}
+          >
             <button
               type="button"
               className="videoTitle"
@@ -30,14 +34,22 @@ const VideoList = ({ list, setVideoUrl }) => {
             </button>
             <div className="description">
               <ul>
-                {item?.list.map((sub) => (
-                  <li key={sub.id}>
+                {/* {item?.list.map((sub) => ( */}
+                {item?.subItems.map((sub) => (
+                  <li key={`sub${sub._id}`}>
                     <button
                       type="button"
                       className={`descriptionInfo ${
-                        sub.isComplete === true ? `done` : ``
+                        sub.completed === true ? `done` : ``
                       }`}
-                      onClick={() => handleVideoUrl(sub.url)}
+                      id={`description${idx + sub._id}`}
+                      onClick={() =>
+                        handleVideoUrl(
+                          sub.link,
+                          sub.title,
+                          `description${idx + sub._id}`
+                        )
+                      }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -54,84 +66,7 @@ const VideoList = ({ list, setVideoUrl }) => {
             </div>
           </li>
         ))}
-
-        {/* <li className={toggleActive === "2" ? `active` : ``}>
-          <button
-            type="button"
-            className="title"
-            onClick={() => handleToggle("2")}
-          >
-            메뉴2
-          </button>
-          <div className="description">
-            <ul>
-              <li>
-                <button type="button">메뉴2-1</button>
-              </li>
-              <li>
-                <button type="button">메뉴2-2</button>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li className={toggleActive === "3" ? `active` : ``}>
-          <button
-            type="button"
-            className="title"
-            onClick={() => handleToggle("3")}
-          >
-            메뉴3
-          </button>
-          <div className="description">
-            <ul>
-              <li>
-                <button type="button">메뉴3-1</button>
-              </li>
-              <li>
-                <button type="button">메뉴3-2</button>
-              </li>
-              <li>
-                <button type="button">메뉴3-3</button>
-              </li>
-              <li>
-                <button type="button">메뉴3-4</button>
-              </li>
-            </ul>
-          </div>
-        </li> */}
       </ul>
-      {/* <ul className="toggle">
-        {list?.map((item, idx) => (
-          <li
-            key={idx + `toggle`}
-            className={idx + `toggle` === toggleActive ? `active` : ``}
-          >
-            <button
-              type="button"
-              className="title"
-              onClick={(event) => handleToggle(event, idx + `toggle`)}
-            >
-              {item.title}
-            </button>
-
-            <div className="description">
-              <ul className="list">
-                {item?.list.map((subItem, idx) => (
-                  <li key={idx}>
-                    <p>{subItem.title}</p>
-                    <span>
-                      <span className="time">{subItem.time}</span>
-                      <button type="button" className="videoBtn">
-                        영상보기
-                      </button>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 };

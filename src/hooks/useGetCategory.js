@@ -10,5 +10,6 @@ export const useGetCategoryQuery = () => {
     queryKey: ["class-category"],
     queryFn: () => fetchGetCategory(),
     select: (result) => result.data,
+    staleTime: 6000000,
   });
 };

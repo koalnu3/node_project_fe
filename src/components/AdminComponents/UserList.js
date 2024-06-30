@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
-import '../../style/AdminPage.style.css';
-import useAdminPageStore from '../../store/useAdminPageStore';
+import React, { useEffect } from "react";
+import "../../style/AdminPage.style.css";
+import useAdminPageStore from "../../store/useAdminPageStore";
 
 const UserList = ({ userList }) => {
-  const { selectedUserId, setSelectedUserId, setSelectedUser, setUserList } = useAdminPageStore();
+  const { selectedUserId, setSelectedUserId, setSelectedUser, setUserList } =
+    useAdminPageStore();
 
   useEffect(() => {
     if (userList && selectedUserId) {
-      const user = userList?.find(user => user._id === selectedUserId);
+      const user = userList?.find((user) => user._id === selectedUserId);
       setSelectedUser(user);
     }
   }, [selectedUserId, userList, setSelectedUser]);
-
-
-  console.log(userList)
-  
 
   return (
     <div className="user-list">
@@ -30,13 +27,13 @@ const UserList = ({ userList }) => {
               setSelectedUserId(user._id);
             }}
             key={index}
-            className={`user-list-item ${selectedUserId === user._id ? 'selected' : ''}`}
+            className={`user-list-item ${
+              selectedUserId === user._id ? "selected" : ""
+            }`}
           >
             <div className="user-name">{user.nickname}</div>
             <div className="user-phone">{user.phoneNumber}</div>
-            <div className="user-status">
-            
-            </div>
+            <div className="user-status"></div>
           </div>
         ))}
       </div>

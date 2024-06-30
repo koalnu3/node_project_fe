@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Header = ({ user, setUser }) => {
   const navigate = useNavigate();
   const [utilOpen, setUtilOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuListActive, setmenuListActive] = useState("");
+  const [menuListActive, setMenuListActive] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   const utilActive = () => {
@@ -31,7 +31,7 @@ const Header = ({ user, setUser }) => {
   };
 
   const handleMenuActive = (event, name) => {
-    setmenuListActive(name);
+    setMenuListActive(name);
   };
 
   const handleSearch = () => {
@@ -56,8 +56,17 @@ const Header = ({ user, setUser }) => {
       return toast.error("강사 승인 대기중입니다");
     }
   };
+
+  const location = useLocation();
+  const { pathname } = location;
+  // const splitLocation = pathname.split("/");
+
   return (
-    <header className={`header ${user.level === "admin" ? `navHidden` : ``}`}>
+    <header
+      className={`header ${
+        user.level === "admin" && pathname === "/admin" ? `navHidden` : ``
+      }`}
+    >
       <div className="inner">
         <div className="top">
           <button
@@ -132,21 +141,12 @@ const Header = ({ user, setUser }) => {
               </div>
             </div>
             <nav className="menuList">
-              {console.log(menuListActive)}
               <ul>
-                <li
-                  className={menuListActive === "홈" ? `active` : ``}
-                  onClick={(event) => handleMenuActive(event, "홈")}
-                >
-                  <a href="/">홈</a>
+                <li className={pathname === "/" ? `active` : ``}>
+                  <Link to="/">홈</Link>
                 </li>
-                <li className={menuListActive === "클래스소개" ? `active` : ``}>
-                  <a
-                    href="/class"
-                    onClick={(event) => handleMenuActive(event, "클래스소개")}
-                  >
-                    클래스소개
-                  </a>
+                <li className={pathname === "/class" ? `active` : ``}>
+                  <Link to="/class">클래스소개</Link>
                 </li>
               </ul>
             </nav>
