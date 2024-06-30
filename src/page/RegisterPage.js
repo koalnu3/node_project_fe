@@ -136,7 +136,14 @@ const RegisterPage = () => {
 
   const register = async () => {
     if (!isComplete) {
-      return;
+      if (!emailRegex.test(email)) return toast.error("이메일을 확인해주세요");
+      if (!validatePassword(password))
+        return toast.error("비밀번호를 확인해주세요");
+      if (confirmPassword !== password)
+        return toast.error("비밀번호를 재확인해주세요");
+      if (!nickname) return toast.error("닉네임을 확인해주세요");
+      if (!isValidPhoneNumber(phonenumber)) return "핸드폰번호를 확인해주세요";
+      if (!type) return "타입을 체크해주세요";
     } else {
       try {
         const response = await registerUser({
@@ -161,7 +168,7 @@ const RegisterPage = () => {
   const isComplete =
     !!email &&
     !!password &&
-    !!confirmPassword &&
+    password == confirmPassword &&
     !!nickname &&
     !!phonenumber &&
     !!type;
