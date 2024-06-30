@@ -333,6 +333,10 @@
     display: none;
 }
 
+.adminPage .admin-page-main .forUserPayMentList .user-list-items .user-list-item {
+    align-items: center;
+}
+
 @media screen and (max-width: 769px) {
     .adminPage .admin-page-main .teacher-information .class-list {
         flex-direction: column;
@@ -371,6 +375,7 @@
 
     .adminPage .admin-page-main .user-list.forUserPayMentList .user-list-items .user-list-item {
         flex-direction: column;
+        align-items: inherit;
 
     }
 
