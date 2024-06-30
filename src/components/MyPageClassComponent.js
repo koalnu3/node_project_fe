@@ -8,6 +8,8 @@ const MyPageClassComponent = ({
   setClickId,
 }) => {
   const classId = data.classId;
+  const name = type === "customer" ? classId?.name : data?.name;
+  const displayName = name.length > 10 ? name.slice(0, 10) + "..." : name;
   const navigateRouter = () => {
     setOpenClassDetail && setOpenClassDetail(true);
     setStatus && setStatus("update");
@@ -28,9 +30,7 @@ const MyPageClassComponent = ({
           color: "var(--color-gray)",
         }}
       >
-        {classId?.name.split("").length > 10
-          ? classId?.name.slice(0, 10) + "..."
-          : classId?.name}
+        {displayName}
       </div>
 
       <div
