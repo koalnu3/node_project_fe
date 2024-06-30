@@ -145,6 +145,7 @@ const RegisterPage = () => {
           nickname,
           phonenumber,
           type,
+          level: type === "teacher" ? "unsigned" : "customer",
         });
         if (response.status !== 200) throw new Error(response.error);
         toast.success("회원가입이 완료되었습니다!");
@@ -316,7 +317,7 @@ const RegisterPage = () => {
         </div>
         <input
           type="radio"
-          // id="type"
+          id="type"
           name="radioCheck"
           value="teacher"
           onChange={handleChange}
@@ -325,7 +326,7 @@ const RegisterPage = () => {
         <label htmlFor="radio1">강사</label>
         <input
           type="radio"
-          // id="type"
+          id="type"
           name="radioCheck"
           value="customer"
           onChange={handleChange}

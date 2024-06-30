@@ -6,6 +6,7 @@ export const registerUser = async ({
   nickname,
   phonenumber,
   type,
+  level,
 }) => {
   return await api.post("/user", {
     email,
@@ -13,6 +14,7 @@ export const registerUser = async ({
     nickname,
     phoneNumber: phonenumber,
     type,
+    level,
   });
 };
 
