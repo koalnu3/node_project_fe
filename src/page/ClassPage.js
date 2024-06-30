@@ -33,7 +33,6 @@ const ClassPage = () => {
         const { data } = await api.get(
           `/class?page=${pageParam}&name=${name}&category=${category}`
         );
-        console.log("data", data);
         return data;
       },
 
