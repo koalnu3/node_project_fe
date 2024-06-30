@@ -48,7 +48,7 @@ const TeacherList = ({ userList }) => {
             <div className="user-name">{user.nickname}</div>
             <div className="user-phone">{user.phoneNumber}</div>
             <div className="user-status">
-                <span className='small' onClick={() => handleRevokeApproval(user._id)}>승인취소</span>
+                <span className='small' onClick={() => handleRevokeApproval(user._id)}>취소</span>
             </div>
           </div>
         ))}

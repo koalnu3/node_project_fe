@@ -98,11 +98,15 @@
 }
 
 .header-name,
-.header-phone,
-.header-status {
-    flex: 1;
+.header-phone {
+    flex: 3;
     text-align: left;
     padding: 10px;
+}
+
+
+.header-status{
+    flex: 1;
 }
 
 .user-list-items {
@@ -126,7 +130,7 @@
 
 .user-name,
 .user-phone {
-    flex: 1;
+    flex: 3;
     text-align: left;
     font-size: 16px;
 }
@@ -238,3 +242,26 @@
     background-color: #fff;
     font-size: 14px;
 }
+
+
+
+
+
+
+@media (min-width: 768px) {
+    .admin-page-main {
+      margin: 0 50px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .admin-page-main {
+      margin: 0 100px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .admin-page-main {
+      margin: 0 200px;
+    }
+  }

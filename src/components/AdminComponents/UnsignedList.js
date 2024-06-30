@@ -61,7 +61,7 @@ const UnsignedList = () => {
                         <div className="user-name">{user.nickname}</div>
                         <div className="user-phone">{user.phoneNumber}</div>
                         <div className="user-status">
-                            <span className='small' onClick={() => handleApprove(user._id)}>승인하기</span>
+                            <span className='small' onClick={() => handleApprove(user._id)}>승인</span>
                         </div>
                     </div>
                 ))}

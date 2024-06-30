@@ -38,6 +38,8 @@ const AdminPage = () => {
 
   return (
       <div className='admin-content'>
+
+        <div className='admin-page-main'>
     <Tab 
           list={tabList}
           tabActive={tabActive}
@@ -45,7 +47,7 @@ const AdminPage = () => {
           tagType="a"
           preventDefault={true}
         />
-        
+        </div>
       
         {tabActive == '회원관리' ? <HandleUser/> : <HandleTeacher/>}
       </div>
