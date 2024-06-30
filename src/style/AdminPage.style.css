@@ -212,6 +212,7 @@
     border-radius: 8px;
     object-fit: cover;
     margin-bottom: 10px;
+    max-height: 185px;
 }
 
 .class-item-name {
