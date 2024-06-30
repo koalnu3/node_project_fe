@@ -227,7 +227,7 @@ const ClassDetailPage = () => {
                   ))}
               </div>
             </div>
-            <div className="noticeBox">{classDetailList?.notice}</div>
+            {/* <div className="noticeBox">{classDetailList?.notice}</div> */}
 
             <Tab
               list={tabList}

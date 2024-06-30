@@ -121,7 +121,7 @@ const OrderPage = () => {
                   <span className="unit">원</span>
                 </p>
               </div>
-              <div className="noticeBox">{classDetail?.notice}</div>
+              {/* <div className="noticeBox">{classDetail?.notice}</div> */}
             </div>
           </li>
         </ul>
