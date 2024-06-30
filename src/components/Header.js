@@ -35,7 +35,7 @@ const Header = ({ user, setUser }) => {
   };
 
   const handleSearch = () => {
-    navigate(`/class?name=${searchQuery}&category=`);
+    navigate(`/class?name=${searchQuery}&categoryId=`);
     setSearchQuery("");
   };
 
