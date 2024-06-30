@@ -348,6 +348,7 @@
 
     .adminPage .profile-container-header .profile-header-right button {
         padding: 5px;
+        font-size: 12px;
     }
 
     .adminPage .profile-container .profile-info {
