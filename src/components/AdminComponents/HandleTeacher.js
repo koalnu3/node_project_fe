@@ -37,37 +37,42 @@ const HandleTeacher = () => {
     }
   }, [selectedUserId, refetch]);
 
- 
+
 
   return (
     <div>
-          <AdminSearch
-            userList={data?.data}
-            isLoading={isLoading}
-          />
-              <AdminPageProfile />
-              <AdminInfo  />
-              <Tab
-                list={tabList}
-                tabActive={tabActive}
-                setTabActive={setTabActive}
-                tagType="a"
-                preventDefault={true}
-              />
-              {tabActive === "강사정보" ? (
-                <div>
-                  <div className='h4'>인사말</div>
-                  <p>{selectedUser?.introduction}</p>
-                  <div className='h4'>이력</div>
-                  <ol>
-                    {selectedUser?.career.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ol>
-                </div>
-              ) : (
-                  <TeacherInformation/>
-              )}
+      <AdminSearch
+        userList={data?.data}
+        isLoading={isLoading}
+      />
+      <AdminPageProfile />
+      <AdminInfo />
+      <Tab
+        list={tabList}
+        tabActive={tabActive}
+        setTabActive={setTabActive}
+        tagType="a"
+        preventDefault={true}
+      />
+      {tabActive === "강사정보" ? (
+
+        <div>
+          <div className='h4'>인사말</div>
+          <p>{selectedUser?.introduction}</p>
+          <div className='h4'>이력</div>
+          <ol>
+            {selectedUser?.career.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ol>
+        </div>
+      ) : (
+        null
+      )}
+
+      {
+        tabActive === "클래스" && selectedUser?.level == "teacher" ? <TeacherInformation /> : null
+      }
     </div>
   );
 };
