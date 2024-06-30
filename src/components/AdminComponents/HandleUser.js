@@ -51,7 +51,12 @@ const HandleUser = () => {
         preventDefault={true}
       />
 
-      <UserInformation />
+      {
+        selectedUserId? <UserInformation />:null
+      }
+    
+
+      
     </div>
   );
 };

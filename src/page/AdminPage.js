@@ -16,6 +16,7 @@ const AdminPage = () => {
     setLevel,
     setInputName,
     setNickName,
+    setSelectedUser,
     setSelectedUserId
   } = useAdminPageStore()
 
@@ -25,11 +26,13 @@ const AdminPage = () => {
       setInputName("")
       setNickName("")
       setSelectedUserId("")
+      setSelectedUser(null)
     } else if (tabActive === '강사관리') {
       setLevel('teacher');
       setInputName("")
       setNickName("")
       setSelectedUserId("")
+      setSelectedUser(null)
     }
   }, [tabActive, setLevel]);
 
