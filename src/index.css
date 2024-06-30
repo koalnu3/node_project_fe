@@ -979,6 +979,14 @@ p {
   text-align: center;
 }
 
+.classListPage .noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 350px;
+}
+
 @media screen and (max-width: 1300px) {
 
   .content,
@@ -1162,6 +1170,7 @@ p {
   .header .util .utilList {
     right: 15px;
     min-width: inherit;
+    width: max-content;
   }
 
   .header .menuBtn {
@@ -1292,7 +1301,7 @@ p {
   }
 
   .classItem .img {
-    height: 100px;
+    height: 87px;
   }
 
   /* modal */
@@ -1314,6 +1323,10 @@ p {
 
   .ModalArea.small {
     width: 100%;
+  }
+
+  .homepage .category {
+    margin-top: 30px
   }
 }
 

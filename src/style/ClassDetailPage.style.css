@@ -339,6 +339,10 @@
     margin-bottom: 0;
 }
 
+.classDetail .tabList {
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+}
 
 @media screen and (max-width: 769px) {
 

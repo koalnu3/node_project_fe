@@ -145,6 +145,7 @@ const RegisterPage = () => {
           nickname,
           phonenumber,
           type,
+          level: type === "teacher" ? "unsigned" : "customer",
         });
         if (response.status !== 200) throw new Error(response.error);
         toast.success("회원가입이 완료되었습니다!");

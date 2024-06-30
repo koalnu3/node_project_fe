@@ -29,8 +29,8 @@ const LoginPage = () => {
 
   const handleSubmit = async () => {
     try {
-      if (password.length < 8)
-        return toast.error("비밀번호는 8자 이상이여야 합니다");
+      // if (password.length < 8)
+      //   return toast.error("비밀번호는 8자 이상이여야 합니다");
       const response = await loginUser({ email, password });
       if (response.status !== 200) throw new Error(response.error);
       sessionStorage.setItem("token", response.data.token);
@@ -56,17 +56,17 @@ const LoginPage = () => {
       if (emailRegex.test(email)) {
         setEmailError("");
       }
-      if (nameRef === "loginButton" && password.length === 0) {
-        setPasswordError("비밀번호는 8자 이상입력해주세요.");
-        return;
-      }
-      if (password.length > 0 && password.length < 8) {
-        setPasswordError("비밀번호는 8자 이상입력해주세요.");
-        return;
-      }
-      if (password.length >= 8) {
-        setPasswordError("");
-      }
+      // if (nameRef === "loginButton" && password.length === 0) {
+      //   setPasswordError("비밀번호는 8자 이상입력해주세요.");
+      //   return;
+      // }
+      // if (password.length > 0 && password.length < 8) {
+      //   setPasswordError("비밀번호는 8자 이상입력해주세요.");
+      //   return;
+      // }
+      // if (password.length >= 8) {
+      //   setPasswordError("");
+      // }
       if (nextRef) {
         nextRef.current.focus();
       } else {

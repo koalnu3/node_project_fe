@@ -98,6 +98,7 @@ const MyClassModal = ({
   };
 
   const handleUpdateClassUpload = async () => {
+    // console.log("selectedCategory", selectedCategory);
     try {
       const response = await api.put(`/class/${id}`, {
         name: className,
@@ -105,6 +106,7 @@ const MyClassModal = ({
         image: thumbnail,
         curriculum: fields,
         price,
+        category: selectedCategory.name,
         categoryId: selectedCategory._id,
         userId: user._id,
       });
@@ -147,6 +149,7 @@ const MyClassModal = ({
         image: thumbnail,
         curriculum: fields,
         price,
+        category: selectedCategory.name,
         categoryId: selectedCategory._id,
         userId: user._id,
       });

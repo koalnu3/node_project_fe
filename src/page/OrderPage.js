@@ -121,7 +121,11 @@ const OrderPage = () => {
                   <span className="unit">원</span>
                 </p>
               </div>
-              <div className="noticeBox">{classDetail?.notice}</div>
+              <div className="noticeBox">
+                {classDetail?.length > 0
+                  ? classDetail?.notice
+                  : `공지사항이 없습니다`}
+              </div>
             </div>
           </li>
         </ul>

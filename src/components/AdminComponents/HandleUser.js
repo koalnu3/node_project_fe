@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import ClassList from '../ClassList';
 import AdminPageProfile from './AdminPageProfile';
 import AdminInfo from './AdminInfo';
@@ -33,7 +32,7 @@ const HandleUser = () => {
   }, [selectedUserId, refetch]);
 
   return (
-    <div>
+    <div className='admin-page-main'>
       <AdminSearch
         userList={data?.data}
         isLoading={isLoading}
@@ -51,7 +50,12 @@ const HandleUser = () => {
         preventDefault={true}
       />
 
-      <UserInformation />
+      {
+        selectedUserId? <UserInformation />:null
+      }
+    
+
+      
     </div>
   );
 };

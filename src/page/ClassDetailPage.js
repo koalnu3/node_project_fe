@@ -230,7 +230,11 @@ const ClassDetailPage = () => {
                   ))}
               </div>
             </div>
-            <div className="noticeBox">{classDetailList?.notice}</div>
+            <div className="noticeBox">
+              {classDetailList?.length > 0
+                ? classDetailList?.notice
+                : `공지사항이 없습니다`}
+            </div>
 
             <Tab
               list={tabList}

@@ -71,8 +71,8 @@
 
 
 .admin-content {
-    margin-left: 10px;
-    margin-right: 10px;
+    /* margin-left: 10px;
+    margin-right: 10px; */
 }
 
 .search-button {
@@ -98,11 +98,15 @@
 }
 
 .header-name,
-.header-phone,
-.header-status {
-    flex: 1;
+.header-phone {
+    flex: 3;
     text-align: left;
     padding: 10px;
+}
+
+
+.header-status {
+    flex: 1;
 }
 
 .user-list-items {
@@ -126,7 +130,7 @@
 
 .user-name,
 .user-phone {
-    flex: 1;
+    flex: 3;
     text-align: left;
     font-size: 16px;
 }
@@ -238,3 +242,80 @@
     background-color: #fff;
     font-size: 14px;
 }
+
+.adminPage {}
+
+
+.adminPage .search-inputs {
+    margin-bottom: 25px;
+}
+
+.adminPage .search-inputs .search-button {
+    margin: 0;
+}
+
+.adminPage .search-inputs input {
+    margin: 0;
+}
+
+.adminPage .admin-search-container {
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.adminPage .admin-page-main .h4 {
+    font-weight: bold;
+}
+
+.adminPage .admin-page-main:first-child .tabList {
+    margin-top: 0;
+}
+
+.adminPage .admin-page-main .tabList {
+    margin-top: 30px;
+}
+
+.adminPage .admin-page-main .teacher-information {
+    padding: 0;
+}
+
+.adminPage .admin-page-main .user-list-header {
+    align-items: center;
+}
+
+.adminPage .admin-page-main .teacherMessage,
+.adminPage .admin-page-main .teacherBackground {
+    padding: 15px;
+    background-color: var(--background-color-gray);
+    min-height: 50px;
+}
+
+.adminPage .admin-page-main .noDataBox {
+    padding: 15px;
+    background-color: var(--background-color-gray);
+    min-height: 50px;
+    color: var(--text-color);
+    font-size: 13px;
+}
+
+@media screen and (max-width: 769px) {
+    .adminPage .admin-page-main .teacher-information .class-list {
+        flex-direction: column;
+    }
+
+    .adminPage .admin-page-main .teacher-information .class-list .class-item {
+        width: 100%;
+    }
+}
+
+/* @media (min-width: 992px) {
+    .admin-page-main {
+        margin: 0 100px;
+    } 
+}
+
+@media (min-width: 1200px) {
+    .admin-page-main {
+        margin: 0 200px;
+    }
+} */

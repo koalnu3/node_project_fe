@@ -62,9 +62,11 @@
   display: flex;
   margin-top: 7px;
 }
+
 .svgContainer div:first-child {
   width: 12px;
 }
+
 .svgContainer div:last-child {
   margin: 0 5px 0 5px;
   font-size: 14px;
@@ -87,10 +89,17 @@
   height: 16px;
 }
 
+@media screen and (max-width: 769px) {
+  .footerText.flexCenter {
+    display: inherit;
+  }
+}
+
 @media (max-width: 400px) {
   .formContainer {
     width: 90%;
   }
+
   .footerText {
     color: gray;
     margin-top: 50px;
