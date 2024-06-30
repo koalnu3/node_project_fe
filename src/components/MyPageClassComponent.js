@@ -30,7 +30,7 @@ const MyPageClassComponent = ({
       >
         {classId?.name.split("").length > 10
           ? classId?.name.slice(0, 10) + "..."
-          : data?.name}
+          : classId?.name}
       </div>
 
       <div
