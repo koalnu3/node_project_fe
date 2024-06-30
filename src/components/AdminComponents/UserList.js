@@ -18,7 +18,6 @@ const UserList = ({ userList }) => {
       <div className="user-list-header">
         <div className="header-name">회원명</div>
         <div className="header-phone">전화번호</div>
-        <div className="header-status"></div>
       </div>
       <div className="user-list-items">
         {userList?.map((user, index) => (
@@ -33,7 +32,6 @@ const UserList = ({ userList }) => {
           >
             <div className="user-name">{user.nickname}</div>
             <div className="user-phone">{user.phoneNumber}</div>
-            <div className="user-status"></div>
           </div>
         ))}
       </div>

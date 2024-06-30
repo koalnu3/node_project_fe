@@ -179,6 +179,16 @@
     color: var(--color-gray);
 }
 
+.categoryList li.active a {
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    background-color: rgba(214, 0, 54, 0.07);
+}
+
+.categoryList li.active a svg {
+    fill: var(--color-primary);
+}
+
 .categoryList .icon {
     position: relative;
     display: inline-block;
