@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import AdminPageProfile from './AdminPageProfile';
 import AdminInfo from './AdminInfo';
 import AdminSearch from './AdminSearch';
@@ -40,39 +39,47 @@ const HandleTeacher = () => {
 
 
   return (
-    <div>
-      <AdminSearch
-        userList={data?.data}
-        isLoading={isLoading}
-      />
-      <AdminPageProfile />
-      <AdminInfo />
-      <Tab
-        list={tabList}
-        tabActive={tabActive}
-        setTabActive={setTabActive}
-        tagType="a"
-        preventDefault={true}
-      />
-      {tabActive === "강사정보" ? (
+    <div className='admin-page-main'>
+      <div>
+        <AdminSearch
+          userList={data?.data}
+          isLoading={isLoading}
+        />
+      </div>
+      <div>
 
-        <div>
-          <div className='h4'>인사말</div>
-          <p>{selectedUser?.introduction}</p>
-          <div className='h4'>이력</div>
-          <ol>
-            {selectedUser?.career.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ol>
-        </div>
-      ) : (
-        null
-      )}
+      <div>
+        <AdminPageProfile />
+        <AdminInfo />
+      </div>
+      
+        <Tab
+          list={tabList}
+          tabActive={tabActive}
+          setTabActive={setTabActive}
+          tagType="a"
+          preventDefault={true}
+        />
+        {tabActive === "강사정보" ? (
 
-      {
-        tabActive === "클래스" && selectedUser?.level == "teacher" ? <TeacherInformation /> : null
-      }
+          <div>
+            <div className='h4'>인사말</div>
+            <p>{selectedUser?.introduction}</p>
+            <div className='h4'>이력</div>
+            <ol>
+              {selectedUser?.career.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ol>
+          </div>
+        ) : (
+          null
+        )}
+
+        {
+          tabActive === "클래스" && selectedUser?.level == "teacher" ? <TeacherInformation /> : null
+        }
+      </div>
     </div>
   );
 };
