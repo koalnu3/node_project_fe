@@ -65,7 +65,7 @@ const UserInformation = () => {
       )}
       <div className="h4">결제내역</div>
       {data?.orderList.length > 0 ? (
-        <div className="user-list">
+        <div className="user-list forUserPayMentList">
           <div className="user-list-header">
             <div className="header-name">주문번호</div>
             <div className="header-status">금액</div>
@@ -76,28 +76,41 @@ const UserInformation = () => {
           <div className="user-list-items">
             {data?.orderList.map((order) => (
               <div key={order._id} className="user-list-item">
-                <div className="header-name">{order.orderNum}</div>
-                <div className="header-status">{order.price}</div>
-                <div className="header-status">
-                  <select
-                    className="status-dropdown"
-                    value={orderStatus[order._id] || order.status}
-                    onChange={(e) =>
-                      handleStatusChange(order._id, e.target.value)
-                    }
-                  >
-                    <option value="payment">payment</option>
-                    <option value="refund">refund</option>
-                  </select>
-                  <button
-                    className="save-button"
-                    onClick={() => handleSaveStatus(order._id)}
-                  >
-                    Save
-                  </button>
+                <div className="header-name">
+                  <span className="mOnly">주문번호</span>
+                  {order.orderNum}
                 </div>
-                <div className="header-status">{order.payMethod}</div>
                 <div className="header-status">
+                  <span className="mOnly">금액</span>
+                  {order.price}
+                </div>
+                <div className="header-status">
+                  <span className="mOnly">상태</span>
+                  <span className="selectSet">
+                    <select
+                      className="status-dropdown"
+                      value={orderStatus[order._id] || order.status}
+                      onChange={(e) =>
+                        handleStatusChange(order._id, e.target.value)
+                      }
+                    >
+                      <option value="payment">payment</option>
+                      <option value="refund">refund</option>
+                    </select>
+                    <button
+                      className="save-button"
+                      onClick={() => handleSaveStatus(order._id)}
+                    >
+                      Save
+                    </button>
+                  </span>
+                </div>
+                <div className="header-status">
+                  <span className="mOnly">결제방식</span>
+                  {order.payMethod}
+                </div>
+                <div className="header-status">
+                  <span className="mOnly">날짜</span>
                   {formatDate(order.createdAt)}
                 </div>
               </div>

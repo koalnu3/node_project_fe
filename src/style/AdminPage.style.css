@@ -299,13 +299,99 @@
     font-size: 13px;
 }
 
+.selectSet {
+    display: inline-block;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color-default);
+}
+
+.selectSet select {
+    border-width: 0;
+    vertical-align: top;
+}
+
+.selectSet button {
+    border: 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    vertical-align: top;
+}
+
+.adminPage .profile-info input {
+    height: 40px;
+    padding: 0 15px;
+}
+
+.adminPage .profile-info>div>p:first-child {
+    margin-top: 0;
+}
+
+.adminPage .profile-info>div>p {
+    margin-top: 10px;
+}
+
+.mOnly {
+    display: none;
+}
+
 @media screen and (max-width: 769px) {
     .adminPage .admin-page-main .teacher-information .class-list {
         flex-direction: column;
     }
 
+    .adminPage .profile-container-header .profile-header-right {
+        gap: 5px;
+    }
+
+    .adminPage .profile-container-header .profile-header-right button {
+        padding: 5px;
+    }
+
+    .adminPage .profile-container .profile-info {
+        height: inherit;
+        min-height: 130px;
+        margin-left: 15px;
+    }
+
+    .adminPage .profile-container .profile-info input {
+        width: inherit;
+    }
+
+    .adminPage .profile-container {
+        padding: 20px 10px;
+    }
+
+    .adminPage .admin-page-main .class-list .class-item,
     .adminPage .admin-page-main .teacher-information .class-list .class-item {
         width: 100%;
+    }
+
+    .adminPage .admin-page-main .user-list.forUserPayMentList .user-list-header {
+        display: none;
+    }
+
+    .adminPage .admin-page-main .user-list.forUserPayMentList .user-list-items .user-list-item {
+        flex-direction: column;
+
+    }
+
+    .adminPage .admin-page-main .user-list.forUserPayMentList .user-list-items .user-list-item>div:first-child {
+        margin-top: 15px;
+    }
+
+    .adminPage .admin-page-main .user-list.forUserPayMentList .user-list-items .user-list-item>div {
+        padding: 0;
+        margin-bottom: 12px;
+        min-height: 20px;
+    }
+
+    .adminPage .admin-page-main .user-list.forUserPayMentList .user-list-items .user-list-item>div .mOnly {
+        margin-right: 10px;
+        min-width: 80px;
+        font-weight: bold;
+    }
+
+    .mOnly {
+        display: inline-block;
     }
 }
 
