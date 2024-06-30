@@ -48,10 +48,13 @@ const Header = ({ user, setUser }) => {
   const enterMyPage = () => {
     if (user.level === "customer") {
       navigate("/studentMypage");
+      setUtilOpen(false);
     } else if (user.level === "teacher") {
       navigate("/teacherMypage");
+      setUtilOpen(false);
     } else if (user.level === "admin") {
       navigate("/admin");
+      setUtilOpen(false);
     } else {
       return toast.error("강사 승인 대기중입니다");
     }
