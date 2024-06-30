@@ -61,7 +61,7 @@ const UserInformation = () => {
           )}
         </div>
       ) : (
-        <div>수강중인 강의가 없음</div>
+        <div className="noDataBox">수강중인 강의가 없습니다.</div>
       )}
       <div className="h4">결제내역</div>
       {data?.orderList.length > 0 ? (
@@ -105,7 +105,7 @@ const UserInformation = () => {
           </div>
         </div>
       ) : (
-        <div>결제내역이 없음</div>
+        <div className="noDataBox">결제내역이 없습니다.</div>
       )}
     </div>
   );

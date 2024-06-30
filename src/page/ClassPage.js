@@ -84,7 +84,7 @@ const ClassPage = () => {
   };
 
   return (
-    <Content>
+    <Content className="classListPage">
       <div className="category" style={{ marginTop: "0px" }}>
         <ul className="categoryList">
           {categoryList?.map((category, idx) => (
